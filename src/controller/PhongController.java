@@ -25,6 +25,11 @@ public class PhongController {
 //        view.viewTablePhong(phongs);
     }
     
+    public List<Object[]> loadDataPhong(int idPhong){
+        List<Object[]> phongs = phongDAO.getThongTinPhong(idPhong);
+        return phongs;
+    }
+    
     public void loadListBtnPhong() {
         List<Phong> phongs = phongDAO.getAll();
         view.viewBtnPhong(phongs);

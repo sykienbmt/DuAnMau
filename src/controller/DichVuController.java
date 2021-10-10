@@ -11,7 +11,7 @@ public class DichVuController {
     public DichVuController(PhongPnl view) {
         this.view = view;
         loadListDichVu();
-        view.setController(this);
+//        view.setController(this);
     }
     
     DichVuDAO dichVuDAO = new DichVuDAO();

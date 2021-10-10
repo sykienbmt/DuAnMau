@@ -137,3 +137,9 @@ select * from Phong
 select a.tenDichVu,d.tenPhong,a.gia,b.ngaySuDung from DichVu a join ChiTietDichVu b on a.idDichVu = b.idDichVu 
 join HoaDonDichVu c on b.idHoaDonDichVu = c.idHoaDonDichVu join Phong d on d.idPhong = c.idPhong
 
+
+select ptp.ngayDat,ptp.ngayDi,ptp.soCMND,kh.diaChi,kh.hoChieu,kh.soDT,kh.tenKhach,nv.ten,ptp.soNguoi from phieuThuePhong ptp 
+join KhachHang kh on kh.soCMND=ptp.soCMND 
+join NhanVien nv on nv.idNhanVien=ptp.idNhanVien 
+where idPhong=1
+

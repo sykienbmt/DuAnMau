@@ -22,6 +22,7 @@ import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 import model.LoaiPhong;
 import model.Phong;
+import model.phieuThuePhong;
 import swing.ScrollBar;
 import swing.WrapLayout;
 
@@ -81,54 +82,67 @@ public class PhongPnl extends javax.swing.JPanel {
             btnphong.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mousePressed(MouseEvent e) {
-                    if (datPhongDialog == null) {
-                        datPhongDialog = new DatPhongDialog(null,true);
-                        datPhongDialog.txtTenPhong.setEditable(false);
-                        datPhongDialog.cbxLoaiPhong.setEnabled(false);
+                    System.out.println(phong.getId());
+                    if (phong.getTrangThai().equals("Đang sử dụng")) {
                         
-                        if(btnphong.getActionCommand().equals(phong.getTenPhong()) ) {
-                                datPhongDialog.txtTenPhong.setText(phong.getTenPhong());
-                                datPhongDialog.txtSoKhach.setText(phong.getSoKhachMax());
-                                datPhongDialog.jdcNgayDat.setDate(phong.getNgayDat());
-                            if(phong.getTrangThai().equals("Bảo trì")){
-                                datPhongDialog.rdbBaoTri.setSelected(true);
-                            }else if(phong.getTrangThai().equals("Phòng trống")){
-                                datPhongDialog.rdbPhongTrong.setSelected(true);
-                            }else datPhongDialog.rdbSuDung.setSelected(true);
-                        }
+                        phieuThuePhong ptnPhong = new phieuThuePhong();
                         
-                        datPhongDialog.btnDatPhong.addActionListener(new AbstractAction(){
-                            @Override
-                            public void actionPerformed(ActionEvent e) {
-                                int clickThem = JOptionPane.showConfirmDialog(new Frame(),"Bạn có muốn đặt không ?", "Thông báo",JOptionPane.YES_NO_OPTION);
-                                if (clickThem == JOptionPane.YES_OPTION) {
-                                    String tenPhong = datPhongDialog.txtTenPhong.getText();
-                                    LoaiPhong loaiPhong =(LoaiPhong) datPhongDialog.cbxLoaiPhong.getSelectedItem();
-                                    Integer tenLoaiPhong = loaiPhong.getIdLoaiPhong();
-                                    String soKhach = datPhongDialog.txtSoKhach.getText(); 
-                                    java.util.Date ngayDat1 = datPhongDialog.jdcNgayDat.getDate();
-                                    java.sql.Date ngayDat= new java.sql.Date(ngayDat1.getTime());
-                                    String trangThai = null;
-                                    if(datPhongDialog.rdbBaoTri.isSelected()){
-                                        trangThai="Bảo trì";
-                                    }else if(datPhongDialog.rdbPhongTrong.isSelected()){
-                                        trangThai = "Phòng trống";
-                                    }else trangThai = "Sử dụng";
-
-//                                    Integer idPhong = (Integer) btnphong.;
-//                                    phongController.update(idPhong, tenLoaiPhong, tenPhong, soKhach, ngayDat, trangThai);
-                                    datPhongDialog.setVisible(false);
-                                }
-                            }
-                        });
+                        List<Object[]> list = phongController.loadDataPhong(phong.getId());
+                        System.out.println(phongController.loadDataPhong(phong.getId()));
+                        
+                    }else if (phong.getTrangThai().equals("Phòng trống")) {
+                        btnphong.setBackground(new Color(0,204,204));
+                    }else {
+                        btnphong.setBackground(new Color(102,102,102));
                     }
-                    DefaultComboBoxModel <LoaiPhong> model = (DefaultComboBoxModel<LoaiPhong>) datPhongDialog.cbxLoaiPhong.getModel();
-                    model.removeAllElements();
-                    List<LoaiPhong> loaiPhongs = phongController.getLoaiPhong();
-                    model.addAll(phongController.getLoaiPhong());
-                    model.setSelectedItem(loaiPhongs.get(0));
-                    datPhongDialog.setVisible(true);
-                    datPhongDialog = null;
+//                    if (datPhongDialog == null) {
+//                        datPhongDialog = new DatPhongDialog(null,true);
+//                        datPhongDialog.txtTenPhong.setEditable(false);
+//                        datPhongDialog.cbxLoaiPhong.setEnabled(false);
+//                        
+//                        if(btnphong.getActionCommand().equals(phong.getTenPhong()) ) {
+//                                datPhongDialog.txtTenPhong.setText(phong.getTenPhong());
+//                                datPhongDialog.txtSoKhach.setText(phong.getSoKhachMax());
+//                                datPhongDialog.jdcNgayDat.setDate(phong.getNgayDat());
+//                            if(phong.getTrangThai().equals("Bảo trì")){
+//                                datPhongDialog.rdbBaoTri.setSelected(true);
+//                            }else if(phong.getTrangThai().equals("Phòng trống")){
+//                                datPhongDialog.rdbPhongTrong.setSelected(true);
+//                            }else datPhongDialog.rdbSuDung.setSelected(true);
+//                        }
+//                        
+//                        datPhongDialog.btnDatPhong.addActionListener(new AbstractAction(){
+//                            @Override
+//                            public void actionPerformed(ActionEvent e) {
+//                                int clickThem = JOptionPane.showConfirmDialog(new Frame(),"Bạn có muốn đặt không ?", "Thông báo",JOptionPane.YES_NO_OPTION);
+//                                if (clickThem == JOptionPane.YES_OPTION) {
+//                                    String tenPhong = datPhongDialog.txtTenPhong.getText();
+//                                    LoaiPhong loaiPhong =(LoaiPhong) datPhongDialog.cbxLoaiPhong.getSelectedItem();
+//                                    Integer tenLoaiPhong = loaiPhong.getIdLoaiPhong();
+//                                    String soKhach = datPhongDialog.txtSoKhach.getText(); 
+//                                    java.util.Date ngayDat1 = datPhongDialog.jdcNgayDat.getDate();
+//                                    java.sql.Date ngayDat= new java.sql.Date(ngayDat1.getTime());
+//                                    String trangThai = null;
+//                                    if(datPhongDialog.rdbBaoTri.isSelected()){
+//                                        trangThai="Bảo trì";
+//                                    }else if(datPhongDialog.rdbPhongTrong.isSelected()){
+//                                        trangThai = "Phòng trống";
+//                                    }else trangThai = "Sử dụng";
+//
+////                                    Integer idPhong = (Integer) btnphong.;
+////                                    phongController.update(idPhong, tenLoaiPhong, tenPhong, soKhach, ngayDat, trangThai);
+//                                    datPhongDialog.setVisible(false);
+//                                }
+//                            }
+//                        });
+//                    }
+//                    DefaultComboBoxModel <LoaiPhong> model = (DefaultComboBoxModel<LoaiPhong>) datPhongDialog.cbxLoaiPhong.getModel();
+//                    model.removeAllElements();
+//                    List<LoaiPhong> loaiPhongs = phongController.getLoaiPhong();
+//                    model.addAll(phongController.getLoaiPhong());
+//                    model.setSelectedItem(loaiPhongs.get(0));
+//                    datPhongDialog.setVisible(true);
+//                    datPhongDialog = null;
                 }                    
             });
             panel.add(btnphong);
@@ -164,25 +178,25 @@ public class PhongPnl extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
-        jDateChooser2 = new com.toedter.calendar.JDateChooser();
-        jButton4 = new javax.swing.JButton();
+        jdNgayDat = new com.toedter.calendar.JDateChooser();
+        jdNgayRoi = new com.toedter.calendar.JDateChooser();
+        btnThue = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        txtTenKhach = new javax.swing.JTextField();
+        txtDiaChi = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        txtCMND = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        txtSdt = new javax.swing.JTextField();
         jLabel17 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
+        txtHoChieu = new javax.swing.JTextField();
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
         jTextField7 = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jTextField6 = new javax.swing.JTextField();
+        txtSoNguoi = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -233,10 +247,10 @@ public class PhongPnl extends javax.swing.JPanel {
 
         jLabel13.setText("Ngày rời");
 
-        jButton4.setText("jButton4");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        btnThue.setText("jButton4");
+        btnThue.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                btnThueActionPerformed(evt);
             }
         });
 
@@ -246,18 +260,18 @@ public class PhongPnl extends javax.swing.JPanel {
 
         jLabel15.setText("CMND");
 
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+        txtCMND.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
+                txtCMNDActionPerformed(evt);
             }
         });
 
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel16.setText("SĐT");
 
-        jTextField4.addActionListener(new java.awt.event.ActionListener() {
+        txtSdt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField4ActionPerformed(evt);
+                txtSdtActionPerformed(evt);
             }
         });
 
@@ -294,25 +308,25 @@ public class PhongPnl extends javax.swing.JPanel {
                                 .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(txtTenKhach, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtDiaChi, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtCMND, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jTextField6)))
+                            .addComponent(txtSoNguoi)))
                     .addComponent(jLabel18)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel12)
                         .addGap(18, 18, 18)
-                        .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jdNgayDat, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 42, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnThue, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jdNgayRoi, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -320,11 +334,11 @@ public class PhongPnl extends javax.swing.JPanel {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel17)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtHoChieu, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtSdt, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -334,37 +348,37 @@ public class PhongPnl extends javax.swing.JPanel {
                 .addComponent(jLabel5)
                 .addGap(21, 21, 21)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jDateChooser2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jdNgayRoi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel12)
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jdNgayDat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTenKhach, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtHoChieu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel17))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel14)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDiaChi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtSdt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel16))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel15)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCMND, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel19))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtSoNguoi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel18)
                     .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4))
+                    .addComponent(btnThue))
                 .addContainerGap())
         );
 
@@ -544,17 +558,17 @@ public class PhongPnl extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void btnThueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThueActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_btnThueActionPerformed
 
-    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
+    private void txtSdtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSdtActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField4ActionPerformed
+    }//GEN-LAST:event_txtSdtActionPerformed
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+    private void txtCMNDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCMNDActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
+    }//GEN-LAST:event_txtCMNDActionPerformed
 
     private void jTextField7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField7ActionPerformed
         // TODO add your handling code here:
@@ -562,13 +576,11 @@ public class PhongPnl extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnThue;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JComboBox<String> jComboBox1;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
-    private com.toedter.calendar.JDateChooser jDateChooser2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -597,13 +609,15 @@ public class PhongPnl extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
+    private com.toedter.calendar.JDateChooser jdNgayDat;
+    private com.toedter.calendar.JDateChooser jdNgayRoi;
     private javax.swing.JPanel panel;
+    private javax.swing.JTextField txtCMND;
+    private javax.swing.JTextField txtDiaChi;
+    private javax.swing.JTextField txtHoChieu;
+    private javax.swing.JTextField txtSdt;
+    private javax.swing.JTextField txtSoNguoi;
+    private javax.swing.JTextField txtTenKhach;
     // End of variables declaration//GEN-END:variables
 }
