@@ -23,7 +23,7 @@ public class DichVuController {
     
     public void loadListDichVu() {
         List<Object[]> dichVu = dichVuDAO.getTableData();
-        view.viewTableDichVu(dichVu);
+//        view.viewTableDichVu(dichVu);
     }
     
 //    public void insert(String ten, String email, String sdt, String sex, Double luong, int chucVu, String diaChi, java.sql.Date ngaySinh, java.sql.Date ngayVao, String trangThai) {

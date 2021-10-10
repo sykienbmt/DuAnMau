@@ -22,7 +22,7 @@ public class PhongController {
     
     public void loadList() {     
         List<Object[]> phongs = phongDAO.getDataPhong();
-        view.viewTablePhong(phongs);
+//        view.viewTablePhong(phongs);
     }
     
     public void loadListBtnPhong() {
