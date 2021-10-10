@@ -240,6 +240,7 @@ public class NhanVienPnl extends javax.swing.JPanel {
                 }else themNvDialog.rdbRest.setSelected(true);     
                 
                 themNvDialog.btnThem.setVisible(false);
+                
                 themNvDialog.btnLuu.addActionListener(new AbstractAction(){
                     @Override
                     public void actionPerformed(ActionEvent e) {
@@ -285,6 +286,7 @@ public class NhanVienPnl extends javax.swing.JPanel {
             model.addAll(nhanVienController.getChucVu());
             model.setSelectedItem(chucVus.get(0));
             themNvDialog.setVisible(true);
+            themNvDialog=null;
         }
     }//GEN-LAST:event_btnSuaActionPerformed
 
