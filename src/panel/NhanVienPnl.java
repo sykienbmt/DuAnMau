@@ -286,6 +286,7 @@ public class NhanVienPnl extends javax.swing.JPanel {
             model.addAll(nhanVienController.getChucVu());
             model.setSelectedItem(chucVus.get(0));
             themNvDialog.setVisible(true);
+            System.out.println("dong an  cut");
             themNvDialog=null;
         }
     }//GEN-LAST:event_btnSuaActionPerformed
