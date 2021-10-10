@@ -134,6 +134,7 @@ public class Main extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
+        setPreferredSize(new java.awt.Dimension(1300, 800));
 
         body.setPreferredSize(new java.awt.Dimension(1300, 850));
 
