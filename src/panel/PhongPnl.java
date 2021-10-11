@@ -763,7 +763,7 @@ public class PhongPnl extends javax.swing.JPanel {
         if (clickThem == JOptionPane.YES_OPTION) {
             int click = tblDichVu.getSelectedRow();
             DichVu dv = dichVuController.getByIdDichVu((Integer) tblDichVu.getValueAt(click, 0));
-            
+            System.out.println("123");
         }
     }//GEN-LAST:event_btnThemDichVuActionPerformed
 
