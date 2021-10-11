@@ -2,7 +2,7 @@ package controller;
 
 import DAO.DichVuDAO;
 import java.util.List;
-import model.Phong;
+import model.DichVu;
 import panel.PhongPnl;
 
 public class DichVuController {
@@ -11,7 +11,7 @@ public class DichVuController {
     public DichVuController(PhongPnl view) {
         this.view = view;
         loadListDichVu();
-//        view.setController(this);
+        view.setController(this);
     }
     
     DichVuDAO dichVuDAO = new DichVuDAO();
@@ -51,7 +51,11 @@ public class DichVuController {
 //        view.viewTableStaff(staffs);
 //    }
     
-    public Phong getByIdPhong (Integer id) {
+    public DichVu getByIdDichVu (Integer id) {
         return dichVuDAO.getById(id);
     }
+    
+//    public NhanVien getByIdNhanVien (Integer id) {
+//        return nhanVienDAO.getById(id);
+//    }
 }

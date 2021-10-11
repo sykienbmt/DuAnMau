@@ -13,6 +13,8 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.ChucVu;
+import model.DichVu;
+import model.NhanVien;
 import model.Phong;
 import swing.ScrollBar;
 import swing.WrapLayout;
@@ -665,12 +667,13 @@ public class PhongPnl extends javax.swing.JPanel {
     private void btnThemDichVuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemDichVuActionPerformed
         int clickThem = JOptionPane.showConfirmDialog(new Frame(),"Bạn có muốn thêm không ?", "Thông báo",JOptionPane.YES_NO_OPTION);
         if (clickThem == JOptionPane.YES_OPTION) {
+            int click = tblDichVu.getSelectedRow();
+            DichVu dv = dichVuController.getByIdDichVu((Integer) tblDichVu.getValueAt(click, 0));
             
         }
     }//GEN-LAST:event_btnThemDichVuActionPerformed
 
     private void tblDichVuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDichVuMouseClicked
-
         btnThemDichVu.setEnabled(true);
         btnTruDichVu.setEnabled(true);
     }//GEN-LAST:event_tblDichVuMouseClicked

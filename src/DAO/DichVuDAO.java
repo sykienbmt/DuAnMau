@@ -1,15 +1,9 @@
 package DAO;
 
-import connect.DBConnection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import model.Phong;
+import model.DichVu;
 
-public class DichVuDAO extends AbsDAO<Phong>{
+public class DichVuDAO extends AbsDAO<DichVu>{
     public List<Object[]> getTableData() {
         return getRawValues("select idDichVu,tenDichVu,tenDonVi,gia from DichVu a join donViTinh b on a.idDonVi = b.idDonVi");
     }
