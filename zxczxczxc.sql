@@ -89,6 +89,25 @@ create table phieuThuePhong(
 	ngayDi datetime
 )
 
+create table donViTinh (
+	idDonVi int identity primary key,
+	tenDonVi nvarchar(50) not null
+)
+
+
+insert into donViTinh values (N'xuất')
+insert into donViTinh values (N'ly')
+insert into donViTinh values (N'lon')
+insert into donViTinh values (N'hộp')
+insert into donViTinh values (N'gói')
+insert into donViTinh values (N'chai')
+
+insert into KhachHang values ('987654321',N'Nhung',N'BMT',null,'0941790556')
+insert into KhachHang values ('012345678',N'Nam',N'BMT',null,'0941790506')
+
+insert into phieuThuePhong values (3,'987654321',1,3,'2020-12-12',null)
+insert into phieuThuePhong values (3,'012345678',2,5,'2020-12-12',null)
+
 
 insert into LoaiPhong values (N'Phòng Đơn',1000)
 insert into LoaiPhong values (N'Phòng Đôi',3000)

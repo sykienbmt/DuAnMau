@@ -11,8 +11,7 @@ import model.Phong;
 
 public class DichVuDAO extends AbsDAO<Phong>{
     public List<Object[]> getTableData() {
-        return getRawValues("select a.tenDichVu,d.tenPhong,a.gia,b.ngaySuDung from DichVu a join ChiTietDichVu b on a.idDichVu = b.idDichVu \n" +
-                            "join HoaDonDichVu c on b.idHoaDonDichVu = c.idHoaDonDichVu join Phong d on d.idPhong = c.idPhong");
+        return getRawValues("select idDichVu,tenDichVu,tenDonVi,gia from DichVu a join donViTinh b on a.idDonVi = b.idDonVi");
     }
     
 //    public List<Phong> getListPhong() {
