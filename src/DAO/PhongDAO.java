@@ -8,6 +8,7 @@ import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import model.Phong;
+import model.phieuThuePhong;
 
 public class PhongDAO extends AbsDAO<Phong>{
     public List<Object[]> getDataPhong() {
@@ -21,6 +22,32 @@ public class PhongDAO extends AbsDAO<Phong>{
         return getRawValues("select idPhieuThue,ngayDat,ngayDi,ptp.soCMND soCMND,kh.diaChi diaChi,hoChieu,soDT,tenKhach,ten tenNv,soNguoi from phieuThuePhong ptp join KhachHang kh on kh.soCMND=ptp.soCMND join NhanVien nv on nv.idNhanVien=ptp.idNhanVien where idPhong="+idPhong);
     }
     
+//    public phieuThuePhong getThongTinPhong(int idPhong){
+//        String query = "select idPhieuThue,ptp.ngayDat,ptp.ngayDi,ptp.soCMND,kh.diaChi,kh.hoChieu,kh.soDT,kh.tenKhach,nv.ten,soNguoi from phieuThuePhong ptp "
+//                + "join KhachHang kh on kh.soCMND=ptp.soCMND join NhanVien nv on nv.idNhanVien=ptp.idNhanVien where idPhong="+idPhong;
+//        phieuThuePhong ptp = new phieuThuePhong();
+//        
+//        ResultSet rs = DBConnection.executeQuery(query);
+//        String num ="";
+//        try {
+//            while (rs.next()) {
+//                ptp.setIdPhieuThue(rs.getInt("idPhieuThue"));
+//                ptp.setNgayDat(rs.getTimestamp("ngayDat"));
+//                ptp.setNgayDi(rs.getTimestamp("ngayDi"));
+//                ptp.setSoCMND(rs.getString("SoCMND"));
+//                ptp.setDiaChi(rs.getString("diaChi"));
+//                ptp.setHoChieu(rs.getString("hoChieu"));
+//                ptp.setSoDT(rs.getString("SoDt"));
+//                ptp.setTenKhach(rs.getString("tenKhach"));
+//                ptp.setTenNv(rs.getString("tenNv"));
+////                ptp.setSoNguoi(rs.getInt("soNguoi"));
+//                num=rs.getString("soNguoi");
+//            }
+//        } catch (Exception e) {
+//        }
+//        System.out.println("số người "+num.toString());
+//        return ptp;
+//    }
 //    public List<Object[]> getListPhong() {
 //        return getRawValues("select * from Phong");
 //    }

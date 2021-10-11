@@ -1,39 +1,31 @@
 package panel;
 
-import component.PhongBtn;
 import controller.DichVuController;
 import controller.PhongController;
 import dialog.DatPhongDialog;
 import java.awt.Button;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Frame;
-import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Arrays;
 import java.util.List;
-import javax.swing.AbstractAction;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.border.Border;
-import javax.swing.border.LineBorder;
-import javax.swing.table.DefaultTableModel;
-import model.LoaiPhong;
 import model.Phong;
-import model.phieuThuePhong;
 import swing.ScrollBar;
 import swing.WrapLayout;
 
 public class PhongPnl extends javax.swing.JPanel {
     private DichVuController dichVuController;
     private PhongController phongController;
-    private DatPhongDialog datPhongDialog = null;
+
     
     public PhongPnl() {
         initComponents();
         init();
+        jdNgayDat.setDateFormatString("dd-MM-yyyy HH:mm:ss");
+        btnThemDichVu.setEnabled(false);
+        btnTruDichVu.setEnabled(false);
+//        btnThemDichVu.setEnabled(true);
         //css table phong
 //        spTable.setVerticalScrollBar(new ScrollBar());
 //        spTable.getVerticalScrollBar().setBackground(Color.WHITE);
@@ -84,16 +76,33 @@ public class PhongPnl extends javax.swing.JPanel {
                 public void mousePressed(MouseEvent e) {
                     System.out.println(phong.getId());
                     if (phong.getTrangThai().equals("Đang sử dụng")) {
-                        
-                        phieuThuePhong ptnPhong = new phieuThuePhong();
-                        
-                        List<Object[]> list = phongController.loadDataPhong(phong.getId());
-                        System.out.println(phongController.loadDataPhong(phong.getId()));
-                        
-                    }else if (phong.getTrangThai().equals("Phòng trống")) {
-                        btnphong.setBackground(new Color(0,204,204));
+                      btnThue.setEnabled(false);
+                       List<Object[]> ptp = phongController.loadDataPhong(phong.getId());
+                        System.out.println(Arrays.toString(ptp.get(0)));
+
+                        jdNgayDat.setDate((java.sql.Timestamp) ptp.get(0)[1]);
+//                        jdNgayRoi.setDate((java.sql.Timestamp) ptp.get(0)[2]);
+                        jdNgayRoi.setDate(null);
+                        txtCMND.setText(ptp.get(0)[3].toString());
+                        txtDiaChi.setText(ptp.get(0)[4].toString());
+                        if(ptp.get(0)[5]==null){
+                            txtHoChieu.setText("");
+                        }else txtHoChieu.setText(ptp.get(0)[5].toString());
+                        txtSdt.setText(ptp.get(0)[6].toString());
+                        txtTenKhach.setText(ptp.get(0)[7].toString());
+                        lbTenNhanVien.setText(ptp.get(0)[8].toString());
+                        txtSoNguoi.setText(ptp.get(0)[9].toString());
                     }else {
-                        btnphong.setBackground(new Color(102,102,102));
+                        jdNgayDat.setDate(null);
+//                        jdNgayRoi.setDate((java.sql.Timestamp) ptp.get(0)[2]);
+                        jdNgayRoi.setDate(null);
+                        txtCMND.setText("");
+                        txtDiaChi.setText("");
+                        txtHoChieu.setText("");
+                        txtSdt.setText("");
+                        txtTenKhach.setText("");
+                        lbTenNhanVien.setText("");
+                        txtSoNguoi.setText("");
                     }
 //                    if (datPhongDialog == null) {
 //                        datPhongDialog = new DatPhongDialog(null,true);
@@ -194,7 +203,7 @@ public class PhongPnl extends javax.swing.JPanel {
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
-        jTextField7 = new javax.swing.JTextField();
+        lbTenNhanVien = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         txtSoNguoi = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
@@ -214,6 +223,9 @@ public class PhongPnl extends javax.swing.JPanel {
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
+        jButton4 = new javax.swing.JButton();
+        btnTruDichVu = new javax.swing.JButton();
+        btnThemDichVu = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(246, 248, 248));
         setPreferredSize(new java.awt.Dimension(1200, 750));
@@ -247,7 +259,7 @@ public class PhongPnl extends javax.swing.JPanel {
 
         jLabel13.setText("Ngày rời");
 
-        btnThue.setText("jButton4");
+        btnThue.setText("Mở phòng");
         btnThue.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnThueActionPerformed(evt);
@@ -283,9 +295,9 @@ public class PhongPnl extends javax.swing.JPanel {
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jTextField7.addActionListener(new java.awt.event.ActionListener() {
+        lbTenNhanVien.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField7ActionPerformed(evt);
+                lbTenNhanVienActionPerformed(evt);
             }
         });
 
@@ -300,7 +312,6 @@ public class PhongPnl extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -311,11 +322,14 @@ public class PhongPnl extends javax.swing.JPanel {
                                 .addComponent(txtTenKhach, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(txtDiaChi, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(txtCMND, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel18))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(txtSoNguoi)))
-                    .addComponent(jLabel18)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(lbTenNhanVien)
+                                .addComponent(txtSoNguoi))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel12)
                         .addGap(18, 18, 18)
@@ -371,14 +385,18 @@ public class PhongPnl extends javax.swing.JPanel {
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel19))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(txtSoNguoi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel18)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnThue))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(txtSoNguoi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel18)
+                            .addComponent(lbTenNhanVien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 9, Short.MAX_VALUE)
+                        .addComponent(btnThue, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
@@ -497,16 +515,32 @@ public class PhongPnl extends javax.swing.JPanel {
         ));
         jScrollPane3.setViewportView(jTable2);
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 70, Short.MAX_VALUE)
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jButton4.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        jButton4.setText("Chuyển");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+        jPanel3.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 11, -1, 58));
+
+        btnTruDichVu.setText("-");
+        btnTruDichVu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTruDichVuActionPerformed(evt);
+            }
+        });
+        jPanel3.add(btnTruDichVu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 370, 70, 30));
+
+        btnThemDichVu.setText("+");
+        btnThemDichVu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThemDichVuActionPerformed(evt);
+            }
+        });
+        jPanel3.add(btnThemDichVu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 330, 70, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -570,16 +604,31 @@ public class PhongPnl extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCMNDActionPerformed
 
-    private void jTextField7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField7ActionPerformed
+    private void lbTenNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lbTenNhanVienActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField7ActionPerformed
+    }//GEN-LAST:event_lbTenNhanVienActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void btnTruDichVuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTruDichVuActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnTruDichVuActionPerformed
+
+    private void btnThemDichVuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemDichVuActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnThemDichVuActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnThemDichVu;
     private javax.swing.JButton btnThue;
+    private javax.swing.JButton btnTruDichVu;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -609,9 +658,9 @@ public class PhongPnl extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
-    private javax.swing.JTextField jTextField7;
     private com.toedter.calendar.JDateChooser jdNgayDat;
     private com.toedter.calendar.JDateChooser jdNgayRoi;
+    private javax.swing.JTextField lbTenNhanVien;
     private javax.swing.JPanel panel;
     private javax.swing.JTextField txtCMND;
     private javax.swing.JTextField txtDiaChi;
