@@ -32,6 +32,9 @@ create table DichVu (
 	tenDichVu nvarchar(100) not null,
 	gia float not null
 )
+alter table Dichvu 
+add idDonVi int foreign key references donVitinh
+
 
 create table ChiTietDichVu (
 	idHoaDonDichVu int not null foreign key references HoaDonDichVu,
@@ -66,8 +69,6 @@ create table NhanVien (
 	ngayVaoLam date not null,
 	trangThai varchar(50) not null
 )
-
-
 
 
 create table KhachHang(
