@@ -32,15 +32,16 @@ create table DichVu (
 	tenDichVu nvarchar(100) not null,
 	gia float not null
 )
-alter table Dichvu 
-add idDonVi int foreign key references donVitinh
-
+alter table DichVu 
+add idDonVi int foreign key references donViTinh
 
 create table ChiTietDichVu (
 	idHoaDonDichVu int not null foreign key references HoaDonDichVu,
 	idDichVu int not null foreign key references DichVu,
-	ngaySuDung date not null,
+	tenDichVu nvarchar(50) not null,
 	soLanSuDung varchar(3) not null,
+	donViTinh nvarchar(50) not null,
+	ngaySuDung date not null,
 	thanhTien float not null
 )
 
@@ -71,6 +72,8 @@ create table NhanVien (
 )
 
 
+
+
 create table KhachHang(
 	soCMND varchar(12) not null primary key,
 	tenKhach nvarchar(50) not null,
@@ -95,7 +98,7 @@ create table donViTinh (
 	tenDonVi nvarchar(50) not null
 )
 
-
+insert into donViTinh values (N'lần')
 insert into donViTinh values (N'xuất')
 insert into donViTinh values (N'ly')
 insert into donViTinh values (N'lon')
@@ -123,17 +126,13 @@ insert into HoaDonDichVu values (1,'10000','08-08-2021',null)
 insert into HoaDonDichVu values (2,'15000','08-08-2021',null)
 insert into HoaDonDichVu values (3,'5000','08-08-2021',null)
 
-insert into DichVu values (N'Giặt ủi',5000)
-insert into DichVu values (N'Dọn phòng',2000)
-insert into DichVu values (N'Buổi sáng',1000)
-insert into DichVu values (N'Giặt trưa',1000)
-insert into DichVu values (N'Giặt tối',2000)
+insert into DichVu values (N'Giặt ủi',5000,7)
+insert into DichVu values (N'Dọn phòng',2000,7)
+insert into DichVu values (N'Buổi sáng',1000,7)
+insert into DichVu values (N'Giặt trưa',1000,7)
+insert into DichVu values (N'Giặt tối',2000,7)
 
-insert into ChiTietDichVu values (1,1,'12-12-2020',2,10000)
-insert into ChiTietDichVu values (1,1,'12-12-2020',2,10000)
-insert into ChiTietDichVu values (2,1,'12-12-2020',2,10000)
-insert into ChiTietDichVu values (2,1,'12-12-2020',2,10000)
-insert into ChiTietDichVu values (3,1,'12-12-2020',2,10000)
+insert into ChiTietDichVu values (1,1,N'Dọn phòng',2,N'lần','12-12-2020',10000)
 
 insert into Account values (N'Anh','a@gmail.com','123')
 insert into Account values (N'Huye','admin','123')
@@ -160,3 +159,6 @@ join HoaDonDichVu c on b.idHoaDonDichVu = c.idHoaDonDichVu join Phong d on d.idP
 
 select idPhieuThue,ngayDat,ngayDi,ptp.soCMND,kh.diaChi,hoChieu,soDT,tenKhach,ten tenNv,soNguoi from phieuThuePhong ptp join KhachHang kh on kh.soCMND=ptp.soCMND join NhanVien nv on nv.idNhanVien=ptp.idNhanVien where idPhong=1
 
+select idDichVu,tenDichVu,tenDonVi,gia from DichVu a join donViTinh b on a.idDonVi = b.idDonVi
+
+select * from ChiTietDichVu
