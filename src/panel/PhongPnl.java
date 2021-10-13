@@ -22,7 +22,7 @@ import swing.WrapLayout;
 public class PhongPnl extends javax.swing.JPanel {
     private DichVuController dichVuController;
     private PhongController phongController;
-
+    int phongHienTai =UNDEFINED_CONDITION;
     
     public PhongPnl() {
         initComponents();
@@ -80,6 +80,7 @@ public class PhongPnl extends javax.swing.JPanel {
                 @Override
                 public void mousePressed(MouseEvent e) {
                     System.out.println(phong.getId());
+                    phongHienTai=phong.getId();
                     if (phong.getTrangThai().equals("Đang sử dụng")) {
                         btnThue.setEnabled(false);
                         List<Object[]> ptp = phongController.loadDataPhong(phong.getId());
@@ -241,7 +242,7 @@ public class PhongPnl extends javax.swing.JPanel {
         btnTruDichVu = new javax.swing.JButton();
         btnThemDichVu = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
-        jSpinner1 = new javax.swing.JSpinner();
+        spnSoLuong = new javax.swing.JSpinner();
         jPanel4 = new javax.swing.JPanel();
         jLabel20 = new javax.swing.JLabel();
         txtTimDichVu = new javax.swing.JTextField();
@@ -633,7 +634,7 @@ public class PhongPnl extends javax.swing.JPanel {
 
         jLabel9.setText("Số lượng");
         jPanel3.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 300, -1, -1));
-        jPanel3.add(jSpinner1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 330, 40, -1));
+        jPanel3.add(spnSoLuong, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 330, 40, -1));
 
         jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel20.setText("Danh mục dịch vụ");
@@ -761,7 +762,17 @@ public class PhongPnl extends javax.swing.JPanel {
         int clickThem = JOptionPane.showConfirmDialog(new Frame(),"Bạn có muốn thêm không ?", "Thông báo",JOptionPane.YES_NO_OPTION);
         if (clickThem == JOptionPane.YES_OPTION) {
             int click = tblDichVu.getSelectedRow();
-            DichVu dv = dichVuController.getByIdDichVu((Integer) tblDichVu.getValueAt(click, 0));
+            List<Object[]> list = phongController.checkHoaDonPhong(phongHienTai);
+    
+            if(!list.get(0)[0].toString().equals("1")){
+                phongController.taoHoaDonDichVu(phongHienTai);
+            }
+            
+            List<Object[]> idPhong = phongController.layIdHoaDonDichVu(phongHienTai);
+            int idHoaDon = (int) idPhong.get(0)[0];
+            
+            System.out.println("dữ liệu: "+idHoaDon+"    "+(int) tblDichVu.getValueAt(click, 0)+"    "+ (int) spnSoLuong.getValue());
+            phongController.themChiTietDichVu(idHoaDon,(int) tblDichVu.getValueAt(click, 0), (int) spnSoLuong.getValue());
             
             
         }
@@ -826,11 +837,11 @@ public class PhongPnl extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JSpinner jSpinner1;
     private com.toedter.calendar.JDateChooser jdNgayDat;
     private com.toedter.calendar.JDateChooser jdNgayRoi;
     private javax.swing.JTextField lbTenNhanVien;
     private javax.swing.JPanel panel;
+    private javax.swing.JSpinner spnSoLuong;
     private javax.swing.JTable tblDichVu;
     private javax.swing.JTable tblListDichVu;
     private javax.swing.JTextField txtCMND;

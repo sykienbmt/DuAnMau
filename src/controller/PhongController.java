@@ -36,9 +36,22 @@ public class PhongController {
     }
     
     
-    public List<Object[]> loadHoaDonDichVu(int idPhong){
+    public List<Object[]> checkHoaDonPhong(int idPhong){
+        List<Object[]> phongs = phongDAO.checkHoaDonPhong(idPhong);
+        return phongs;
+    }
+    
+    public void taoHoaDonDichVu (int idPhong){
+        phongDAO.taoHoaDonDichVu(idPhong);
+    }
+    
+    public List<Object[]> layIdHoaDonDichVu(int idPhong){
         List<Object[]> phongs = phongDAO.layIdHoaDonDichVu(idPhong);
         return phongs;
+    }
+    
+    public void themChiTietDichVu(int idHoaDon,int idDichVu,int soLan){
+        phongDAO.themChiTietHoaDonDV(idHoaDon, idDichVu, soLan);
     }
 //    public void insert(int idLoaiPhong,String tenPhong, String soKhach, java.sql.Date ngayDat, String trangThai) {
 //            Phong phong = new Phong(0, idLoaiPhong, tenPhong, soKhach, ngayDat, trangThai);
