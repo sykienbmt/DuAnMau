@@ -38,12 +38,13 @@ add idDonVi int foreign key references donViTinh
 create table ChiTietDichVu (
 	idHoaDonDichVu int not null foreign key references HoaDonDichVu,
 	idDichVu int not null foreign key references DichVu,
-	tenDichVu nvarchar(50) not null,
 	soLanSuDung varchar(3) not null,
-	donViTinh nvarchar(50) not null,
 	ngaySuDung date not null,
 	thanhTien float not null
 )
+
+insert into ChiTietDichVu values (1,1,2,'12-12-2020',10000)
+insert into chiTietDichVu values (1,6,5,getDate(),(select gia from DichVu where idDichVu=6)*5)
 
 create table Account (
 	idAcc int identity primary key,
@@ -132,7 +133,7 @@ insert into DichVu values (N'Buổi sáng',1000,7)
 insert into DichVu values (N'Giặt trưa',1000,7)
 insert into DichVu values (N'Giặt tối',2000,7)
 
-insert into ChiTietDichVu values (1,1,N'Dọn phòng',2,N'lần','12-12-2020',10000)
+insert into ChiTietDichVu values (1,1,2,N'lần','12-12-2020',10000)
 
 insert into Account values (N'Anh','a@gmail.com','123')
 insert into Account values (N'Huye','admin','123')
@@ -162,3 +163,9 @@ select idPhieuThue,ngayDat,ngayDi,ptp.soCMND,kh.diaChi,hoChieu,soDT,tenKhach,ten
 select idDichVu,tenDichVu,tenDonVi,gia from DichVu a join donViTinh b on a.idDonVi = b.idDonVi
 
 select * from ChiTietDichVu
+
+
+insert into HoaDonDichVu values (3,0,getDate(),'khong')
+
+select idHoaDonDichVu from hoaDonDichVu where idPhong =3 and trangthai=1
+

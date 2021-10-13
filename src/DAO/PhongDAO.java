@@ -19,6 +19,18 @@ public class PhongDAO extends AbsDAO<Phong>{
         return getRawValues("select idPhieuThue,ngayDat,ngayDi,ptp.soCMND soCMND,kh.diaChi diaChi,hoChieu,soDT,tenKhach,ten tenNv,soNguoi from phieuThuePhong ptp join KhachHang kh on kh.soCMND=ptp.soCMND join NhanVien nv on nv.idNhanVien=ptp.idNhanVien where idPhong="+idPhong);
     }
     
+    
+    public void taoHoaDonDichVu(int idPhong){
+        String query = "insert into HoaDonDichVu values ("+idPhong +",0,getDate(),'khong',1)";
+    }
+    
+    public void layIdHoaDonDichVu(int idPhong){
+        String  query = "select idHoaDonDichVu from hoaDonDichVu where idPhong =? and trangthai=1";
+    }
+    
+    public void themChiTietHoaDonDV(int idHoaDonDichVu,int idDichVu,int soLan){
+        String query ="insert into chiTietDichVu values ("+idHoaDonDichVu+","+idDichVu+","+soLan+","+"getDate()"+","+10000+")";
+    }
 //    public phieuThuePhong getThongTinPhong(int idPhong){
 //        String query = "select idPhieuThue,ptp.ngayDat,ptp.ngayDi,ptp.soCMND,kh.diaChi,kh.hoChieu,kh.soDT,kh.tenKhach,nv.ten,soNguoi from phieuThuePhong ptp "
 //                + "join KhachHang kh on kh.soCMND=ptp.soCMND join NhanVien nv on nv.idNhanVien=ptp.idNhanVien where idPhong="+idPhong;

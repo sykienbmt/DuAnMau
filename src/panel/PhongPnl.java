@@ -607,7 +607,7 @@ public class PhongPnl extends javax.swing.JPanel {
 
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton4.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        jButton4.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
         jButton4.setText("Chuyển");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
