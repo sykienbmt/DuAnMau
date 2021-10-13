@@ -24,8 +24,9 @@ public class PhongDAO extends AbsDAO<Phong>{
         String query = "insert into HoaDonDichVu values ("+idPhong +",0,getDate(),'khong',1)";
     }
     
-    public void layIdHoaDonDichVu(int idPhong){
+    public List<Object[]> layIdHoaDonDichVu(int idPhong){
         String  query = "select idHoaDonDichVu from hoaDonDichVu where idPhong =? and trangthai=1";
+        return getRawValues(query, idPhong);
     }
     
     public void themChiTietHoaDonDV(int idHoaDonDichVu,int idDichVu,int soLan){

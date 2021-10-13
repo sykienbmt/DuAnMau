@@ -84,7 +84,6 @@ public class PhongPnl extends javax.swing.JPanel {
                         btnThue.setEnabled(false);
                         List<Object[]> ptp = phongController.loadDataPhong(phong.getId());
                         System.out.println(Arrays.toString(ptp.get(0)));
-
                         jdNgayDat.setDate((java.sql.Timestamp) ptp.get(0)[1]);
 //                        jdNgayRoi.setDate((java.sql.Timestamp) ptp.get(0)[2]);
                         jdNgayRoi.setDate(null);
@@ -721,7 +720,7 @@ public class PhongPnl extends javax.swing.JPanel {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGap(18, 18, 18)
+                            .addGap(16, 16, 16)
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 709, Short.MAX_VALUE)
                         .addGroup(layout.createSequentialGroup()
@@ -763,6 +762,7 @@ public class PhongPnl extends javax.swing.JPanel {
         if (clickThem == JOptionPane.YES_OPTION) {
             int click = tblDichVu.getSelectedRow();
             DichVu dv = dichVuController.getByIdDichVu((Integer) tblDichVu.getValueAt(click, 0));
+            
             
         }
     }//GEN-LAST:event_btnThemDichVuActionPerformed

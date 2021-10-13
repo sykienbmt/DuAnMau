@@ -35,6 +35,11 @@ public class PhongController {
         view.viewBtnPhong(phongs);
     }
     
+    
+    public List<Object[]> loadHoaDonDichVu(int idPhong){
+        List<Object[]> phongs = phongDAO.layIdHoaDonDichVu(idPhong);
+        return phongs;
+    }
 //    public void insert(int idLoaiPhong,String tenPhong, String soKhach, java.sql.Date ngayDat, String trangThai) {
 //            Phong phong = new Phong(0, idLoaiPhong, tenPhong, soKhach, ngayDat, trangThai);
 //            phongDAO.insert(phong);
