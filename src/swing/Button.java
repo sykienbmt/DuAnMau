@@ -53,7 +53,7 @@ public class Button extends JButton {
     private boolean pressed;
     private Point pressedLocation;
     private float pressedSize;
-    private float sizeSpeed = 1f;
+    private float sizeSpeed = 15f;
     private float alphaPressed = 0.5f;
 
     public Button() {
@@ -158,7 +158,7 @@ public class Button extends JButton {
 
     private void paintPressed(Graphics2D g2) {
         if (pressedLocation.x - (pressedSize / 2) < 0 && pressedLocation.x + (pressedSize / 2) > getWidth()) {
-            timerPressed.setDelay(20);
+            timerPressed.setDelay(5);
             alphaPressed -= 0.05f;
             if (alphaPressed < 0) {
                 alphaPressed = 0;

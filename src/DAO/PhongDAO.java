@@ -1,15 +1,9 @@
 package DAO;
 
 import connect.DBConnection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import model.Phong;
-import model.phieuThuePhong;
 import java.sql.Timestamp;
 
 public class PhongDAO extends AbsDAO<Phong>{
@@ -36,9 +30,15 @@ public class PhongDAO extends AbsDAO<Phong>{
         return getRawValues(query);
     }
     
+    public List<Object[]> layChiTietDichVu(int idPhong) {
+        return getRawValues("select hd.idHoaDonDichVu,dv.tenDichVu,dvt.tenDonVi,ctdv.ngaySuDung,ctdv.soLanSuDung,ctdv.thanhTien from HoaDonDichVu hd \n" +
+            "join ChiTietDichVu ctdv on hd.idHoaDonDichVu=ctdv.idHoaDonDichVu  \n" +
+            "join DichVu dv on ctdv.idDichVu=dv.idDichVu \n" +
+            "join donViTinh dvt on dvt.idDonVi=dv.idDonVi\n" +
+            "where idphong="+idPhong+" and trangThai=1");
+    }
+    
     public void themChiTietHoaDonDV(int idHoaDonDichVu,int idDichVu,int soLan){
-        String query ="insert into chiTietDichVu values ("+idHoaDonDichVu+","+idDichVu+","+soLan+","+"getDate()"+","+10000+")";
-        
         String query2="insert into chiTietDichVu values (?,?,?,?,(select gia from DichVu where idDichVu=?)*?)";
         Timestamp timeNow = new Timestamp(new Date().getTime());
         DBConnection.executeUpdate(query2,idHoaDonDichVu,idDichVu,soLan,timeNow,idDichVu,soLan);

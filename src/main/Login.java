@@ -1,10 +1,13 @@
 package main;
 
+import component.Loading;
 import component.PanelCover;
 import component.PanelLoginAndRegister;
+import component.VerifyCode;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
+import javax.swing.JLayeredPane;
 import net.miginfocom.swing.MigLayout;
 import org.jdesktop.animation.timing.Animator;
 import org.jdesktop.animation.timing.TimingTarget;
@@ -14,6 +17,8 @@ public class Login extends javax.swing.JFrame {
 
     private MigLayout layout;
     private PanelCover cover;
+    private Loading loading;
+    private VerifyCode verifyCode;
     private PanelLoginAndRegister loginAndRegister;
     private boolean isLogin;
     private final double addSize = 30;
@@ -29,6 +34,8 @@ public class Login extends javax.swing.JFrame {
     private void init() {
         layout = new MigLayout("fill, insets 0");
         cover = new PanelCover();
+        loading = new Loading();
+        verifyCode = new VerifyCode();
         loginAndRegister = new PanelLoginAndRegister();
         TimingTarget target = new TimingTargetAdapter() {
             @Override
@@ -78,6 +85,10 @@ public class Login extends javax.swing.JFrame {
         animator.setDeceleration(0.5f);
         animator.setResolution(0);  //  for smooth animation
         bg.setLayout(layout);
+        bg.setLayer(loading, JLayeredPane.POPUP_LAYER);
+        bg.setLayer(verifyCode, JLayeredPane.POPUP_LAYER);
+        bg.add(loading, "pos 0 0 100% 100%");
+        bg.add(verifyCode, "pos 0 0 100% 100%");
         bg.add(cover, "width " + coverSize + "%, pos 0al 0 n 100%");
         bg.add(loginAndRegister, "width " + loginSize + "%, pos 1al 0 n 100%"); //  1al as 100%
         cover.addEvent(new ActionListener() {
@@ -89,6 +100,8 @@ public class Login extends javax.swing.JFrame {
             }
         });
     }
+    
+    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -152,7 +165,7 @@ public class Login extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
-
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

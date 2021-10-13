@@ -8,15 +8,25 @@ import swing.MyTextField;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import net.miginfocom.swing.MigLayout;
+import model.Account;
 
 public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
 
+    private Account account;
+    private Loading loading;
+    
+    public Account getUser() {
+        return account;
+    }
+    
     public PanelLoginAndRegister() {
         initComponents();
         initRegister();
@@ -46,9 +56,19 @@ public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
         Button cmd = new Button();
         cmd.setText("ĐĂNG KÍ");
         register.add(cmd, "w 40%, h 40");
+        cmd.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                String ten = txtUser.getText().trim();
+                String email = txtEmail.getText().trim();
+                String pass = String.valueOf(txtPass.getPassword());
+                account = new Account(0, ten, email, pass);
+            }
+        });
     }
 
     private void initLogin() {
+        loading = new Loading();
         login.setLayout(new MigLayout("wrap", "push[center]push", "push[]25[]10[]10[]25[]push"));
         JLabel label = new JLabel("ĐĂNG NHẬP");
         label.setFont(new Font("sansserif", 1, 30));
@@ -68,32 +88,45 @@ public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
         cmdForget.setContentAreaFilled(false);
         cmdForget.setCursor(new Cursor(Cursor.HAND_CURSOR));
         login.add(cmdForget);
+        login.add(loading, "pos 10 400 100% 100%");
         Button cmd = new Button();
         cmd.setText("ĐĂNG NHẬP");
-        login.add(cmd, "w 40%, h 40");
+        login.add(cmd, "w 40%, h 40");     
         
         cmd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 String email = txtEmail.getText();
                 String password = String.valueOf(txtPass.getPassword());
-
-                try {
-                    PreparedStatement pst = DBConnection.prepareStatement("select * from Account where Email='" + email + "'");
-                    ResultSet rs = pst.executeQuery();
-                        if (rs.next()) {
-                            String pass = rs.getString("pass");
-                            if (password.equals(pass)) {
-                                Main ss = new Main();
-                                ss.show();
-                            } else {
-                                System.out.println("SAi");
-                            }
-                        } else {
-                                System.out.println("email not found");
-                        }
-                } catch (Exception e) {
+                loading.setVisible(true);
+                new Thread() {
+                    @Override
+                    public void run() {
+                        try {
+                            this.sleep(3000);                           
+                        } catch (InterruptedException e) {
                             e.printStackTrace();
-                }
+                        }
+                        
+                        try {
+                            PreparedStatement pst = DBConnection.prepareStatement("select * from Account where Email='" + email + "'");
+                            ResultSet rs = pst.executeQuery();
+                                if (rs.next()) {
+                                    String pass = rs.getString("pass");
+                                    if (password.equals(pass)) {
+                                        loading.setVisible(false);                                        
+                                        Main ss = new Main();
+                                        ss.show();
+                                    } else {
+                                        System.out.println("SAi");
+                                    }
+                                } else {
+                                        System.out.println("email not found");
+                                }
+                        } catch (Exception e) {
+                                    e.printStackTrace();
+                        }
+                    }
+                }.start();  
             }
         });
     }

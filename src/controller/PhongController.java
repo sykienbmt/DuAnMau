@@ -41,6 +41,11 @@ public class PhongController {
         return phongs;
     }
     
+    public List<Object[]> layChiTietDichVu(int idPhong) {
+        List<Object[]> phongs = phongDAO.layChiTietDichVu(idPhong);
+        return phongs; 
+    }
+    
     public void taoHoaDonDichVu (int idPhong){
         phongDAO.taoHoaDonDichVu(idPhong);
     }
