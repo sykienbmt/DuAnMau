@@ -58,6 +58,10 @@ public class PhongController {
     public void themChiTietDichVu(int idHoaDon,int idDichVu,int soLan){
         phongDAO.themChiTietHoaDonDV(idHoaDon, idDichVu, soLan);
     }
+    
+    public List<Object[]> getHinhThuc(int idLoaiPhong){
+        return phongDAO.getHinhThuc(idLoaiPhong);
+    }
 //    public void insert(int idLoaiPhong,String tenPhong, String soKhach, java.sql.Date ngayDat, String trangThai) {
 //            Phong phong = new Phong(0, idLoaiPhong, tenPhong, soKhach, ngayDat, trangThai);
 //            phongDAO.insert(phong);
@@ -90,5 +94,9 @@ public class PhongController {
     public List<LoaiPhong> getLoaiPhong() {
         List<LoaiPhong> loaiPhongs = loaiPhongDAO.getAll();
         return loaiPhongs;
+    }
+    
+    public List<Object[]> getIdHinhThucThue(int idPhong){
+        return phongDAO.idHinhThucThue(idPhong);
     }
 }

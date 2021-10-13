@@ -12,8 +12,16 @@ public class PhongDAO extends AbsDAO<Phong>{
     }
     
     public List<Object[]> getThongTinPhong(int idPhong) {
-        return getRawValues("select idPhieuThue,ngayDat,ngayDi,ptp.soCMND soCMND,kh.diaChi diaChi,hoChieu,soDT,tenKhach,ten tenNv,soNguoi from phieuThuePhong ptp join KhachHang kh on kh.soCMND=ptp.soCMND join NhanVien nv on nv.idNhanVien=ptp.idNhanVien where idPhong="+idPhong);
+        return getRawValues("select idPhieuThue,ptp.ngayDat,ngayDi,ptp.soCMND soCMND,kh.diaChi diaChi,hoChieu,soDT,tenKhach,ten tenNv,soNguoi,p.idloaiphong from phieuThuePhong ptp \n" +
+                            "join KhachHang kh on kh.soCMND=ptp.soCMND \n" +
+                            "join NhanVien nv on nv.idNhanVien=ptp.idNhanVien \n" +
+                            "join phong p on p.idphong=ptp.idphong where ptp.idPhong="+idPhong+"");
     }
+    
+    public void taoPhieuThuePhong(){
+        
+    }
+    
     
     public List<Object[]> checkHoaDonPhong(int idPhong){
         return getRawValues("select count(*) from HoaDonDichVu where idPhong="+idPhong+" and trangThai=1");
@@ -43,6 +51,15 @@ public class PhongDAO extends AbsDAO<Phong>{
         Timestamp timeNow = new Timestamp(new Date().getTime());
         DBConnection.executeUpdate(query2,idHoaDonDichVu,idDichVu,soLan,timeNow,idDichVu,soLan);
     }
+    
+    public List<Object[]> getHinhThuc(int idLoaiPhong){
+        return getRawValues("select giaGio,giaNgay,giaThang,giaquy from loaiPhong where idloaiPhong ="+idLoaiPhong+"");
+    }
+    
+    public List<Object[]> idHinhThucThue(int idPhong){
+        return getRawValues("select idLoaiPhong from phong where idPhong = "+idPhong+"");
+    }
+    
 //    public phieuThuePhong getThongTinPhong(int idPhong){
 //        String query = "select idPhieuThue,ptp.ngayDat,ptp.ngayDi,ptp.soCMND,kh.diaChi,kh.hoChieu,kh.soDT,kh.tenKhach,nv.ten,soNguoi from phieuThuePhong ptp "
 //                + "join KhachHang kh on kh.soCMND=ptp.soCMND join NhanVien nv on nv.idNhanVien=ptp.idNhanVien where idPhong="+idPhong;

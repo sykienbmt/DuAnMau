@@ -1,27 +1,37 @@
 package panel;
 
+import DAO.cbbHinhThucThueDAO;
 import controller.DichVuController;
 import controller.PhongController;
 import java.awt.Button;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Timestamp;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListCellRenderer;
+import javax.swing.JComboBox;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.ChucVu;
 import model.DichVu;
 import model.NhanVien;
 import model.Phong;
+import model.giaPhong;
 import swing.ScrollBar;
 import swing.WrapLayout;
 
 public class PhongPnl extends javax.swing.JPanel {
     private DichVuController dichVuController;
     private PhongController phongController;
+    private cbbHinhThucThueDAO hinhThucThueDAO;
     int phongHienTai =UNDEFINED_CONDITION;
     
     public PhongPnl() {
@@ -50,6 +60,8 @@ public class PhongPnl extends javax.swing.JPanel {
         jScrollPane1.setVerticalScrollBar(new ScrollBar());    
         panel.revalidate();
         panel.repaint();
+        
+        
     }
     
 //    public void viewTablePhong(List<Object[]> data) {
@@ -80,12 +92,15 @@ public class PhongPnl extends javax.swing.JPanel {
                 @Override
                 public void mousePressed(MouseEvent e) {
                     phongHienTai=phong.getId();
+                    setcbb(phongHienTai);
+                        
                     if (phong.getTrangThai().equals("Đang sử dụng")) {
                         List<Object[]> data = phongController.layChiTietDichVu(phong.getId());
                         viewTableChiTietDichVu(data);
                         btnThemDichVu.setEnabled(true);
                         btnTruDichVu.setEnabled(true);
                         btnThue.setEnabled(false);
+                        jdNgayRoi.setEnabled(true);
                         List<Object[]> ptp = phongController.loadDataPhong(phong.getId());
                         jdNgayDat.setDate((java.sql.Timestamp) ptp.get(0)[1]);
                         jdNgayRoi.setDate(null);
@@ -98,9 +113,11 @@ public class PhongPnl extends javax.swing.JPanel {
                         txtTenKhach.setText(ptp.get(0)[7].toString());
                         lbTenNhanVien.setText(ptp.get(0)[8].toString());
                         txtSoNguoi.setText(ptp.get(0)[9].toString());
-                    }else {
+                        
+                    }else{
                         btnThemDichVu.setEnabled(false);
                         btnTruDichVu.setEnabled(false);
+                        jdNgayRoi.setEnabled(false);
                         viewTableChiTietDichVu(null);
                         btnThue.setEnabled(true);
                         jdNgayDat.setDate(null);
@@ -112,9 +129,11 @@ public class PhongPnl extends javax.swing.JPanel {
                         txtTenKhach.setText("");
                         lbTenNhanVien.setText("");
                         txtSoNguoi.setText("");
+                        
                     }
                     if(phong.getTrangThai().equals("Bảo trì")){
                         btnThue.setEnabled(false);
+                        jdNgayRoi.setEnabled(false);
                         viewTableChiTietDichVu(null);
                         btnThemDichVu.setEnabled(false);
                         btnTruDichVu.setEnabled(false);
@@ -122,6 +141,26 @@ public class PhongPnl extends javax.swing.JPanel {
                 }                    
             });
             panel.add(btnphong);
+        }
+    }
+    
+    public void setcbb(int idphong){
+        List<Object[]> idLoaiPhong = phongController.getIdHinhThucThue(idphong);
+        List<Object[]> data2 = phongController.getHinhThuc((int)idLoaiPhong.get(0)[0]);
+        giaPhong[] giaphongs = new giaPhong[]{
+            new giaPhong("Giờ - " + data2.get(0)[0].toString(),"Giờ-"+(Double)data2.get(0)[0]),
+            new giaPhong("Ngày - " + data2.get(0)[1].toString() ,"Ngày-" +(Double)data2.get(0)[1]),
+            new giaPhong("Tháng - " + data2.get(0)[2].toString(),"Tháng-" +(Double)data2.get(0)[2]),
+            new giaPhong("Quý - " + data2.get(0)[3].toString(),"Quý-" +(Double)data2.get(0)[3])
+        };
+//                        String[] giaPhong = { "Giờ - " + data2.get(0)[0].toString(), "Ngày - " + data2.get(0)[1].toString(), "Tháng - " + data2.get(0)[2].toString(), "Quý - " + data2.get(0)[3].toString() };
+
+//                        String[] gia = ["Giờ - " + data2.get(0)[0].toString()];
+        DefaultComboBoxModel cbbModel = (DefaultComboBoxModel) jComboBox1.getModel();
+        jComboBox1.removeAllItems();
+
+        for (int i=0;i<=giaphongs.length-1;i++) {
+            cbbModel.addElement(giaphongs[i]);
         }
     }
 
@@ -276,8 +315,6 @@ public class PhongPnl extends javax.swing.JPanel {
         jLabel18.setText("Nhân viên");
 
         jLabel19.setText("Thuê: ");
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel6.setText("Số người");
 
@@ -686,11 +723,29 @@ public class PhongPnl extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnThueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThueActionPerformed
-        // TODO add your handling code here:
+        Timestamp ngayDat = null;
+        Date date = new Date(); 
+        
+        ngayDat=new Timestamp(date.getTime());
+        
+        
+        String tenKhach = txtTenKhach.getText();
+        String hoChieu ="";
+        if(!txtHoChieu.getText().equals("")){
+            hoChieu=txtHoChieu.getText();
+        }
+        String diaChi = txtDiaChi.getText();
+        String sdt = txtSdt.getText();
+        String cmnd = txtCMND.getText();
+        Integer soNguoi =Integer.parseInt(txtSoNguoi.getText());
+        
+        giaPhong myCbb = (giaPhong) jComboBox1.getSelectedItem();
+        String hinhThucThue = myCbb.tenHinhThuc();
+        System.out.println(ngayDat +" - "+ tenKhach+" - "+hoChieu+" - "+diaChi+" - "+sdt+" - "+cmnd+" - "+soNguoi+" - "+hinhThucThue);
     }//GEN-LAST:event_btnThueActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void btnTruDichVuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTruDichVuActionPerformed
@@ -725,7 +780,6 @@ public class PhongPnl extends javax.swing.JPanel {
     private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
         System.out.println("Làm mới ds dịch vụ");
     }//GEN-LAST:event_btnRefreshActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRefresh;

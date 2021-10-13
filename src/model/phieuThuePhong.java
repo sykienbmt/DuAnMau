@@ -11,7 +11,7 @@ import java.sql.Timestamp;
  *
  * @author Administrator
  */
-public class phieuThuePhong {
+public class phieuThuePhong extends AbsTable{
     private Integer idPhieuThue ;
     private java.sql.Timestamp ngayDat ;
     private java.sql.Timestamp ngayDi ;
@@ -22,11 +22,12 @@ public class phieuThuePhong {
     private String tenKhach ;
     private String tenNv ;
     private Integer soNguoi ;
+    private String hinhThucThue ;
 
     public phieuThuePhong() {
     }
 
-    public phieuThuePhong(Integer idPhieuThue, Timestamp ngayDat, Timestamp ngayDi, String soCMND, String diaChi, String hoChieu, String soDT, String tenKhach, String tenNv, Integer soNguoi) {
+    public phieuThuePhong(Integer idPhieuThue, Timestamp ngayDat, Timestamp ngayDi, String soCMND, String diaChi, String hoChieu, String soDT, String tenKhach, String tenNv, Integer soNguoi, String hinhThucThue) {
         this.idPhieuThue = idPhieuThue;
         this.ngayDat = ngayDat;
         this.ngayDi = ngayDi;
@@ -37,6 +38,7 @@ public class phieuThuePhong {
         this.tenKhach = tenKhach;
         this.tenNv = tenNv;
         this.soNguoi = soNguoi;
+        this.hinhThucThue = hinhThucThue;
     }
 
     public Integer getIdPhieuThue() {
@@ -118,6 +120,22 @@ public class phieuThuePhong {
     public void setSoNguoi(Integer soNguoi) {
         this.soNguoi = soNguoi;
     }
+
+    public String getHinhThucThue() {
+        return hinhThucThue;
+    }
+
+    public void setHinhThucThue(String hinhThucThue) {
+        this.hinhThucThue = hinhThucThue;
+    }
+
+    @Override
+    public int getId() {
+        return this.idPhieuThue;
+    }
+    
+    
+    
 
     
     
