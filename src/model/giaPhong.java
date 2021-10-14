@@ -9,14 +9,14 @@ package model;
  *
  * @author Administrator
  */
-public class giaPhong extends AbsTable{
+public class GiaPhong extends AbsTable{
     private String hinhThucThue;
     private String gia;
 
-    public giaPhong() {
+    public GiaPhong() {
     }
 
-    public giaPhong(String hinhThucThue, String gia) {
+    public GiaPhong(String hinhThucThue, String gia) {
         this.hinhThucThue = hinhThucThue;
         this.gia = gia;
     }

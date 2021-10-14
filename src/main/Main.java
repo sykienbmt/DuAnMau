@@ -2,7 +2,9 @@ package main;
 
 import component.Menu;
 import controller.DichVuController;
+import controller.KhacHangController;
 import controller.NhanVienController;
+import controller.PhieuThuePhongController;
 import controller.PhongController;
 import event.EventMenuSelected;
 import model.ModelMenu;
@@ -43,6 +45,8 @@ public class Main extends javax.swing.JFrame {
         phongPnl = new PhongPnl();
         PhongController phongController = new PhongController(phongPnl);
         DichVuController dichVuController = new DichVuController(phongPnl);
+        PhieuThuePhongController phieuThuePhongController = new PhieuThuePhongController(phongPnl);
+        KhacHangController khacHangController = new KhacHangController(phongPnl);
     }
     
     private void init() {

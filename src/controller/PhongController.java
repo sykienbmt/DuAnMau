@@ -68,6 +68,11 @@ public class PhongController {
 //            loadList();
 //    }
 //     
+    
+    public void updateTinhTrangPhong(int idPhong) {
+        phongDAO.updateTinhTrangPhong(idPhong);
+    }
+    
     public void update(int idPhong,int idLoaiPhong,String tenPhong, String soKhach, java.sql.Date ngayDat, String trangThai) {
             Phong phong = new Phong(idPhong, idLoaiPhong, tenPhong, soKhach, ngayDat, trangThai);
             phongDAO.edit(phong);

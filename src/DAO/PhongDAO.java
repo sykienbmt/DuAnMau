@@ -18,11 +18,11 @@ public class PhongDAO extends AbsDAO<Phong>{
                             "join phong p on p.idphong=ptp.idphong where ptp.idPhong="+idPhong+"");
     }
     
-    public void taoPhieuThuePhong(){
-        
+    public void updateTinhTrangPhong(int idPhong) {
+        String query = "update Phong set trangThai = N'Đang sử dụng' where idPhong = ?";
+        DBConnection.executeUpdate(query, idPhong);
     }
-    
-    
+   
     public List<Object[]> checkHoaDonPhong(int idPhong){
         return getRawValues("select count(*) from HoaDonDichVu where idPhong="+idPhong+" and trangThai=1");
     }

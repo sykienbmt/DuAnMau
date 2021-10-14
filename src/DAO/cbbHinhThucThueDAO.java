@@ -6,12 +6,12 @@
 package DAO;
 
 import java.util.List;
-import model.giaPhong;
+import model.GiaPhong;
 
 /**
  *
  * @author Administrator
  */
-public class cbbHinhThucThueDAO extends AbsDAO<giaPhong>{
+public class cbbHinhThucThueDAO extends AbsDAO<GiaPhong>{
     
 }
