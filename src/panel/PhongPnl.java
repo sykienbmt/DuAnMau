@@ -258,6 +258,8 @@ public class PhongPnl extends javax.swing.JPanel {
         btnThemDichVu = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         spnSoLuong = new javax.swing.JSpinner();
+        btnThanhToan = new javax.swing.JButton();
+        btnKetToan = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel20 = new javax.swing.JLabel();
         txtTimDichVu = new javax.swing.JTextField();
@@ -315,8 +317,6 @@ public class PhongPnl extends javax.swing.JPanel {
         jLabel18.setText("Nhân viên");
 
         jLabel19.setText("Thuê: ");
-
-        lbTenNhanVien.setText("jLabel10");
 
         jLabel26.setText("Số khách");
 
@@ -419,19 +419,17 @@ public class PhongPnl extends javax.swing.JPanel {
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(txtHoChieu, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGap(11, 11, 11)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
+                        .addGap(7, 7, 7)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lbTenNhanVien, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addComponent(btnThue, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(btnThue, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -628,7 +626,21 @@ public class PhongPnl extends javax.swing.JPanel {
 
         jLabel9.setText("Số lượng");
         jPanel3.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 300, -1, -1));
-        jPanel3.add(spnSoLuong, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 330, 40, -1));
+
+        spnSoLuong.setModel(new javax.swing.SpinnerNumberModel(1, 1, 99, 1));
+        jPanel3.add(spnSoLuong, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 330, 60, -1));
+
+        btnThanhToan.setText("Pay");
+        jPanel3.add(btnThanhToan, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 570, 60, 50));
+
+        btnKetToan.setText("End");
+        btnKetToan.setToolTipText("");
+        btnKetToan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnKetToanActionPerformed(evt);
+            }
+        });
+        jPanel3.add(btnKetToan, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 650, 60, 50));
 
         jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel20.setText("Danh mục dịch vụ");
@@ -810,9 +822,15 @@ public class PhongPnl extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_txtCMNDKeyReleased
 
+    private void btnKetToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKetToanActionPerformed
+        List<Object[]> data = phongController.loadDataPhong(phongHienTai);
+    }//GEN-LAST:event_btnKetToanActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnChuyen;
+    private javax.swing.JButton btnKetToan;
     private javax.swing.JButton btnRefresh;
+    private javax.swing.JButton btnThanhToan;
     private javax.swing.JButton btnThemDichVu;
     private javax.swing.JButton btnThue;
     private javax.swing.JButton btnTruDichVu;
