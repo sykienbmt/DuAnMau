@@ -18,6 +18,7 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -61,13 +62,17 @@ public class PhongPnl extends javax.swing.JPanel {
         spTableDichVu.getVerticalScrollBar().setBackground(Color.WHITE);
         spTableDichVu.getViewport().setBackground(Color.WHITE);
         spTableDichVu.setCorner(JScrollPane.UPPER_RIGHT_CORNER, p);
+        
+        
+        
+        
     }
 
     private void init() {
         panel.setLayout(new WrapLayout(WrapLayout.LEADING));
         jScrollPane1.setVerticalScrollBar(new ScrollBar());    
         panel.revalidate();
-        panel.repaint();    
+        panel.repaint(); 
     }
     
     public void viewBtnPhong(List<Phong> data) {
@@ -109,6 +114,8 @@ public class PhongPnl extends javax.swing.JPanel {
                         txtTenKhach.setText(ptp.get(0)[7].toString());
                         lbTenNhanVien.setText(ptp.get(0)[8].toString());
                         txtSoNguoi.setText(ptp.get(0)[9].toString());
+                        cbbHinhThucThue.getModel().setSelectedItem(ptp.get(0)[11].toString());
+//                        System.out.println(ptp.get(0)[11].toString());
                     }else{
                         btnThemDichVu.setEnabled(false);
                         btnTruDichVu.setEnabled(false);
@@ -150,8 +157,8 @@ public class PhongPnl extends javax.swing.JPanel {
 //                        String[] giaPhong = { "Giờ - " + data2.get(0)[0].toString(), "Ngày - " + data2.get(0)[1].toString(), "Tháng - " + data2.get(0)[2].toString(), "Quý - " + data2.get(0)[3].toString() };
 
 //                        String[] gia = ["Giờ - " + data2.get(0)[0].toString()];
-        DefaultComboBoxModel cbbModel = (DefaultComboBoxModel) jComboBox1.getModel();
-        jComboBox1.removeAllItems();
+        DefaultComboBoxModel cbbModel = (DefaultComboBoxModel) cbbHinhThucThue.getModel();
+        cbbHinhThucThue.removeAllItems();
 
         for (int i=0;i<=giaphongs.length-1;i++) {
             cbbModel.addElement(giaphongs[i]);
@@ -218,7 +225,7 @@ public class PhongPnl extends javax.swing.JPanel {
         txtCMND = new javax.swing.JTextField();
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cbbHinhThucThue = new javax.swing.JComboBox<>();
         lbTenNhanVien = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
         txtSoNguoi = new javax.swing.JTextField();
@@ -379,7 +386,7 @@ public class PhongPnl extends javax.swing.JPanel {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(cbbHinhThucThue, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnThue, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -424,7 +431,7 @@ public class PhongPnl extends javax.swing.JPanel {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cbbHinhThucThue, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(7, 7, 7)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -753,7 +760,7 @@ public class PhongPnl extends javax.swing.JPanel {
         String sdt = txtSdt.getText();
         String cmnd = txtCMND.getText();
         Integer soNguoi =Integer.parseInt(txtSoNguoi.getText());       
-        GiaPhong myCbb = (GiaPhong) jComboBox1.getSelectedItem();
+        GiaPhong myCbb = (GiaPhong) cbbHinhThucThue.getSelectedItem();
         String hinhThucThue = myCbb.tenHinhThuc();
         
         phongController.updateTinhTrangPhong(phongHienTai);
@@ -824,6 +831,60 @@ public class PhongPnl extends javax.swing.JPanel {
 
     private void btnKetToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKetToanActionPerformed
         List<Object[]> data = phongController.loadDataPhong(phongHienTai);
+        String giaPhongString=data.get(0)[11].toString();
+        int num = giaPhongString.indexOf("-");
+        String hinhThucThue = giaPhongString.substring(0,num);
+        Double giaThue = Double.valueOf(giaPhongString.substring(num+1,giaPhongString.length()));
+        System.out.println("-HÌnh thức thuê: " +hinhThucThue+"-  Giá: "+giaThue);
+        
+        Date now = new Date();
+        Timestamp ngayDat = (Timestamp) data.get(0)[1];
+        Date ngayDatDate=(Date) ngayDat;
+        System.out.println(ngayDatDate);
+        long thoiGian = now.getTime()-ngayDatDate.getTime();
+        System.out.println("Khoảng cách là :" +thoiGian);
+        
+        Double tienPhong = 0.0;
+        long diffHours = thoiGian / (60 * 60 * 1000);
+        if(thoiGian % (60 * 60 * 1000)!=0){
+            diffHours+=1;
+        }
+        long diffDays = thoiGian / (24 * 60 * 60 * 1000);
+        if(thoiGian % (24 * 60 * 60 * 1000)!=0){
+            diffDays+=1;
+        }
+        long diffMonths= thoiGian/ (30 * 24 * 60 * 60 * 1000);
+        long diffQuys= thoiGian/ (3 * 30 * 24 * 60 * 60 * 1000);
+
+        System.out.print(diffDays + " days, ");
+        System.out.print(diffHours + " hours, ");
+        System.out.print(diffMonths + " Month, ");
+        System.out.print(diffQuys + " Quys, ");
+        if(hinhThucThue.equalsIgnoreCase("Giờ")){
+            if(diffHours<=1){
+                tienPhong=giaThue;
+            }else{
+                tienPhong=giaThue+(diffHours-1)*(giaThue*0.2);
+            }
+        }else if(hinhThucThue.equals("Ngày")){
+            tienPhong=diffDays*giaThue;
+        }else if(hinhThucThue.equals("Tháng")){
+            tienPhong=diffMonths*giaThue;
+        }else if(hinhThucThue.equals("Quý")){
+            tienPhong=diffQuys*giaThue;
+        }
+        
+        txtTienPhong.setText(tienPhong.toString());
+//        System.out.println("Giá phòng là: "+tienPhong);
+        
+        Double tienDichVu = 0.0;
+        
+        for(int i=0;i<=tblListDichVu.getRowCount()-1;i++){
+            System.out.println(tblListDichVu.getValueAt(i, 5));
+            tienDichVu+= Double.parseDouble(tblListDichVu.getValueAt(i, 5).toString());
+        }
+        System.out.println("Tiền dịch vụ là: " +tienDichVu);
+        txtTienDichVu.setText(tienDichVu.toString());
     }//GEN-LAST:event_btnKetToanActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -834,10 +895,10 @@ public class PhongPnl extends javax.swing.JPanel {
     private javax.swing.JButton btnThemDichVu;
     private javax.swing.JButton btnThue;
     private javax.swing.JButton btnTruDichVu;
+    private javax.swing.JComboBox<String> cbbHinhThucThue;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;

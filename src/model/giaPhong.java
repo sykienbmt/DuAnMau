@@ -38,8 +38,6 @@ public class GiaPhong extends AbsTable{
     }
 
     
-    
-    
     @Override
     public String toString() {
         return this.hinhThucThue;
