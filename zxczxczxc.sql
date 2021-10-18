@@ -169,3 +169,6 @@ insert into HoaDonDichVu values (3,0,getDate(),'khong')
 
 select idHoaDonDichVu from hoaDonDichVu where idPhong =3 and trangthai=1
 
+select idDichVu,tenDichVu,tenDonVi,gia from DichVu a join DanhMuc b on a.idDanhMuc = b.idDanhMuc join donViTinh c on c.idDonVi = a.idDonVi
+select idDichVu,tenDichVu,tenDonVi,gia from DichVu a join DanhMuc b on a.idDanhMuc = b.idDanhMuc join donViTinh c on c.idDonVi = a.idDonVi where b.idDanhMuc =2
+select idDichVu,tenDichVu,tenDonVi,gia from DichVu a join DanhMuc b on a.idDanhMuc = b.idDanhMuc join donViTinh c on c.idDonVi = a.idDonVi where tenDichVu like N'%D%'
