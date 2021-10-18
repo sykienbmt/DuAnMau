@@ -1,5 +1,6 @@
 package controller;
 
+import DAO.DanhMucDAO;
 import DAO.DichVuDAO;
 import java.util.List;
 import model.DichVu;
@@ -10,20 +11,35 @@ public class DichVuController {
     
     public DichVuController(PhongPnl view) {
         this.view = view;
-        loadListDichVu();
         view.setController(this);
     }
     
     DichVuDAO dichVuDAO = new DichVuDAO();
+    DanhMucDAO danhMucDAO = new DanhMucDAO();
     
 //    public void loadListBtnPhong() {
 //        List<Phong> tp = phongDAO.getListPhong();
 //        view.viewBtnPhong(tp);
 //    }
     
-    public void loadListDichVu() {
-        List<Object[]> dichVu = dichVuDAO.getTableData();
-        view.viewTableDichVu(dichVu);
+//    public void loadListDichVu() {
+//        List<Object[]> dichVu = dichVuDAO.getTableData();
+//        view.viewTableDichVu(dichVu);
+//    }
+    
+    public List<Object[]> searchDichVu(String tenDichVu) {
+        List<Object[]> dichVus = dichVuDAO.searchDichVu(tenDichVu);
+        return dichVus;
+    }
+    
+    public List<Object[]> loadAllDichVu() {
+        List<Object[]> danhMucs = danhMucDAO.loadAllDichVu();
+        return danhMucs;
+    }
+    
+    public List<Object[]> loadDichVu(int idDanhMuc) {
+        List<Object[]> danhMucs = danhMucDAO.loadDichVu(idDanhMuc);
+        return danhMucs;
     }
     
 //    public void insert(String ten, String email, String sdt, String sex, Double luong, int chucVu, String diaChi, java.sql.Date ngaySinh, java.sql.Date ngayVao, String trangThai) {

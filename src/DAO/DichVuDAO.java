@@ -12,6 +12,11 @@ public class DichVuDAO extends AbsDAO<DichVu>{
         return getRawValues("select idDichVu,tenDichVu,tenDonVi,gia from DichVu a join donViTinh b on a.idDonVi = b.idDonVi");
     }
     
+    public List<Object[]> searchDichVu(String tenDanhMuc) {
+        return getRawValues("select idDichVu,tenDichVu,tenDonVi,gia from DichVu a join DanhMuc b on a.idDanhMuc = b.idDanhMuc "
+                            + "join donViTinh c on c.idDonVi = a.idDonVi where tenDichVu like N'%"+tenDanhMuc+"%'");
+    }
+    
     
     
 //    public List<Phong> getListPhong() {

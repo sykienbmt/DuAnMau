@@ -40,9 +40,9 @@ public class NhanVienPnl extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         spTable = new javax.swing.JScrollPane();
         tblNhanVien = new swing.Table();
-        btnThem = new javax.swing.JButton();
-        btnSua = new javax.swing.JButton();
-        btnXoa = new javax.swing.JButton();
+        btnXoa = new swing.ButtonOutLine();
+        btnSua = new swing.ButtonOutLine();
+        buttonOutLine1 = new swing.ButtonOutLine();
 
         setBackground(new java.awt.Color(242, 242, 242));
 
@@ -99,17 +99,19 @@ public class NhanVienPnl extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addGap(15, 15, 15)
-                .addComponent(spTable, javax.swing.GroupLayout.DEFAULT_SIZE, 498, Short.MAX_VALUE)
+                .addComponent(spTable, javax.swing.GroupLayout.DEFAULT_SIZE, 619, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        btnThem.setText("Thêm");
-        btnThem.addActionListener(new java.awt.event.ActionListener() {
+        btnXoa.setBackground(new java.awt.Color(239, 15, 15));
+        btnXoa.setText("Xóa");
+        btnXoa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnThemActionPerformed(evt);
+                btnXoaActionPerformed(evt);
             }
         });
 
+        btnSua.setBackground(new java.awt.Color(241, 40, 223));
         btnSua.setText("Sửa");
         btnSua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -117,10 +119,11 @@ public class NhanVienPnl extends javax.swing.JPanel {
             }
         });
 
-        btnXoa.setText("Xóa");
-        btnXoa.addActionListener(new java.awt.event.ActionListener() {
+        buttonOutLine1.setBackground(new java.awt.Color(14, 243, 221));
+        buttonOutLine1.setText("Thêm");
+        buttonOutLine1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnXoaActionPerformed(evt);
+                buttonOutLine1ActionPerformed(evt);
             }
         });
 
@@ -136,8 +139,8 @@ public class NhanVienPnl extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(35, 35, 35))
+                        .addComponent(buttonOutLine1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(39, 39, 39))
                     .addComponent(panelBorder1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 0, 0))
         );
@@ -145,64 +148,31 @@ public class NhanVienPnl extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(panelBorder1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnThem, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
-                    .addComponent(btnSua, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnXoa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(panelBorder1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buttonOutLine1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
     private ThemNvDialog themNvDialog = null;
-    private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        if (themNvDialog == null) {
-            themNvDialog = new ThemNvDialog(null,true);
-            themNvDialog.btnLuu.setVisible(false);
-            themNvDialog.btnThem.addActionListener(new AbstractAction(){
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    int clickThem = JOptionPane.showConfirmDialog(new Frame(),"Bạn có muốn thêm không ?", "Thông báo",JOptionPane.YES_NO_OPTION);
-                    if (clickThem == JOptionPane.YES_OPTION) {
-                        String ten = themNvDialog.txtTen.getText();
-                        String email = themNvDialog.txtEmail.getText();
-                        String sdt = themNvDialog.txtSdt.getText(); 
-                        String sex = null;
-                        Double luong = Double.parseDouble(themNvDialog.txtLuong.getText()) ;
-                        ChucVu chucVu =(ChucVu) themNvDialog.cbxChucVu.getSelectedItem();
-                        Integer tenChucVu = chucVu.getIdChucVu();
-                        String diaChi = themNvDialog.txtDiaChi.getText(); 
-                        java.util.Date DateOfBirth1 = themNvDialog.jdcNgaySinh.getDate();
-                        java.sql.Date ngaySinh= new java.sql.Date(DateOfBirth1.getTime());
-                        java.util.Date StartingDate1 = themNvDialog.jdcNgayVao.getDate();
-                        java.sql.Date ngayVao = new java.sql.Date(StartingDate1.getTime());
-                        String trangThai = null;
-                                             
-                        if(themNvDialog.rdbNam.isSelected()){
-                            sex="Nam";
-                        }else if(themNvDialog.rdbNu.isSelected()){
-                            sex = "Nữ";
-                        }else sex = "Khác";
-
-                        if(themNvDialog.rdbOn.isSelected()){
-                            trangThai="ON";
-                        }else if(themNvDialog.rdbOff.isSelected()){
-                            trangThai = "OFF";
-                        }else trangThai = "REST";
-                        
-                        nhanVienController.insert(ten, email, sdt, sex, luong, tenChucVu, diaChi, ngaySinh, ngayVao,trangThai);
-                        themNvDialog.setVisible(false);
-                    }
-                }
-            });
-        }
-        DefaultComboBoxModel <ChucVu> model = (DefaultComboBoxModel<ChucVu>) themNvDialog.cbxChucVu.getModel();
-        model.removeAllElements();
-        List<ChucVu> chucVus = nhanVienController.getChucVu();
-        model.addAll(nhanVienController.getChucVu());
-        model.setSelectedItem(chucVus.get(0));
-        themNvDialog.setVisible(true);
-    }//GEN-LAST:event_btnThemActionPerformed
+    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
+        int dongXoa = tblNhanVien.getSelectedRow();
+        if (dongXoa == -1) {
+            JOptionPane.showMessageDialog(this, "Chọn dòng cần xóa !","Thông báo", JOptionPane.ERROR_MESSAGE);
+        } else {        
+            int click = JOptionPane.showConfirmDialog(this,"Bạn có muốn xóa không ?", "Thông báo",JOptionPane.YES_NO_OPTION);
+            if (click == JOptionPane.YES_OPTION) {
+            int[] vt = tblNhanVien.getSelectedRows();
+            List<Integer> idStaffs  = new ArrayList<>();
+            for (int i = vt.length-1; i >= 0; i--) {
+                idStaffs.add((Integer)tblNhanVien.getValueAt(vt[i], 0));
+            }
+            nhanVienController.delete(idStaffs);
+        }}
+    }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         int chonDong = tblNhanVien.getSelectedRow();
@@ -290,21 +260,54 @@ public class NhanVienPnl extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnSuaActionPerformed
 
-    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
-        int dongXoa = tblNhanVien.getSelectedRow();
-        if (dongXoa == -1) {
-            JOptionPane.showMessageDialog(this, "Chọn dòng cần xóa !","Thông báo", JOptionPane.ERROR_MESSAGE);
-        } else {        
-            int click = JOptionPane.showConfirmDialog(this,"Bạn có muốn xóa không ?", "Thông báo",JOptionPane.YES_NO_OPTION);
-            if (click == JOptionPane.YES_OPTION) {
-            int[] vt = tblNhanVien.getSelectedRows();
-            List<Integer> idStaffs  = new ArrayList<>();
-            for (int i = vt.length-1; i >= 0; i--) {
-                idStaffs.add((Integer)tblNhanVien.getValueAt(vt[i], 0));
-            }
-            nhanVienController.delete(idStaffs);
-        }}
-    }//GEN-LAST:event_btnXoaActionPerformed
+    private void buttonOutLine1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonOutLine1ActionPerformed
+        if (themNvDialog == null) {
+            themNvDialog = new ThemNvDialog(null,true);
+            themNvDialog.btnLuu.setVisible(false);
+            themNvDialog.btnThem.addActionListener(new AbstractAction(){
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    int clickThem = JOptionPane.showConfirmDialog(new Frame(),"Bạn có muốn thêm không ?", "Thông báo",JOptionPane.YES_NO_OPTION);
+                    if (clickThem == JOptionPane.YES_OPTION) {
+                        String ten = themNvDialog.txtTen.getText();
+                        String email = themNvDialog.txtEmail.getText();
+                        String sdt = themNvDialog.txtSdt.getText(); 
+                        String sex = null;
+                        Double luong = Double.parseDouble(themNvDialog.txtLuong.getText()) ;
+                        ChucVu chucVu =(ChucVu) themNvDialog.cbxChucVu.getSelectedItem();
+                        Integer tenChucVu = chucVu.getIdChucVu();
+                        String diaChi = themNvDialog.txtDiaChi.getText(); 
+                        java.util.Date DateOfBirth1 = themNvDialog.jdcNgaySinh.getDate();
+                        java.sql.Date ngaySinh= new java.sql.Date(DateOfBirth1.getTime());
+                        java.util.Date StartingDate1 = themNvDialog.jdcNgayVao.getDate();
+                        java.sql.Date ngayVao = new java.sql.Date(StartingDate1.getTime());
+                        String trangThai = null;
+                                             
+                        if(themNvDialog.rdbNam.isSelected()){
+                            sex="Nam";
+                        }else if(themNvDialog.rdbNu.isSelected()){
+                            sex = "Nữ";
+                        }else sex = "Khác";
+
+                        if(themNvDialog.rdbOn.isSelected()){
+                            trangThai="ON";
+                        }else if(themNvDialog.rdbOff.isSelected()){
+                            trangThai = "OFF";
+                        }else trangThai = "REST";
+                        
+                        nhanVienController.insert(ten, email, sdt, sex, luong, tenChucVu, diaChi, ngaySinh, ngayVao,trangThai);
+                        themNvDialog.setVisible(false);
+                    }
+                }
+            });
+        }
+        DefaultComboBoxModel <ChucVu> model = (DefaultComboBoxModel<ChucVu>) themNvDialog.cbxChucVu.getModel();
+        model.removeAllElements();
+        List<ChucVu> chucVus = nhanVienController.getChucVu();
+        model.addAll(nhanVienController.getChucVu());
+        model.setSelectedItem(chucVus.get(0));
+        themNvDialog.setVisible(true);
+    }//GEN-LAST:event_buttonOutLine1ActionPerformed
     
     public void viewTableStaff(List<Object[]> data) {
         DefaultTableModel model = (DefaultTableModel) tblNhanVien.getModel();      
@@ -320,9 +323,9 @@ public class NhanVienPnl extends javax.swing.JPanel {
         this.nhanVienController = nhanVienController;
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnSua;
-    private javax.swing.JButton btnThem;
-    private javax.swing.JButton btnXoa;
+    private swing.ButtonOutLine btnSua;
+    private swing.ButtonOutLine btnXoa;
+    private swing.ButtonOutLine buttonOutLine1;
     private javax.swing.JLabel jLabel1;
     private swing.PanelBorder panelBorder1;
     private javax.swing.JScrollPane spTable;
