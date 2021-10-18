@@ -6,11 +6,14 @@ import controller.DichVuController;
 import controller.KhacHangController;
 import controller.PhieuThuePhongController;
 import controller.PhongController;
+import dialog.ThanhToan;
 import java.awt.Button;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Frame;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.ResultSet;
@@ -22,6 +25,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import model.Phong;
 import model.GiaPhong;
@@ -151,12 +155,7 @@ public class PhongPnl extends javax.swing.JPanel {
         GiaPhong[] giaphongs = new GiaPhong[]{
             new GiaPhong("Giờ - " + data2.get(0)[0].toString(),"Giờ-"+(Double)data2.get(0)[0]),
             new GiaPhong("Ngày - " + data2.get(0)[1].toString() ,"Ngày-" +(Double)data2.get(0)[1]),
-            new GiaPhong("Tháng - " + data2.get(0)[2].toString(),"Tháng-" +(Double)data2.get(0)[2]),
-            new GiaPhong("Quý - " + data2.get(0)[3].toString(),"Quý-" +(Double)data2.get(0)[3])
         };
-//                        String[] giaPhong = { "Giờ - " + data2.get(0)[0].toString(), "Ngày - " + data2.get(0)[1].toString(), "Tháng - " + data2.get(0)[2].toString(), "Quý - " + data2.get(0)[3].toString() };
-
-//                        String[] gia = ["Giờ - " + data2.get(0)[0].toString()];
         DefaultComboBoxModel cbbModel = (DefaultComboBoxModel) cbbHinhThucThue.getModel();
         cbbHinhThucThue.removeAllItems();
 
@@ -638,6 +637,11 @@ public class PhongPnl extends javax.swing.JPanel {
         jPanel3.add(spnSoLuong, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 330, 60, -1));
 
         btnThanhToan.setText("Pay");
+        btnThanhToan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThanhToanActionPerformed(evt);
+            }
+        });
         jPanel3.add(btnThanhToan, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 570, 60, 50));
 
         btnKetToan.setText("End");
@@ -829,8 +833,12 @@ public class PhongPnl extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_txtCMNDKeyReleased
 
+    
+    boolean click = false;
+    Double tongTien=0.0;
     private void btnKetToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKetToanActionPerformed
         List<Object[]> data = phongController.loadDataPhong(phongHienTai);
+        click=true;
         String giaPhongString=data.get(0)[11].toString();
         int num = giaPhongString.indexOf("-");
         String hinhThucThue = giaPhongString.substring(0,num);
@@ -853,13 +861,13 @@ public class PhongPnl extends javax.swing.JPanel {
         if(thoiGian % (24 * 60 * 60 * 1000)!=0){
             diffDays+=1;
         }
-        long diffMonths= thoiGian/ (30 * 24 * 60 * 60 * 1000);
-        long diffQuys= thoiGian/ (3 * 30 * 24 * 60 * 60 * 1000);
+//        long diffMonths= thoiGian/ (30 * 24 * 60 * 60 * 1000);
+//        long diffQuys= thoiGian/ (3 * 30 * 24 * 60 * 60 * 1000);
 
         System.out.print(diffDays + " days, ");
         System.out.print(diffHours + " hours, ");
-        System.out.print(diffMonths + " Month, ");
-        System.out.print(diffQuys + " Quys, ");
+//        System.out.print(diffMonths + " Month, ");
+//        System.out.print(diffQuys + " Quys, ");
         if(hinhThucThue.equalsIgnoreCase("Giờ")){
             if(diffHours<=1){
                 tienPhong=giaThue;
@@ -868,11 +876,14 @@ public class PhongPnl extends javax.swing.JPanel {
             }
         }else if(hinhThucThue.equals("Ngày")){
             tienPhong=diffDays*giaThue;
-        }else if(hinhThucThue.equals("Tháng")){
-            tienPhong=diffMonths*giaThue;
-        }else if(hinhThucThue.equals("Quý")){
-            tienPhong=diffQuys*giaThue;
         }
+//        else if(hinhThucThue.equals("Tháng")){
+//            Double tienThang = 0.0;
+//            
+//            tienPhong=diffMonths*giaThue;
+//        }else if(hinhThucThue.equals("Quý")){
+//            tienPhong=diffQuys*giaThue;
+//        }
         
         txtTienPhong.setText(tienPhong.toString());
 //        System.out.println("Giá phòng là: "+tienPhong);
@@ -885,7 +896,31 @@ public class PhongPnl extends javax.swing.JPanel {
         }
         System.out.println("Tiền dịch vụ là: " +tienDichVu);
         txtTienDichVu.setText(tienDichVu.toString());
+        tongTien = tienDichVu+tienPhong;
+        txtTongTien.setText(tongTien.toString());
     }//GEN-LAST:event_btnKetToanActionPerformed
+
+    ThanhToan tt = null;
+    private void btnThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToanActionPerformed
+        if(click){
+            tt = new ThanhToan(null,true);
+            tt.jTextField1.setEnabled(false);
+            tt.jTextField3.setEnabled(false);
+            tt.jTextField1.setText(tongTien.toString());
+            tt.jTextField2.addKeyListener(new KeyAdapter(){
+                public void keyReleased(KeyEvent e) {
+                    Double traLai  = Double.parseDouble(tt.jTextField2.getText())-tongTien;
+                    tt.jTextField3.setText(traLai.toString());
+                  }
+            });
+            tt.setLocationRelativeTo(null);
+            tt.setVisible(true);
+        }else{
+            JOptionPane.showMessageDialog(this, "Vui lòng ấn End trước !");
+        }
+        
+        
+    }//GEN-LAST:event_btnThanhToanActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnChuyen;

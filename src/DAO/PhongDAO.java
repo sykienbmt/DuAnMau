@@ -60,6 +60,11 @@ public class PhongDAO extends AbsDAO<Phong>{
         return getRawValues("select idLoaiPhong from phong where idPhong = "+idPhong+"");
     }
     
+    public List<Object[]> getGiaPhong(int idPhong){
+        return getRawValues("select idLoaiPhong from phong p join loaiphong lp on  where idPhong = "+idPhong+"");
+    }
+    
+    
 //    public phieuThuePhong getThongTinPhong(int idPhong){
 //        String query = "select idPhieuThue,ptp.ngayDat,ptp.ngayDi,ptp.soCMND,kh.diaChi,kh.hoChieu,kh.soDT,kh.tenKhach,nv.ten,soNguoi from phieuThuePhong ptp "
 //                + "join KhachHang kh on kh.soCMND=ptp.soCMND join NhanVien nv on nv.idNhanVien=ptp.idNhanVien where idPhong="+idPhong;

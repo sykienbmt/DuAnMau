@@ -68,7 +68,9 @@ public class PhongController {
 //            loadList();
 //    }
 //     
-    
+    public List<Object[]> getGiaPhong(int idPhong){
+        return phongDAO.getGiaPhong(idPhong);
+    }
     public void updateTinhTrangPhong(int idPhong) {
         phongDAO.updateTinhTrangPhong(idPhong);
     }
