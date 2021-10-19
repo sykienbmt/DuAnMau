@@ -7,6 +7,11 @@ import model.Phong;
 import java.sql.Timestamp;
 
 public class PhongDAO extends AbsDAO<Phong>{
+    public List<Object[]> setThongTinPhong(int idPhong) {
+        return getRawValues("select a.soCMND,soNguoi,a.ngayDat,ngayDi,hinhThucThue,tenKhach,diaChi,soDT,hoChieu from phieuThuePhong a \n" +
+                            "join KhachHang b on a.soCMND = b.soCMND join Phong c on c.idPhong = a.idPhong where a.idPhong = "+idPhong+" and a.ngayDi is null");
+    }
+    
     public List<Object[]> getDataPhong() {
         return getRawValues("select a.idPhong,b.tenLoaiPhong,a.tenPhong,a.soKhachMax,a.ngayDat,a.trangThai from Phong a join LoaiPhong b on a.idLoaiPhong = b.idLoaiPhong");
     }

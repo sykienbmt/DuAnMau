@@ -74,7 +74,7 @@ public class PhongPnl extends javax.swing.JPanel {
         panel.setLayout(new WrapLayout(WrapLayout.LEADING));
         jScrollPane1.setVerticalScrollBar(new ScrollBar());    
         panel.revalidate();
-        panel.repaint(); 
+        panel.repaint();
     }   
     
     public void viewListDanhMuc() {
@@ -229,6 +229,25 @@ public class PhongPnl extends javax.swing.JPanel {
     
     public void setController (KhacHangController khacHangController) {
         this.khacHangController = khacHangController;
+    }
+    
+    public void loadLaiThongTinPhong() {
+        List<Object[]> data = phongController.setThongTinPhong(phongHienTai);
+        txtCMND.setText(data.get(0) [0].toString());
+        System.out.println(data.get(0) [0].toString());
+        txtSoNguoi.setText(data.get(0) [1].toString());     
+//        jdNgayDat.set(data.get(0) [2].toString());
+//        jdNgayDat.set(data.get(0) [3].toString());
+        cbbHinhThucThue.getModel().setSelectedItem(data.get(0) [4].toString());
+        txtTenKhach.setText(data.get(0) [5].toString());
+        System.out.println(data.get(0) [5].toString());
+        txtDiaChi.setText(data.get(0) [6].toString());
+        txtSdt.setText(data.get(0) [7].toString());
+        if(data.get(0) [8].toString() == " ") {
+            txtHoChieu.setText("");
+        }else {
+            txtHoChieu.setText(data.get(0) [8].toString());
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -781,7 +800,7 @@ public class PhongPnl extends javax.swing.JPanel {
         Date date = new Date();         
         ngayDat=new Timestamp(date.getTime());
         String tenKhach = txtTenKhach.getText();
-        String hoChieu ="";
+        String hoChieu =" ";
         if(!txtHoChieu.getText().equals("")){
             hoChieu=txtHoChieu.getText();
         }
@@ -790,14 +809,15 @@ public class PhongPnl extends javax.swing.JPanel {
         String cmnd = txtCMND.getText();
         Integer soNguoi =Integer.parseInt(txtSoNguoi.getText());       
         GiaPhong myCbb = (GiaPhong) cbbHinhThucThue.getSelectedItem();
-        String hinhThucThue = myCbb.tenHinhThuc();
-        
+        String hinhThucThue = myCbb.tenHinhThuc();       
         phongController.updateTinhTrangPhong(phongHienTai);
         if (!isCMND) {
             khacHangController.insert(0,cmnd, tenKhach, diaChi, hoChieu, sdt);
         }      
         phieuThuePhongController.insert(0, phongHienTai, 1, cmnd, soNguoi, ngayDat, null, hinhThucThue);
-        button.setBackground(new Color(255,51,0));      
+        button.setBackground(new Color(255,51,0));
+        
+        loadLaiThongTinPhong();      
     }//GEN-LAST:event_btnThueActionPerformed
 
     private void btnThemDichVuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemDichVuActionPerformed
