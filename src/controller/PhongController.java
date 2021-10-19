@@ -14,7 +14,7 @@ public class PhongController {
     public PhongController(PhongPnl view) {
         this.view = view;
         loadList();
-        loadListBtnPhong();
+        //loadListBtnPhong();
         view.setController(this);
     }
     
@@ -31,10 +31,10 @@ public class PhongController {
         return phongs;
     }
     
-    public void loadListBtnPhong() {
-        List<Phong> phongs = phongDAO.getAll();
-        view.viewBtnPhong(phongs);
-    }
+//    public void loadListBtnPhong() {
+//        List<Phong> phongs = phongDAO.getAll();
+//        view.viewBtnPhong(phongs);
+//    }
     
     
     public List<Object[]> checkHoaDonPhong(int idPhong){
