@@ -6,6 +6,7 @@ import controller.KhacHangController;
 import controller.NhanVienController;
 import controller.PhieuThuePhongController;
 import controller.PhongController;
+import controller.QlDichVuController;
 import event.EventMenuSelected;
 import model.ModelMenu;
 import panel.HomePnl;
@@ -47,6 +48,7 @@ public class Main extends javax.swing.JFrame {
         DichVuController dichVuController = new DichVuController(phongPnl);
         PhieuThuePhongController phieuThuePhongController = new PhieuThuePhongController(phongPnl);
         KhacHangController khacHangController = new KhacHangController(phongPnl);
+        QlDichVuController qlDichVuController = new QlDichVuController(productPnl);
     }
     
     private void init() {
@@ -79,7 +81,7 @@ public class Main extends javax.swing.JFrame {
                 } else if (index == 2) {
                     showForm(new ThongKePnl());
                 } else if (index == 3) {
-                    showForm(new ProductPnl());
+                    showForm(productPnl);
                 }
             }
         });

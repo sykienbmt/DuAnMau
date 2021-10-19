@@ -1,6 +1,8 @@
 package panel;
 
 import component.Card;
+import controller.QlDichVuController;
+import java.util.List;
 import model.Model_Card;
 import swing.ScrollBar;
 import swing.WrapLayout;
@@ -8,9 +10,12 @@ import javax.swing.ImageIcon;
 
 public class ProductPnl extends javax.swing.JPanel {
 
+    private QlDichVuController qlDichVuController;
+    
     public ProductPnl() {
         initComponents();
         init();
+        
     }
 
     private void init() {
@@ -27,10 +32,20 @@ public class ProductPnl extends javax.swing.JPanel {
         panel.add(new Card(new Model_Card(new ImageIcon(getClass().getResource("/icon/sp5.jpg")), "7UP", "Nước ngọt\n10000đ")));
         panel.add(new Card(new Model_Card(new ImageIcon(getClass().getResource("/icon/sp4.jpg")), "Swing", "Bim bim\n5000đ")));
         
+        List<Object[]> data=qlDichVuController.showDichVu();
+        for (Object[] objects : data) {
+            System.out.println(objects.toString());
+        }
+        
         panel.revalidate();
         panel.repaint();
     }
 
+    
+    public void setController (QlDichVuController qlDichVuController) {
+        this.qlDichVuController = qlDichVuController;
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
