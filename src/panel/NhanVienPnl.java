@@ -40,9 +40,13 @@ public class NhanVienPnl extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         spTable = new javax.swing.JScrollPane();
         tblNhanVien = new swing.Table();
-        btnXoa = new swing.ButtonOutLine();
+        jLabel2 = new javax.swing.JLabel();
+        txtSearchNhanVien = new javax.swing.JTextField();
+        jPanel1 = new javax.swing.JPanel();
+        btnThem = new swing.ButtonOutLine();
         btnSua = new swing.ButtonOutLine();
-        buttonOutLine1 = new swing.ButtonOutLine();
+        btnXoa = new swing.ButtonOutLine();
+        jPanel2 = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(242, 242, 242));
 
@@ -67,47 +71,37 @@ public class NhanVienPnl extends javax.swing.JPanel {
             tblNhanVien.getColumnModel().getColumn(0).setMinWidth(45);
             tblNhanVien.getColumnModel().getColumn(0).setPreferredWidth(45);
             tblNhanVien.getColumnModel().getColumn(0).setMaxWidth(45);
-            tblNhanVien.getColumnModel().getColumn(2).setMinWidth(110);
-            tblNhanVien.getColumnModel().getColumn(2).setPreferredWidth(110);
-            tblNhanVien.getColumnModel().getColumn(2).setMaxWidth(110);
+            tblNhanVien.getColumnModel().getColumn(2).setMinWidth(135);
+            tblNhanVien.getColumnModel().getColumn(2).setPreferredWidth(135);
+            tblNhanVien.getColumnModel().getColumn(2).setMaxWidth(135);
             tblNhanVien.getColumnModel().getColumn(4).setMinWidth(65);
             tblNhanVien.getColumnModel().getColumn(4).setPreferredWidth(65);
             tblNhanVien.getColumnModel().getColumn(4).setMaxWidth(65);
             tblNhanVien.getColumnModel().getColumn(5).setMinWidth(80);
             tblNhanVien.getColumnModel().getColumn(5).setPreferredWidth(80);
             tblNhanVien.getColumnModel().getColumn(5).setMaxWidth(80);
+            tblNhanVien.getColumnModel().getColumn(6).setMinWidth(70);
+            tblNhanVien.getColumnModel().getColumn(6).setPreferredWidth(70);
+            tblNhanVien.getColumnModel().getColumn(6).setMaxWidth(70);
             tblNhanVien.getColumnModel().getColumn(10).setMinWidth(75);
             tblNhanVien.getColumnModel().getColumn(10).setPreferredWidth(75);
             tblNhanVien.getColumnModel().getColumn(10).setMaxWidth(75);
         }
 
-        javax.swing.GroupLayout panelBorder1Layout = new javax.swing.GroupLayout(panelBorder1);
-        panelBorder1.setLayout(panelBorder1Layout);
-        panelBorder1Layout.setHorizontalGroup(
-            panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelBorder1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelBorder1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addContainerGap(749, Short.MAX_VALUE))
-                    .addComponent(spTable, javax.swing.GroupLayout.Alignment.TRAILING)))
-        );
-        panelBorder1Layout.setVerticalGroup(
-            panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelBorder1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addGap(15, 15, 15)
-                .addComponent(spTable, javax.swing.GroupLayout.DEFAULT_SIZE, 619, Short.MAX_VALUE)
-                .addContainerGap())
-        );
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel2.setText("Tìm");
 
-        btnXoa.setBackground(new java.awt.Color(239, 15, 15));
-        btnXoa.setText("Xóa");
-        btnXoa.addActionListener(new java.awt.event.ActionListener() {
+        txtSearchNhanVien.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtSearchNhanVienKeyReleased(evt);
+            }
+        });
+
+        btnThem.setBackground(new java.awt.Color(14, 243, 221));
+        btnThem.setText("Thêm");
+        btnThem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnXoaActionPerformed(evt);
+                btnThemActionPerformed(evt);
             }
         });
 
@@ -119,42 +113,110 @@ public class NhanVienPnl extends javax.swing.JPanel {
             }
         });
 
-        buttonOutLine1.setBackground(new java.awt.Color(14, 243, 221));
-        buttonOutLine1.setText("Thêm");
-        buttonOutLine1.addActionListener(new java.awt.event.ActionListener() {
+        btnXoa.setBackground(new java.awt.Color(239, 15, 15));
+        btnXoa.setText("Xóa");
+        btnXoa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonOutLine1ActionPerformed(evt);
+                btnXoaActionPerformed(evt);
             }
         });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 179, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 182, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout panelBorder1Layout = new javax.swing.GroupLayout(panelBorder1);
+        panelBorder1.setLayout(panelBorder1Layout);
+        panelBorder1Layout.setHorizontalGroup(
+            panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelBorder1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelBorder1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(panelBorder1Layout.createSequentialGroup()
+                        .addComponent(spTable, javax.swing.GroupLayout.PREFERRED_SIZE, 726, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 164, Short.MAX_VALUE)
+                        .addGroup(panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelBorder1Layout.createSequentialGroup()
+                                .addGroup(panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(panelBorder1Layout.createSequentialGroup()
+                                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(txtSearchNhanVien))
+                                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(121, 121, 121))))))
+        );
+        panelBorder1Layout.setVerticalGroup(
+            panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelBorder1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addGap(15, 15, 15)
+                .addGroup(panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelBorder1Layout.createSequentialGroup()
+                        .addGroup(panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE, false)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtSearchNhanVien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addComponent(spTable, javax.swing.GroupLayout.DEFAULT_SIZE, 688, Short.MAX_VALUE)))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(buttonOutLine1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(39, 39, 39))
-                    .addComponent(panelBorder1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(panelBorder1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(0, 0, 0))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(panelBorder1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(buttonOutLine1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addComponent(panelBorder1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
     private ThemNvDialog themNvDialog = null;
@@ -260,7 +322,7 @@ public class NhanVienPnl extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnSuaActionPerformed
 
-    private void buttonOutLine1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonOutLine1ActionPerformed
+    private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         if (themNvDialog == null) {
             themNvDialog = new ThemNvDialog(null,true);
             themNvDialog.btnLuu.setVisible(false);
@@ -307,7 +369,13 @@ public class NhanVienPnl extends javax.swing.JPanel {
         model.addAll(nhanVienController.getChucVu());
         model.setSelectedItem(chucVus.get(0));
         themNvDialog.setVisible(true);
-    }//GEN-LAST:event_buttonOutLine1ActionPerformed
+    }//GEN-LAST:event_btnThemActionPerformed
+
+    private void txtSearchNhanVienKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchNhanVienKeyReleased
+        String tenNhanVien = txtSearchNhanVien.getText();
+        List<Object[]> data = nhanVienController.searchNhanVien(tenNhanVien);
+        viewTableStaff(data);
+    }//GEN-LAST:event_txtSearchNhanVienKeyReleased
     
     public void viewTableStaff(List<Object[]> data) {
         DefaultTableModel model = (DefaultTableModel) tblNhanVien.getModel();      
@@ -324,11 +392,15 @@ public class NhanVienPnl extends javax.swing.JPanel {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private swing.ButtonOutLine btnSua;
+    private swing.ButtonOutLine btnThem;
     private swing.ButtonOutLine btnXoa;
-    private swing.ButtonOutLine buttonOutLine1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private swing.PanelBorder panelBorder1;
     private javax.swing.JScrollPane spTable;
     private swing.Table tblNhanVien;
+    private javax.swing.JTextField txtSearchNhanVien;
     // End of variables declaration//GEN-END:variables
 }
