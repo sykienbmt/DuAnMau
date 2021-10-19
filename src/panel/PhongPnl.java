@@ -10,7 +10,6 @@ import controller.PhongController;
 import dialog.ThanhToan;
 import java.awt.Button;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.event.KeyAdapter;
@@ -26,7 +25,6 @@ import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import model.DanhMuc;
 import model.Phong;
@@ -43,8 +41,7 @@ public class PhongPnl extends javax.swing.JPanel {
     private cbbHinhThucThueDAO hinhThucThueDAO;
     private Button button;
     private boolean isCMND = false;
-    int phongHienTai =UNDEFINED_CONDITION;
-    
+    int phongHienTai =UNDEFINED_CONDITION;  
     
     public PhongPnl() {
         initComponents();
@@ -70,11 +67,7 @@ public class PhongPnl extends javax.swing.JPanel {
         spTableDichVu.setVerticalScrollBar(new ScrollBar());
         spTableDichVu.getVerticalScrollBar().setBackground(Color.WHITE);
         spTableDichVu.getViewport().setBackground(Color.WHITE);
-        spTableDichVu.setCorner(JScrollPane.UPPER_RIGHT_CORNER, p);
-        
-        
-        
-        
+        spTableDichVu.setCorner(JScrollPane.UPPER_RIGHT_CORNER, p);    
     }
 
     private void init() {
@@ -82,8 +75,7 @@ public class PhongPnl extends javax.swing.JPanel {
         jScrollPane1.setVerticalScrollBar(new ScrollBar());    
         panel.revalidate();
         panel.repaint(); 
-    }
-    
+    }   
     
     public void viewListDanhMuc() {
         DefaultListModel<DanhMuc> listDanhMuc = new DefaultListModel<DanhMuc>();
@@ -147,7 +139,6 @@ public class PhongPnl extends javax.swing.JPanel {
                         lbTenNhanVien.setText(ptp.get(0)[8].toString());
                         txtSoNguoi.setText(ptp.get(0)[9].toString());
                         cbbHinhThucThue.getModel().setSelectedItem(ptp.get(0)[11].toString());
-//                        System.out.println(ptp.get(0)[11].toString());
                     }else{
                         btnThemDichVu.setEnabled(false);
                         btnTruDichVu.setEnabled(false);
@@ -788,7 +779,7 @@ public class PhongPnl extends javax.swing.JPanel {
     private void btnThueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThueActionPerformed
         Timestamp ngayDat = null;
         Date date = new Date();         
-        ngayDat=new Timestamp(date.getTime());       
+        ngayDat=new Timestamp(date.getTime());
         String tenKhach = txtTenKhach.getText();
         String hoChieu ="";
         if(!txtHoChieu.getText().equals("")){
@@ -806,7 +797,7 @@ public class PhongPnl extends javax.swing.JPanel {
             khacHangController.insert(0,cmnd, tenKhach, diaChi, hoChieu, sdt);
         }      
         phieuThuePhongController.insert(0, phongHienTai, 1, cmnd, soNguoi, ngayDat, null, hinhThucThue);
-        button.setBackground(new Color(255,51,0));
+        button.setBackground(new Color(255,51,0));      
     }//GEN-LAST:event_btnThueActionPerformed
 
     private void btnThemDichVuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemDichVuActionPerformed
@@ -869,7 +860,6 @@ public class PhongPnl extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_txtCMNDKeyReleased
 
-    
     boolean click = false;
     Double tongTien=0.0;
     private void btnKetToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKetToanActionPerformed
