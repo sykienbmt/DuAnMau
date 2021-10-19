@@ -18,8 +18,9 @@ public class DichVuDAO extends AbsDAO<DichVu>{
     }
     
     public List<Object[]> showDichVu(){
-        return getRawValues("select tenDichVu,gia,tenDonVi,tenDanhMuc from DichVu dv join DanhMuc dm on dv.idDanhMuc=dm.idDanhMuc join donViTinh dvt on dv.idDonVi=dvt.idDonVi");
+        return getRawValues("select dv.idDichVu,tenDichVu,gia,tenDonVi,tenDanhMuc from DichVu dv join DanhMuc dm on dv.idDanhMuc=dm.idDanhMuc join donViTinh dvt on dv.idDonVi=dvt.idDonVi");
     }
+    
     
     
 //    public List<Phong> getListPhong() {

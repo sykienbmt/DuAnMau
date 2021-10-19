@@ -1,5 +1,6 @@
 package panel;
 
+import DAO.DichVuDAO;
 import component.Card;
 import controller.QlDichVuController;
 import java.util.List;
@@ -32,9 +33,15 @@ public class ProductPnl extends javax.swing.JPanel {
         panel.add(new Card(new Model_Card(new ImageIcon(getClass().getResource("/icon/sp5.jpg")), "7UP", "Nước ngọt\n10000đ")));
         panel.add(new Card(new Model_Card(new ImageIcon(getClass().getResource("/icon/sp4.jpg")), "Swing", "Bim bim\n5000đ")));
         
-        List<Object[]> data=qlDichVuController.showDichVu();
-        for (Object[] objects : data) {
-            System.out.println(objects.toString());
+//        List<Object[]> data=qlDichVuController.showDichVu();
+
+        DichVuDAO dichVuDAO= new DichVuDAO();
+        List<Object[]> data = dichVuDAO.showDichVu();
+        
+        
+        for(int i =0;i<data.size();i++){
+            panel.add(new Card(new Model_Card(new ImageIcon(getClass().getResource("/icon/sp.jpg")), data.get(i)[1].toString(),data.get(i)[4].toString()+ "\n"+data.get(i)[2].toString())));
+            
         }
         
         panel.revalidate();

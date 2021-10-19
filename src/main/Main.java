@@ -48,6 +48,7 @@ public class Main extends javax.swing.JFrame {
         DichVuController dichVuController = new DichVuController(phongPnl);
         PhieuThuePhongController phieuThuePhongController = new PhieuThuePhongController(phongPnl);
         KhacHangController khacHangController = new KhacHangController(phongPnl);
+        productPnl= new ProductPnl();
         QlDichVuController qlDichVuController = new QlDichVuController(productPnl);
     }
     
