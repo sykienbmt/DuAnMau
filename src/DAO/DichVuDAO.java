@@ -17,6 +17,9 @@ public class DichVuDAO extends AbsDAO<DichVu>{
                             + "join donViTinh c on c.idDonVi = a.idDonVi where tenDichVu like N'%"+tenDanhMuc+"%'");
     }
     
+    public List<Object[]> showDichVu(){
+        return getRawValues("select tenDichVu,gia,tenDonVi,tenDanhMuc from DichVu dv join DanhMuc dm on dv.idDanhMuc=dm.idDanhMuc join donViTinh dvt on dv.idDonVi=dvt.idDonVi");
+    }
     
     
 //    public List<Phong> getListPhong() {

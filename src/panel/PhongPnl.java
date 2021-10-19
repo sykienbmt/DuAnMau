@@ -269,9 +269,7 @@ public class PhongPnl extends javax.swing.JPanel {
         jLabel23 = new javax.swing.JLabel();
         txtTongTien = new javax.swing.JTextField();
         jLabel24 = new javax.swing.JLabel();
-        jLabel25 = new javax.swing.JLabel();
         txtTienKhachDua = new javax.swing.JTextField();
-        txtTienTraLai = new javax.swing.JTextField();
         spTableListDichVu = new javax.swing.JScrollPane();
         tblListDichVu = new javax.swing.JTable();
         jPanel6 = new javax.swing.JPanel();
@@ -468,11 +466,13 @@ public class PhongPnl extends javax.swing.JPanel {
 
         jLabel21.setText("Giá phòng: ");
 
+        txtTienPhong.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         txtTienPhong.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txtTienPhong.setText("0");
 
         jLabel22.setText("Giá dịch vụ: ");
 
+        txtTienDichVu.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         txtTienDichVu.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txtTienDichVu.setText("0");
 
@@ -484,15 +484,11 @@ public class PhongPnl extends javax.swing.JPanel {
         txtTongTien.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txtTongTien.setText("0");
 
-        jLabel24.setText("Khách đưa:");
+        jLabel24.setText("Phụ Thu");
 
-        jLabel25.setText("Trả lại: ");
-
+        txtTienKhachDua.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         txtTienKhachDua.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txtTienKhachDua.setText("0");
-
-        txtTienTraLai.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        txtTienTraLai.setText("0");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -515,13 +511,9 @@ public class PhongPnl extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel24, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel25, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jLabel24)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtTienKhachDua)
-                            .addComponent(txtTienTraLai)))
+                        .addComponent(txtTienKhachDua, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE))
                     .addComponent(txtTongTien))
                 .addContainerGap())
         );
@@ -537,9 +529,7 @@ public class PhongPnl extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel22)
-                    .addComponent(txtTienDichVu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel25)
-                    .addComponent(txtTienTraLai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtTienDichVu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtTongTien, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -982,7 +972,6 @@ public class PhongPnl extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
@@ -1019,7 +1008,6 @@ public class PhongPnl extends javax.swing.JPanel {
     private javax.swing.JTextField txtTienDichVu;
     private javax.swing.JTextField txtTienKhachDua;
     private javax.swing.JTextField txtTienPhong;
-    private javax.swing.JTextField txtTienTraLai;
     private javax.swing.JTextField txtTimDichVu;
     private javax.swing.JTextField txtTongTien;
     // End of variables declaration//GEN-END:variables
