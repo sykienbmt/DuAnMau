@@ -9,6 +9,11 @@ public class NhanVienDAO extends AbsDAO<NhanVien>{
                             "CONVERT(nvarchar,NgayVaoLam,105)as ngayVaoLam,trangThai from NhanVien a join ChucVu b on a.idChucVu = b.idChucVu ");
     }
     
+    public List<Object[]> searchNhanVien(String tenNhanVien) {
+        return getRawValues("select idNhanVien,ten,email,sdt,sex,luong,tenChucVu,diaChi,ngaySinh,ngayVaoLam,trangThai from NhanVien a "
+                            + "join ChucVu b on a.idChucVu = b.idChucVu where ten like N'%"+tenNhanVien+"%'");
+    }
+    
 //    public List<Object[]> updateDataStaff() {
 //        return getRawValues("update NhanVien set TenNhanVien=?,DiaChi=?,SoDienThoai=?,GioiTinh=?,ChucVu=?,NgaySinh=?,"
 //                            + "NgayVaoLam=?,Luong=?,HinhAnh=?,Email where MaNhanVien=?");

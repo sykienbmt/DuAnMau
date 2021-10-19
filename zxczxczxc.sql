@@ -145,6 +145,28 @@ insert into ChucVu values (N'Kế toán')
 
 insert into NhanVien values (N'Anh','anh@gmail.com','0941790508',N'Nam',100000,1,N'VN','08-08-1997','12-12-2020','ON')
 insert into NhanVien values (N'Kien','kien@gmail.com','0941790508',N'Nam',100000,1,N'VN','08-08-1997','12-12-2020','ON')
+insert into NhanVien values (N'Hiếu Trần','hieu@gmail.com','0921536235',N'Nam',3000,3,N'VN','08-08-1997','12-12-2020','ON')
+insert into NhanVien values (N'Hiếu Trần','hieu@gmail.com','0921536235',N'Nam',3000,3,N'VN','08-08-1997','12-12-2020','ON')
+insert into NhanVien values (N'Hiếu Trần','hieu@gmail.com','0921536235',N'Nam',3000,3,N'VN','08-08-1997','12-12-2020','ON')
+insert into NhanVien values (N'Hiếu Trần','hieu@gmail.com','0921536235',N'Nam',3000,3,N'VN','08-08-1997','12-12-2020','ON')
+insert into NhanVien values (N'Hiếu Trần','hieu@gmail.com','0921536235',N'Nam',3000,3,N'VN','08-08-1997','12-12-2020','ON')
+insert into NhanVien values (N'Hiếu Trần','hieu@gmail.com','0921536235',N'Nam',3000,3,N'VN','08-08-1997','12-12-2020','ON')
+insert into NhanVien values (N'Hiếu Trần','hieu@gmail.com','0921536235',N'Nam',3000,3,N'VN','08-08-1997','12-12-2020','ON')
+insert into NhanVien values (N'Hiếu Trần','hieu@gmail.com','0921536235',N'Nam',3000,3,N'VN','08-08-1997','12-12-2020','ON')
+insert into NhanVien values (N'Hiếu Trần','hieu@gmail.com','0921536235',N'Nam',3000,3,N'VN','08-08-1997','12-12-2020','ON')
+insert into NhanVien values (N'Hiếu Trần','hieu@gmail.com','0921536235',N'Nam',3000,3,N'VN','08-08-1997','12-12-2020','ON')
+insert into NhanVien values (N'Hiếu Trần','hieu@gmail.com','0921536235',N'Nam',3000,3,N'VN','08-08-1997','12-12-2020','ON')
+insert into NhanVien values (N'Hiếu Trần','hieu@gmail.com','0921536235',N'Nam',3000,3,N'VN','08-08-1997','12-12-2020','ON')
+insert into NhanVien values (N'Hiếu Trần','hieu@gmail.com','0921536235',N'Nam',3000,3,N'VN','08-08-1997','12-12-2020','ON')
+insert into NhanVien values (N'Hiếu Trần','hieu@gmail.com','0921536235',N'Nam',3000,3,N'VN','08-08-1997','12-12-2020','ON')
+insert into NhanVien values (N'Hiếu Trần','hieu@gmail.com','0921536235',N'Nam',3000,3,N'VN','08-08-1997','12-12-2020','ON')
+insert into NhanVien values (N'Hiếu Trần','hieu@gmail.com','0921536235',N'Nam',3000,3,N'VN','08-08-1997','12-12-2020','ON')
+insert into NhanVien values (N'Hiếu Trần','hieu@gmail.com','0921536235',N'Nam',3000,3,N'VN','08-08-1997','12-12-2020','ON')
+insert into NhanVien values (N'Hiếu Trần','hieu@gmail.com','0921536235',N'Nam',3000,3,N'VN','08-08-1997','12-12-2020','ON')
+insert into NhanVien values (N'Hiếu Trần','hieu@gmail.com','0921536235',N'Nam',3000,3,N'VN','08-08-1997','12-12-2020','ON')
+insert into NhanVien values (N'Hiếu Trần','hieu@gmail.com','0921536235',N'Nam',3000,3,N'VN','08-08-1997','12-12-2020','ON')
+insert into NhanVien values (N'Hiếu Trần','hieu@gmail.com','0921536235',N'Nam',3000,3,N'VN','08-08-1997','12-12-2020','ON')
+insert into NhanVien values (N'Hiếu Trần','hieu@gmail.com','0921536235',N'Nam',3000,3,N'VN','08-08-1997','12-12-2020','ON')
 
 
 select idNhanVien,ten,email,sdt,sex,CAST(Luong as decimal(15,0)) as Luong,b.tenChucVu,diaChi,CONVERT(nvarchar,NgaySinh,105) as ngaySinh,
@@ -172,3 +194,5 @@ select idHoaDonDichVu from hoaDonDichVu where idPhong =3 and trangthai=1
 select idDichVu,tenDichVu,tenDonVi,gia from DichVu a join DanhMuc b on a.idDanhMuc = b.idDanhMuc join donViTinh c on c.idDonVi = a.idDonVi
 select idDichVu,tenDichVu,tenDonVi,gia from DichVu a join DanhMuc b on a.idDanhMuc = b.idDanhMuc join donViTinh c on c.idDonVi = a.idDonVi where b.idDanhMuc =2
 select idDichVu,tenDichVu,tenDonVi,gia from DichVu a join DanhMuc b on a.idDanhMuc = b.idDanhMuc join donViTinh c on c.idDonVi = a.idDonVi where tenDichVu like N'%D%'
+
+select idNhanVien,ten,email,sdt,sex,luong,tenChucVu,diaChi,ngaySinh,ngayVaoLam,trangThai from NhanVien a join ChucVu b on a.idChucVu = b.idChucVu where ten like N'%H%'

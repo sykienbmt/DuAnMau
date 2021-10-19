@@ -24,6 +24,11 @@ public class NhanVienController {
         view.viewTableStaff(nhanViens);
     }
     
+    public List<Object[]> searchNhanVien(String tenNhanVien) {
+        List<Object[]> nhanViens = nhanVienDAO.searchNhanVien(tenNhanVien);
+        return nhanViens;
+    }
+    
     public void insert(String ten, String email, String sdt, String sex, Double luong, int chucVu, String diaChi, java.sql.Date ngaySinh, java.sql.Date ngayVao, String trangThai) {
             NhanVien nhanVien = new NhanVien(0, ten, email, sdt, sex, luong, chucVu, diaChi, ngaySinh, ngayVao, trangThai);
             nhanVienDAO.insert(nhanVien);
@@ -39,15 +44,9 @@ public class NhanVienController {
     public void delete(List<Integer> MaNhanVien) {
         for (Integer integer : MaNhanVien) {
             nhanVienDAO.delete(MaNhanVien);
-        }
-        
+        }        
         loadList();
     }
-//    
-//    public void search(String name){
-//        List<Object[]> staffs =staffDAO.searchByName(name);
-//        view.viewTableStaff(staffs);
-//    }
     
     public NhanVien getByIdNhanVien (Integer id) {
         return nhanVienDAO.getById(id);
