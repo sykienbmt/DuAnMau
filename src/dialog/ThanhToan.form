@@ -66,7 +66,7 @@
                       <EmptySpace max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
                           <Component id="jButton3" alignment="1" pref="162" max="32767" attributes="0"/>
-                          <Component id="jButton2" alignment="1" max="32767" attributes="0"/>
+                          <Component id="btnThanhToanDone" alignment="1" max="32767" attributes="0"/>
                           <Component id="jButton5" alignment="1" max="32767" attributes="0"/>
                       </Group>
                   </Group>
@@ -103,7 +103,7 @@
                   <Component id="jLabel5" alignment="0" min="-2" pref="23" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="jButton2" min="-2" max="-2" attributes="0"/>
+              <Component id="btnThanhToanDone" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="jButton3" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -196,12 +196,12 @@
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton2">
+    <Component class="javax.swing.JButton" name="btnThanhToanDone">
       <Properties>
         <Property name="text" type="java.lang.String" value="Thanh to&#xe1;n v&#xe0; In"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnThanhToanDoneActionPerformed"/>
       </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>

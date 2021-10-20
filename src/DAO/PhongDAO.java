@@ -71,7 +71,15 @@ public class PhongDAO extends AbsDAO<Phong>{
     
 
     //set trang thai phong tra tien
-    public void offPhieuThuePhong(int idPhong){
-        
+    public void offPhieuThuePhong(int idPhieuThue){
+        Timestamp timeNow = new Timestamp(new Date().getTime());
+        String query = "update phieuThuePhong set ngayDi=? where idPhieuThue =?";
+        DBConnection.executeQuery(query, timeNow,idPhieuThue);
+    }
+    
+    //set tiền dịch vụ vào phiếu dịch vụ
+    public void updateTienDichVu(Double tongTien,int idHoaDonDichVu){
+        String query = "update HoaDonDichVu set tongTien = ? where idHoaDonDichVu =?";
+        DBConnection.executeUpdate(query,tongTien,idHoaDonDichVu);
     }
 }

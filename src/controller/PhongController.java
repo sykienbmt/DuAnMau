@@ -85,4 +85,14 @@ public class PhongController {
     public List<Object[]> getIdHinhThucThue(int idPhong){
         return phongDAO.idHinhThucThue(idPhong);
     }
+    
+    //off phieu thue phong
+    public void offPhieuThuePhong(int idPhieuThue){
+        phongDAO.offPhieuThuePhong(idPhieuThue);
+    }
+    
+    //update tienDichVu
+    public void updateTienHoaDonDV(Double tien , int idHoaDon){
+        phongDAO.updateTienDichVu(tien, idHoaDon);
+    }
 }

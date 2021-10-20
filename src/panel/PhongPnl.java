@@ -941,6 +941,11 @@ public class PhongPnl extends javax.swing.JPanel {
             tienDichVu+= Double.parseDouble(tblListDichVu.getValueAt(i, 5).toString());
         }
         System.out.println("Tiền dịch vụ là: " +tienDichVu);
+        
+        //update lại tiền dịch vụ
+        List <Object[]> data2 = phongController.layIdHoaDonDichVu(phongHienTai);
+        phongController.updateTienHoaDonDV(tienDichVu,(Integer.valueOf(data2.get(0)[0].toString())));
+        
         txtTienDichVu.setText(tienDichVu.toString());
         tongTien = tienDichVu+tienPhong;
         txtTongTien.setText(tongTien.toString());
@@ -959,9 +964,18 @@ public class PhongPnl extends javax.swing.JPanel {
                 public void keyReleased(KeyEvent e) {
                     Double traLai  = Double.parseDouble(tt.jTextField2.getText())-tongTien;
                     tt.jTextField3.setText(traLai.toString());
+                    
                 }
             });
             
+            tt.btnThanhToanDone.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mousePressed(MouseEvent e) {
+                    System.out.println("Thanh toán");
+//                    phongController.updateTinhTrangPhong("Phòng trống", phongHienTai);
+                    
+                    
+                }});
             tt.setLocationRelativeTo(null);
             tt.setVisible(true);
         }else{
