@@ -82,4 +82,9 @@ public class PhongDAO extends AbsDAO<Phong>{
         String query = "update HoaDonDichVu set tongTien = ? where idHoaDonDichVu =?";
         DBConnection.executeUpdate(query,tongTien,idHoaDonDichVu);
     }
+    
+    //off hoá đơn dịch vụ
+    public void offHoaDonDichVu(int idPhong){
+        String query = "update HoaDonDichVu set trangThai=0 where id";
+    }
 }

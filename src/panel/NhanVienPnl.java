@@ -605,18 +605,7 @@ public class NhanVienPnl extends javax.swing.JPanel {
         ImageIcon imageIcon = new ImageIcon(new ImageIcon(img).getImage().getScaledInstance(lblImage.getWidth(), lblImage.getHeight(), Image.SCALE_SMOOTH));
         lblImage.setIcon(imageIcon);
         
-        if (guiMail == null) {
-            guiMail = new GuiMail(null,true);
-            int[] vt = tblNhanVien.getSelectedRows();
-            String email = "";
-            for (int i = vt.length-1; i >= 0; i--) {
-                email += tblNhanVien.getValueAt(vt[i], 2) + ",";
-            }
-            System.out.println(email);
-            //email.add((String) tblNhanVien.getValueAt(vt[i], 2));
-            //guiMail.txtNguoiNhan.setText(nv.getEmail());
-//            (String) tblNhanVien.getValueAt(vt[i], 2)
-        }
+        
     }//GEN-LAST:event_tblNhanVienMouseClicked
 
     private void lblImageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblImageMouseClicked
@@ -652,12 +641,23 @@ public class NhanVienPnl extends javax.swing.JPanel {
 
     private void btnEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmailActionPerformed
         int chonDong = tblNhanVien.getSelectedRow();
+        int[] vt = tblNhanVien.getSelectedRows();
+        String sendMails ="";
         if (chonDong == -1) {
             JOptionPane.showMessageDialog(this, "Chọn nhân viên cần gửi !!!","Thông báo", JOptionPane.ERROR_MESSAGE);
         } else {
+            if(vt.length>1){
+                for (int i = vt.length-1; i >= 0; i--) {
+                    sendMails += tblNhanVien.getValueAt(vt[i], 2) + ",";
+                }
+                sendMails= sendMails.substring(0, sendMails.length()-1);
+            }else{
+                sendMails +=tblNhanVien.getValueAt(chonDong, 2).toString();
+            }
+            
             if (guiMail == null) {
                 guiMail = new GuiMail(null,true);          
-
+                guiMail.txtNguoiNhan.setText(sendMails);
                 guiMail.btnChonFile.addActionListener(new AbstractAction() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
@@ -733,6 +733,7 @@ public class NhanVienPnl extends javax.swing.JPanel {
                 });
             }
             guiMail.setVisible(true);
+            guiMail=null;
         }        
     }//GEN-LAST:event_btnEmailActionPerformed
 
