@@ -2,7 +2,7 @@ package panel;
 
 import DAO.DanhMucDAO;
 import DAO.cbbHinhThucThueDAO;
-import connect.DBConnection;
+import helper.DBConnection;
 import controller.DichVuController;
 import controller.KhacHangController;
 import controller.PhieuThuePhongController;

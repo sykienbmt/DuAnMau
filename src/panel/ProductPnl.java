@@ -2,7 +2,7 @@ package panel;
 
 import DAO.DichVuDAO;
 import component.Card;
-import connect.SaveImageSQL;
+import helper.SaveImageSQL;
 import controller.QlDichVuController;
 import java.awt.Image;
 import java.io.File;
