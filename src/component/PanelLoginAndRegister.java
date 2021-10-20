@@ -1,6 +1,6 @@
 package component;
 
-import connect.DBConnection;
+import helper.DBConnection;
 import main.Main;
 import swing.Button;
 import swing.MyPasswordField;

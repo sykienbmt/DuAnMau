@@ -14,11 +14,12 @@ public class NhanVien extends AbsTable{
     private java.sql.Date ngaySinh;
     private java.sql.Date ngayVaoLam;
     private String trangThai;
+    private byte[] hinhAnh;
 
     public NhanVien() {
     }
 
-    public NhanVien(Integer idNhanVien, String ten, String email, String sdt, String sex, Double luong, Integer idChucVu, String diaChi, Date ngaySinh, Date ngayVaoLam, String trangThai) {
+    public NhanVien(Integer idNhanVien, String ten, String email, String sdt, String sex, Double luong, Integer idChucVu, String diaChi, Date ngaySinh, Date ngayVaoLam, String trangThai, byte[] hinhAnh) {
         this.idNhanVien = idNhanVien;
         this.ten = ten;
         this.email = email;
@@ -30,6 +31,7 @@ public class NhanVien extends AbsTable{
         this.ngaySinh = ngaySinh;
         this.ngayVaoLam = ngayVaoLam;
         this.trangThai = trangThai;
+        this.hinhAnh = hinhAnh;
     }
 
     public Integer getIdNhanVien() {
@@ -119,6 +121,16 @@ public class NhanVien extends AbsTable{
     public void setTrangThai(String trangThai) {
         this.trangThai = trangThai;
     }
+
+    public byte[] getHinhAnh() {
+        return hinhAnh;
+    }
+
+    public void setHinhAnh(byte[] hinhAnh) {
+        this.hinhAnh = hinhAnh;
+    }
+
+    
 
     @Override
     public int getId() {

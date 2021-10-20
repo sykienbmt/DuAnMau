@@ -1,6 +1,6 @@
 package DAO;
 
-import connect.DBConnection;
+import helper.DBConnection;
 import java.util.Date;
 import java.util.List;
 import model.Phong;

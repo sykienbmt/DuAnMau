@@ -1,6 +1,6 @@
 package DAO;
 
-import connect.DBConnection;
+import helper.DBConnection;
 import model.AbsTable;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;

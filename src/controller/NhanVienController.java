@@ -12,8 +12,9 @@ public class NhanVienController {
     
     public NhanVienController(NhanVienPnl view) {
         this.view = view;
-        loadList();
+        loadList();        
         view.setController(this);
+        view.FillDataComboBox();
     }
     
     ChucVuDAO cvDAO = new ChucVuDAO();
@@ -29,14 +30,14 @@ public class NhanVienController {
         return nhanViens;
     }
     
-    public void insert(String ten, String email, String sdt, String sex, Double luong, int chucVu, String diaChi, java.sql.Date ngaySinh, java.sql.Date ngayVao, String trangThai) {
-            NhanVien nhanVien = new NhanVien(0, ten, email, sdt, sex, luong, chucVu, diaChi, ngaySinh, ngayVao, trangThai);
+    public void insert(String ten, String email, String sdt, String sex, Double luong, int chucVu, String diaChi, java.sql.Date ngaySinh, java.sql.Date ngayVao, String trangThai, byte[] hinhAnh) {
+            NhanVien nhanVien = new NhanVien(0, ten, email, sdt, sex, luong, chucVu, diaChi, ngaySinh, ngayVao, trangThai, hinhAnh);
             nhanVienDAO.insert(nhanVien);
             loadList();
     }
      
-    public void update(int idNhanVien,String ten, String email, String sdt, String sex, Double luong, int chucVu, String diaChi, java.sql.Date ngaySinh, java.sql.Date ngayVao, String trangThai) {
-            NhanVien nhanVien = new NhanVien(idNhanVien, ten, email, sdt, sex, luong, chucVu, diaChi, ngaySinh, ngayVao, trangThai);
+    public void update(int idNhanVien,String ten, String email, String sdt, String sex, Double luong, int chucVu, String diaChi, java.sql.Date ngaySinh, java.sql.Date ngayVao, String trangThai,byte[] hinhAnh) {
+            NhanVien nhanVien = new NhanVien(idNhanVien, ten, email, sdt, sex, luong, chucVu, diaChi, ngaySinh, ngayVao, trangThai, hinhAnh);
             nhanVienDAO.edit(nhanVien);
             loadList();
     }  
