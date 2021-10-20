@@ -45,7 +45,7 @@ public class TextInput extends JTextField{
     public TextInput() {
         setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 10, 5, 5));
         setBackground(new Color(0, 0, 0, 0));
-        setForeground(Color.decode("#7A8C8D"));
+        setForeground(Color.decode("#B7950B"));
         setFont(new java.awt.Font("sansserif", 0, 14));
         setSelectionColor(new Color(75, 175, 152));
     }

@@ -6,6 +6,8 @@ public class GuiMail extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
+        txtNguoiGui.setEditable(false);
+        txtMatKhau.setEditable(false);
     }
 
     /**
@@ -71,6 +73,8 @@ public class GuiMail extends javax.swing.JDialog {
         jLabel6.setText("Người nhận");
         panelCoverDialog2.add(jLabel6);
         jLabel6.setBounds(10, 140, 70, 30);
+
+        txtNguoiNhan.setText("anhttpk01720@fpt.edu.vn");
         panelCoverDialog2.add(txtNguoiNhan);
         txtNguoiNhan.setBounds(90, 140, 220, 29);
 

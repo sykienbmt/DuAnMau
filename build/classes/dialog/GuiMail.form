@@ -139,6 +139,9 @@
           </Constraints>
         </Component>
         <Component class="swing.TextInput" name="txtNguoiNhan">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="anhttpk01720@fpt.edu.vn"/>
+          </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
           </AuxValues>
