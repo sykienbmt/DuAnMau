@@ -52,7 +52,7 @@ public class ProductPnl extends javax.swing.JPanel {
             DichVu dv= dichVuDAO.getById(Integer.parseInt(data.get(i)[0].toString()));
             byte[] img = (byte[]) dv.getAnhSanPham();
             personalImage=img;
-            System.out.println(personalImage);
+//            System.out.println(personalImage);
             panel.add(new Card(new Model_Card(new ImageIcon(getClass().getResource("/icon/sp.jpg")), data.get(i)[1].toString(),data.get(i)[4].toString()+ "\n"+data.get(i)[2].toString())));
             
         }
