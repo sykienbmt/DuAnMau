@@ -64,13 +64,13 @@ public class PhongController {
     public List<Object[]> getGiaPhong(int idPhong){
         return phongDAO.getGiaPhong(idPhong);
     }
-    public void updateTinhTrangPhong(int idPhong) {
-        phongDAO.updateTinhTrangPhong(idPhong);
+    public void updateTinhTrangPhong(String trangThai,int idPhong) {
+        phongDAO.updateTinhTrangPhong(trangThai,idPhong);
     }
     
     public void update(int idPhong,int idLoaiPhong,String tenPhong, String soKhach, java.sql.Date ngayDat, String trangThai) {
-            Phong phong = new Phong(idPhong, idLoaiPhong, tenPhong, soKhach, ngayDat, trangThai);
-            phongDAO.edit(phong);
+        Phong phong = new Phong(idPhong, idLoaiPhong, tenPhong, soKhach, ngayDat, trangThai);
+        phongDAO.edit(phong);
     }  
     
     public Phong getByIdPhong (Integer id) {
