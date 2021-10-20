@@ -4,19 +4,30 @@ import controller.NhanVienController;
 import dialog.ThemNvDialog;
 import swing.ScrollBar;
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.swing.AbstractAction;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 import model.ChucVu;
 import model.NhanVien;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class NhanVienPnl extends javax.swing.JPanel {
     private NhanVienController nhanVienController;
@@ -209,6 +220,11 @@ public class NhanVienPnl extends javax.swing.JPanel {
         textInput1.setText("textInput1");
 
         jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelBorder1Layout = new javax.swing.GroupLayout(panelBorder1);
         panelBorder1.setLayout(panelBorder1Layout);
@@ -521,6 +537,61 @@ public class NhanVienPnl extends javax.swing.JPanel {
         List<Object[]> data = nhanVienController.searchNhanVien(tenNhanVien);
         viewTableStaff(data);
     }//GEN-LAST:event_txtSearchNhanVienKeyReleased
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try{
+            JFileChooser jFileChooser = new JFileChooser();
+            jFileChooser.showSaveDialog(this);
+            File saveFile = jFileChooser.getSelectedFile();
+           
+            if(saveFile != null){
+                saveFile = new File(saveFile.toString()+".xlsx");
+                Workbook wb = new XSSFWorkbook();
+                Sheet sheet = wb.createSheet("customer");
+
+                Row rowCol = sheet.createRow(0);
+                for(int i=0;i<tblNhanVien.getColumnCount();i++){
+                    Cell cell = rowCol.createCell(i);
+                    cell.setCellValue(tblNhanVien.getColumnName(i));
+                }
+               
+                for(int j=0;j<tblNhanVien.getRowCount();j++){
+                    Row row = sheet.createRow(j+1);
+                    for(int k=0;k<tblNhanVien.getColumnCount();k++){
+                        Cell cell = row.createCell(k);
+                        if(tblNhanVien.getValueAt(j, k)!=null){
+                            cell.setCellValue(tblNhanVien.getValueAt(j, k).toString());
+                        }
+                    }
+                }
+                FileOutputStream out = new FileOutputStream(new File(saveFile.toString()));
+                wb.write(out);
+                wb.close();
+                out.close();
+                int clickLuu = JOptionPane.showConfirmDialog(new Frame(),"Bạn có muốn mở file vừa xuất ?", "Thông báo",JOptionPane.YES_NO_OPTION);
+                if (clickLuu == JOptionPane.YES_OPTION) {
+                    openFile(saveFile.toString());
+                }
+
+           }else{
+               JOptionPane.showMessageDialog(null,"Error al generar archivo");
+           }
+       }catch(FileNotFoundException e){
+           System.out.println(e);
+       }catch(IOException io){
+           System.out.println(io);
+       }
+    }//GEN-LAST:event_jButton1ActionPerformed
+    
+    public void openFile(String file){
+        try{
+            File path = new File(file);
+            Desktop.getDesktop().open(path);
+        }catch(IOException ioe){
+            System.out.println(ioe);
+        }
+    }
+    
     
     public void viewTableStaff(List<Object[]> data) {
         DefaultTableModel model = (DefaultTableModel) tblNhanVien.getModel();      
