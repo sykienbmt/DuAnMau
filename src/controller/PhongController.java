@@ -12,7 +12,6 @@ public class PhongController {
     
     public PhongController(PhongPnl view) {
         this.view = view;
-        loadList();
         loadListBtnPhong();
         view.setController(this);
     }

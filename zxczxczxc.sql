@@ -186,7 +186,6 @@ select idDichVu,tenDichVu,tenDonVi,gia from DichVu a join donViTinh b on a.idDon
 
 select * from ChiTietDichVu
 
-
 insert into HoaDonDichVu values (3,0,getDate(),'khong')
 
 select idHoaDonDichVu from hoaDonDichVu where idPhong =3 and trangthai=1
@@ -196,3 +195,10 @@ select idDichVu,tenDichVu,tenDonVi,gia from DichVu a join DanhMuc b on a.idDanhM
 select idDichVu,tenDichVu,tenDonVi,gia from DichVu a join DanhMuc b on a.idDanhMuc = b.idDanhMuc join donViTinh c on c.idDonVi = a.idDonVi where tenDichVu like N'%D%'
 
 select idNhanVien,ten,email,sdt,sex,luong,tenChucVu,diaChi,ngaySinh,ngayVaoLam,trangThai from NhanVien a join ChucVu b on a.idChucVu = b.idChucVu where ten like N'%H%'
+
+select a.soCMND,soNguoi,a.ngayDat,ngayDi,hinhThucThue,tenKhach,diaChi,soDT,hoChieu from phieuThuePhong a 
+join KhachHang b on a.soCMND = b.soCMND join Phong c on c.idPhong = a.idPhong where a.idPhong = 2 and a.ngayDi is null
+
+select * from Phong 
+select * from KhachHang
+select * from phieuThuePhong
