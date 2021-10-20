@@ -21,4 +21,7 @@ public class PhieuThuePhongController {
         PhieuThuePhong ptp = new PhieuThuePhong(idPhieuThue, idPhong, idNhanVien, soCMND, soNguoi, ngayDat, ngayDi, hinhThucThue);
         ptpDAO.insert(ptp);
     }
+    
+    
+    
 }

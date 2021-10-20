@@ -810,7 +810,7 @@ public class PhongPnl extends javax.swing.JPanel {
         Integer soNguoi =Integer.parseInt(txtSoNguoi.getText());       
         GiaPhong myCbb = (GiaPhong) cbbHinhThucThue.getSelectedItem();
         String hinhThucThue = myCbb.tenHinhThuc();       
-        phongController.updateTinhTrangPhong(phongHienTai);
+        phongController.updateTinhTrangPhong("Đang sử dụng",phongHienTai);
         if (!isCMND) {
             khacHangController.insert(0,cmnd, tenKhach, diaChi, hoChieu, sdt);
         }      
@@ -947,18 +947,21 @@ public class PhongPnl extends javax.swing.JPanel {
     }//GEN-LAST:event_btnKetToanActionPerformed
 
     ThanhToan tt = null;
+    
     private void btnThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToanActionPerformed
         if(click){
             tt = new ThanhToan(null,true);
             tt.jTextField1.setEnabled(false);
             tt.jTextField3.setEnabled(false);
             tt.jTextField1.setText(tongTien.toString());
+            
             tt.jTextField2.addKeyListener(new KeyAdapter(){
                 public void keyReleased(KeyEvent e) {
                     Double traLai  = Double.parseDouble(tt.jTextField2.getText())-tongTien;
                     tt.jTextField3.setText(traLai.toString());
-                  }
+                }
             });
+            
             tt.setLocationRelativeTo(null);
             tt.setVisible(true);
         }else{
