@@ -2,12 +2,14 @@ package panel;
 
 import helper.SaveImageSQL;
 import controller.NhanVienController;
+import dialog.GuiMail;
 import helper.MailSender;
 import swing.ScrollBar;
 import java.awt.Color;
 import java.awt.Desktop;
 import java.awt.Frame;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -24,6 +26,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
+import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -42,6 +45,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 public class NhanVienPnl extends javax.swing.JPanel {
     private NhanVienController nhanVienController;
     private byte[] hinhAnh;
+    private GuiMail guiMail = null;
     
     public NhanVienPnl() {
         initComponents();
@@ -685,52 +689,84 @@ public class NhanVienPnl extends javax.swing.JPanel {
     }//GEN-LAST:event_lblImageMouseClicked
 
     private void btnEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmailActionPerformed
-//        MailSender mail = new MailSender();
-//        Properties prop = new Properties();
-//        prop.put("mail.smtp.host", "smtp.gmail.com");
-//        prop.put("mail.smtp.port", "587");
-//        prop.put("mail.smtp.auth", "true");
-//        prop.put("mail.smtp.starttls.enable", "true");
-//        
-//        Session session = Session.getInstance(prop,
-//            new javax.mail.Authenticator() {
-//                protected PasswordAuthentication getPasswordAuthentication() {
-//                    return new PasswordAuthentication(txtFrom.getText(), new String(txtPass.getPassword()));
-//                }
-//        });        
-//        try {
-//            Message message = new MimeMessage(session);
-//            message.setFrom(new InternetAddress(txtFrom.getText()));
-//            message.setRecipients(
-//                    Message.RecipientType.TO,
-//                    InternetAddress.parse(txtTo.getText())
-//            );
-//            message.setSubject(txtSubject.getText());
-//            message.setText(jxtArea.getText());
-//            
-//            Multipart emailContent = new MimeMultipart();
-//            
-//            MimeBodyPart texBodyPart = new MimeBodyPart();
-//            texBodyPart.setText("cccc");
-//            
-//            MimeBodyPart pdfAtt = new MimeBodyPart();
-//            pdfAtt.attachFile(txtCC.getText());
-//            
-//            emailContent.addBodyPart(texBodyPart);
-//            emailContent.addBodyPart(pdfAtt);
-//
-//            message.setContent(emailContent);
-//            
-//            mail.queue((MimeMessage) message);
-//            
-//            txtCC.setText("");
-//            txtTo.setText("");
-//            txtSubject.setText("");
-//            jxtArea.setText("");
-//        } catch (Exception e) {
-//            JOptionPane.showMessageDialog(this, e.getMessage());
-//            e.printStackTrace();
-//        }
+        if (guiMail == null) {
+            guiMail = new GuiMail(null,true);
+            guiMail.txtNguoiGui.setEditable(false);
+            guiMail.txtMatKhau.setEditable(false);
+
+            guiMail.btnChonFile.addActionListener(new AbstractAction() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    JFileChooser jf = new JFileChooser();
+                    int re = jf.showOpenDialog(null);
+                    if (re == JFileChooser.APPROVE_OPTION){
+                        guiMail.txtCC.setText(jf.getSelectedFile().getPath());
+                        JOptionPane.showMessageDialog(new Frame(), "Get file success !!!");
+                    }
+                }
+            });
+                
+            guiMail.btnGuiMail.addActionListener(new AbstractAction(){
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    int clickThem = JOptionPane.showConfirmDialog(new Frame(),"Bạn có muốn gửi không ?", "Thông báo",JOptionPane.YES_NO_OPTION);
+                    if (clickThem == JOptionPane.YES_OPTION) {
+                        MailSender mail = new MailSender();
+                        Properties prop = new Properties();
+                        prop.put("mail.smtp.host", "smtp.gmail.com");
+                        prop.put("mail.smtp.port", "587");
+                        prop.put("mail.smtp.auth", "true");
+                        prop.put("mail.smtp.starttls.enable", "true");
+                        
+                        final String username = "sikienbmto1@gmail.com";
+                        final String password = "01263500";
+
+                        Session session = Session.getInstance(prop,
+                            new javax.mail.Authenticator() {
+                                @Override
+                                protected PasswordAuthentication getPasswordAuthentication() {
+                                    return new PasswordAuthentication(username, password);
+                                }
+                        });  
+                        try {
+                            Message message = new MimeMessage(session);
+                            message.setFrom(new InternetAddress(guiMail.txtNguoiGui.getText()));
+                            message.setRecipients(
+                                Message.RecipientType.TO,
+                                InternetAddress.parse(guiMail.txtNguoiNhan.getText())
+                            );
+                            message.setSubject(guiMail.txtTieuDe.getText());
+                            message.setText(guiMail.jtaNoiDung.getText());
+
+                            Multipart emailContent = new MimeMultipart();
+
+                            MimeBodyPart texBodyPart = new MimeBodyPart();
+                            texBodyPart.setText("cccc");
+
+                            MimeBodyPart pdfAtt = new MimeBodyPart();
+                            pdfAtt.attachFile(guiMail.txtCC.getText());
+
+                            emailContent.addBodyPart(texBodyPart);
+                            emailContent.addBodyPart(pdfAtt);
+
+                            message.setContent(emailContent);
+
+                            mail.queue((MimeMessage) message);
+
+                            guiMail.txtCC.setText("");
+                            guiMail.txtNguoiNhan.setText("");
+                            guiMail.txtTieuDe.setText("");
+                            guiMail.jtaNoiDung.setText("");
+                        } catch (Exception err) {
+                            JOptionPane.showMessageDialog(new Frame(), err.getMessage());
+                            err.printStackTrace();
+                        }
+                        guiMail.setVisible(false);
+                    }
+                }
+            });
+        }
+        guiMail.setVisible(true);
     }//GEN-LAST:event_btnEmailActionPerformed
     
     public void FillDataComboBox() {

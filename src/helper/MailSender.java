@@ -8,11 +8,6 @@ import javax.mail.internet.MimeMessage;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-
-/**
- *
- * @author Admin
- */
 public class MailSender extends Thread{
     static {
         MailSender sender = new MailSender();
@@ -36,10 +31,9 @@ public class MailSender extends Thread{
                         try {
                             MimeMessage mail = queue.remove(0);
                             Transport.send(mail);
-                            //progressbar 
-                            JOptionPane.showMessageDialog(new JFrame(), "The mail was sent");
+                            JOptionPane.showMessageDialog(new JFrame(), "Đã gửi Email !!!");
                         } catch (MessagingException e) {
-                            JOptionPane.showMessageDialog(new JFrame(), "Unable to send mail");
+                            JOptionPane.showMessageDialog(new JFrame(), "Email không được gửi !!!");
                         }    
                     }else{
                         queue.wait();
