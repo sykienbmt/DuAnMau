@@ -86,6 +86,12 @@ public class PhongController {
         return phongDAO.idHinhThucThue(idPhong);
     }
     
+    //Lấy id Phiếu Thuê Phòng
+    public List<Object[]> getIdPhieuThue(int idPhong){
+        return phongDAO.getIdPhieuThue(idPhong);
+    }
+    
+    
     //off phieu thue phong
     public void offPhieuThuePhong(int idPhieuThue){
         phongDAO.offPhieuThuePhong(idPhieuThue);
@@ -94,5 +100,10 @@ public class PhongController {
     //update tienDichVu
     public void updateTienHoaDonDV(Double tien , int idHoaDon){
         phongDAO.updateTienDichVu(tien, idHoaDon);
+    }
+    
+    //off Hoá đơn dịch vụ
+    public void offHoaDonDichVu(int idPhong){
+        phongDAO.offHoaDonDichVu(idPhong);
     }
 }

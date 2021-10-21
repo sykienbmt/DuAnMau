@@ -69,12 +69,19 @@ public class PhongDAO extends AbsDAO<Phong>{
         return getRawValues("select idLoaiPhong from phong p join loaiphong lp on  where idPhong = "+idPhong+"");
     }
     
+    
+    public List<Object[]> getIdPhieuThue(int idPhong){
+        return getRawValues("select idPhieuThue from phieuThuePhong where idPhong = "+idPhong+" and ngayDi is null");
+    }
 
+    //Tạo hoá đơn tính tiền
+    
+    
     //set trang thai phong tra tien
     public void offPhieuThuePhong(int idPhieuThue){
         Timestamp timeNow = new Timestamp(new Date().getTime());
         String query = "update phieuThuePhong set ngayDi=? where idPhieuThue =?";
-        DBConnection.executeQuery(query, timeNow,idPhieuThue);
+        DBConnection.executeUpdate(query, timeNow,idPhieuThue);
     }
     
     //set tiền dịch vụ vào phiếu dịch vụ
@@ -85,6 +92,7 @@ public class PhongDAO extends AbsDAO<Phong>{
     
     //off hoá đơn dịch vụ
     public void offHoaDonDichVu(int idPhong){
-        String query = "update HoaDonDichVu set trangThai=0 where id";
+        String query = "update HoaDonDichVu set trangThai=0 where idPhong=? and trangthai=1";
+        DBConnection.executeUpdate(query,idPhong);
     }
 }

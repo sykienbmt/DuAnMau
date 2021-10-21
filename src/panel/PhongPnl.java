@@ -4,6 +4,7 @@ import DAO.DanhMucDAO;
 import DAO.cbbHinhThucThueDAO;
 import helper.DBConnection;
 import controller.DichVuController;
+import controller.HoaDonController;
 import controller.KhacHangController;
 import controller.PhieuThuePhongController;
 import controller.PhongController;
@@ -16,6 +17,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import static java.awt.image.ImageObserver.WIDTH;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.util.Date;
@@ -29,12 +31,14 @@ import javax.swing.table.DefaultTableModel;
 import model.DanhMuc;
 import model.Phong;
 import model.GiaPhong;
+import model.HoaDon;
 import swing.ScrollBar;
 import swing.WrapLayout;
 
 public class PhongPnl extends javax.swing.JPanel {
     private KhacHangController khacHangController;
     private PhieuThuePhongController phieuThuePhongController;
+    private HoaDonController hoaDonController;
     private DichVuController dichVuController;
     private PhongController phongController;
     DanhMucDAO danhMucDAO = new DanhMucDAO();
@@ -882,6 +886,8 @@ public class PhongPnl extends javax.swing.JPanel {
 
     boolean click = false;
     Double tongTien=0.0;
+    Double tienPhong = 0.0;
+    Double tienDichVu = 0.0;
     private void btnKetToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKetToanActionPerformed
         List<Object[]> data = phongController.loadDataPhong(phongHienTai);
         click=true;
@@ -898,7 +904,6 @@ public class PhongPnl extends javax.swing.JPanel {
         long thoiGian = now.getTime()-ngayDatDate.getTime();
         System.out.println("Khoảng cách là :" +thoiGian);
         
-        Double tienPhong = 0.0;
         long diffHours = thoiGian / (60 * 60 * 1000);
         if(thoiGian % (60 * 60 * 1000)!=0){
             diffHours+=1;
@@ -933,8 +938,6 @@ public class PhongPnl extends javax.swing.JPanel {
         
         txtTienPhong.setText(tienPhong.toString());
 //        System.out.println("Giá phòng là: "+tienPhong);
-        
-        Double tienDichVu = 0.0;
         
         for(int i=0;i<=tblListDichVu.getRowCount()-1;i++){
             System.out.println(tblListDichVu.getValueAt(i, 5));
@@ -972,8 +975,19 @@ public class PhongPnl extends javax.swing.JPanel {
                 @Override
                 public void mousePressed(MouseEvent e) {
                     System.out.println("Thanh toán");
-//                    phongController.updateTinhTrangPhong("Phòng trống", phongHienTai);
+                    List<Object[]> data2 = phongController.getIdPhieuThue(phongHienTai);
+                    List<Object[]> data3 = phongController.layIdHoaDonDichVu(phongHienTai);
                     
+                    HoaDon hd = new HoaDon(0,(int) data2.get(0)[0],(int) data3.get(0)[0],tienPhong,tienDichVu);
+                    System.out.println(hd.getIdPhieuThue()+"   "+hd.getIdHoaDonDichVu()+"   "+tienPhong+"    "+tienDichVu);
+                    
+                    hoaDonController.insert(0,(int) data2.get(0)[0],(int) data3.get(0)[0],tienPhong,tienDichVu);
+                    
+
+//                    phongController.offPhieuThuePhong((int)data2.get(0)[0]);
+//                    phongController.updateTinhTrangPhong("Phòng trống", phongHienTai);
+//                    phongController.offHoaDonDichVu(phongHienTai);
+
                     
                 }});
             tt.setLocationRelativeTo(null);
