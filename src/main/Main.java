@@ -2,6 +2,7 @@ package main;
 
 import component.Menu;
 import controller.DichVuController;
+import controller.HoaDonController;
 import controller.KhacHangController;
 import controller.NhanVienController;
 import controller.PhieuThuePhongController;
@@ -50,6 +51,7 @@ public class Main extends javax.swing.JFrame {
         KhacHangController khacHangController = new KhacHangController(phongPnl);
         productPnl= new ProductPnl();
         QlDichVuController qlDichVuController = new QlDichVuController(productPnl);
+        HoaDonController hoaDonController = new HoaDonController(phongPnl);
     }
     
     private void init() {

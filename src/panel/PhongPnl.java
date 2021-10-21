@@ -1,6 +1,7 @@
 package panel;
 
 import DAO.DanhMucDAO;
+import DAO.HoaDonDAO;
 import DAO.cbbHinhThucThueDAO;
 import helper.DBConnection;
 import controller.DichVuController;
@@ -232,6 +233,10 @@ public class PhongPnl extends javax.swing.JPanel {
     
     public void setController (KhacHangController khacHangController) {
         this.khacHangController = khacHangController;
+    }
+    
+    public void setController (HoaDonController hoaDonController) {
+        this.hoaDonController = hoaDonController;
     }
     
     public void loadLaiThongTinPhong() {
@@ -953,8 +958,10 @@ public class PhongPnl extends javax.swing.JPanel {
                     
                     HoaDon hd = new HoaDon(0,(int) data2.get(0)[0],(int) data3.get(0)[0],tienPhong,tienDichVu);
                     System.out.println(hd.getIdPhieuThue()+"   "+hd.getIdHoaDonDichVu()+"   "+tienPhong+"    "+tienDichVu);
+//                    HoaDonDAO hdDAO = new HoaDonDAO();
+                    hoaDonController.insert(hd);
                     
-                    hoaDonController.insert(0,(int) data2.get(0)[0],(int) data3.get(0)[0],tienPhong,tienDichVu);                  
+
 //                    phongController.offPhieuThuePhong((int)data2.get(0)[0]);
 //                    phongController.updateTinhTrangPhong("Phòng trống", phongHienTai);
 //                    phongController.offHoaDonDichVu(phongHienTai);                   
