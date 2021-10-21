@@ -921,6 +921,7 @@ public class PhongPnl extends javax.swing.JPanel {
         txtTienDichVu.setText(tienDichVu.toString());
         tongTien = tienDichVu+tienPhong;
         txtTongTien.setText(tongTien.toString());
+        System.out.println("xxx");
     }//GEN-LAST:event_btnKetToanActionPerformed
 
     private void btnThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToanActionPerformed
