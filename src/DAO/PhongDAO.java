@@ -17,7 +17,7 @@ public class PhongDAO extends AbsDAO<Phong>{
     }
     
     public List<Object[]> getThongTinPhong(int idPhong) {
-        return getRawValues("select idPhieuThue,ptp.ngayDat,ngayDi,ptp.soCMND soCMND,kh.diaChi diaChi,hoChieu,soDT,tenKhach,ten tenNv,soNguoi,p.idloaiphong,hinhThucThue from phieuThuePhong ptp \n" +
+        return getRawValues("select idPhieuThue,ptp.ngayDat,ngayDi,ptp.soCMND soCMND,kh.diaChi diaChi,hoChieu,soDT,tenKhach,ten tenNv,soNguoi,p.idloaiphong,hinhThucThue,ptp.idPhong from phieuThuePhong ptp \n" +
                             "join KhachHang kh on kh.soCMND=ptp.soCMND \n" +
                             "join NhanVien nv on nv.idNhanVien=ptp.idNhanVien \n" +
                             "join phong p on p.idphong=ptp.idphong where ptp.idPhong="+idPhong+"");
