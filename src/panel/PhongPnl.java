@@ -20,9 +20,12 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.Hashtable;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
@@ -34,6 +37,12 @@ import model.DanhMuc;
 import model.Phong;
 import model.GiaPhong;
 import model.HoaDon;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JasperViewer;
 import swing.ScrollBar;
 import swing.WrapLayout;
 
@@ -945,16 +954,16 @@ public class PhongPnl extends javax.swing.JPanel {
             tt.btnThanhToanDone.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mousePressed(MouseEvent e) {
-                    System.out.println("Thanh toán");
-                    List<Object[]> data2 = phongController.getIdPhieuThue(phongHienTai);
-                    List<Object[]> data3 = phongController.layIdHoaDonDichVu(phongHienTai);
+//                    System.out.println("Thanh toán");
+//                    List<Object[]> data2 = phongController.getIdPhieuThue(phongHienTai);
+//                    List<Object[]> data3 = phongController.layIdHoaDonDichVu(phongHienTai);
+//                    
+//                    HoaDon hd = new HoaDon(0,(int) data2.get(0)[0],(int) data3.get(0)[0],tienPhong,tienDichVu);
+//                    System.out.println(hd.getIdPhieuThue()+"   "+hd.getIdHoaDonDichVu()+"   "+tienPhong+"    "+tienDichVu);
+////                    HoaDonDAO hdDAO = new HoaDonDAO();
+//                    hoaDonController.insert(hd);
+                    XuatHoaDon();
                     
-                    HoaDon hd = new HoaDon(0,(int) data2.get(0)[0],(int) data3.get(0)[0],tienPhong,tienDichVu);
-                    System.out.println(hd.getIdPhieuThue()+"   "+hd.getIdHoaDonDichVu()+"   "+tienPhong+"    "+tienDichVu);
-//                    HoaDonDAO hdDAO = new HoaDonDAO();
-                    hoaDonController.insert(hd);
-                    
-
 //                    phongController.offPhieuThuePhong((int)data2.get(0)[0]);
 //                    phongController.updateTinhTrangPhong("Phòng trống", phongHienTai);
 //                    phongController.offHoaDonDichVu(phongHienTai);                   
@@ -966,6 +975,23 @@ public class PhongPnl extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnThanhToanActionPerformed
 
+        public void XuatHoaDon(){
+        try {
+            
+            Hashtable map = new Hashtable();
+            JasperReport report = JasperCompileManager.compileReport("src/panel/HoaDon.jrxml");
+            
+            map.put("idHoaDon", 22);
+            Connection connection = DriverManager.getConnection("jdbc:sqlserver://localhost;database=Java;", "sa", "123456");
+            JasperPrint p = JasperFillManager.fillReport(report,  map, connection );
+            JasperViewer.viewReport(p, false);
+            JasperExportManager.exportReportToPdfFile(p, "test.pdf");
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+    
+    
     private void btnMoPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoPhongActionPerformed
         System.out.println("xxx");
         Timestamp ngayDat = null;
