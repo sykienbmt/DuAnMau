@@ -89,8 +89,7 @@ public class PhongController {
     //Lấy id Phiếu Thuê Phòng
     public List<Object[]> getIdPhieuThue(int idPhong){
         return phongDAO.getIdPhieuThue(idPhong);
-    }
-    
+    }    
     
     //off phieu thue phong
     public void offPhieuThuePhong(int idPhieuThue){

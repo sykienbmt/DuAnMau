@@ -56,19 +56,18 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
-                      <Group type="102" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
                           <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="txtTimNhanVien" min="-2" pref="180" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jldTimLuongNv" min="-2" pref="173" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="223" max="-2" attributes="0"/>
                       </Group>
                       <Component id="spTable" min="-2" pref="910" max="-2" attributes="0"/>
                   </Group>
@@ -94,21 +93,27 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtTimNhanVien" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel14" alignment="1" pref="29" max="32767" attributes="0"/>
-                                  <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtTimNhanVien" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel14" alignment="3" pref="29" max="32767" attributes="0"/>
+                                      <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="jldTimLuongNv" min="-2" pref="29" max="-2" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Component id="jldTimLuongNv" min="-2" pref="29" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                              </Group>
                           </Group>
-                          <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace max="32767" attributes="0"/>
                           <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                       </Group>
@@ -560,11 +565,11 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="btnXuatFile" min="-2" pref="70" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="btnEmail" min="-2" pref="70" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
-                      <Component id="btnEmail" min="-2" pref="71" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="btnXuatFile" min="-2" pref="69" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="btnXoa" min="-2" pref="70" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="btnSua" min="-2" pref="70" max="-2" attributes="0"/>
@@ -575,14 +580,14 @@
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace max="32767" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="btnThem" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
                           <Component id="btnSua" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
                           <Component id="btnXoa" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
-                          <Component id="btnEmail" alignment="3" max="32767" attributes="0"/>
-                          <Component id="btnXuatFile" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnEmail" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
+                          <Component id="btnXuatFile" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -626,7 +631,7 @@
             <Component class="swing.ButtonOutLine" name="btnEmail">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="1f" green="b2" red="f6" type="rgb"/>
+                  <Color blue="f7" green="1b" red="b4" type="rgb"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="G&#x1eed;i Email"/>
               </Properties>
@@ -703,7 +708,6 @@
           <Properties>
             <Property name="majorTickSpacing" type="int" value="10000"/>
             <Property name="maximum" type="int" value="100000"/>
-            <Property name="snapToTicks" type="boolean" value="true"/>
             <Property name="toolTipText" type="java.lang.String" value=""/>
             <Property name="value" type="int" value="0"/>
           </Properties>
