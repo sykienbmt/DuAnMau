@@ -44,8 +44,8 @@ public class PhongButton extends JButton {
         this.color2 = color2;
     }
 
-    private Color color1 = Color.decode("#B7BC57");
-    private Color color2 = Color.decode("#CFD545");
+    private Color color1 = Color.decode("#BAFBC2");
+    private Color color2 = Color.decode("#D5A9FA");
     private final Timer timer;
     private final Timer timerPressed;
     private float alpha = 0.3f;
@@ -60,7 +60,7 @@ public class PhongButton extends JButton {
         setContentAreaFilled(false);
         setForeground(Color.BLACK);
         setCursor(new Cursor(Cursor.HAND_CURSOR));
-        setBorder(new EmptyBorder(10, 20, 10, 20));
+        setBorder(new EmptyBorder(5, 5, 5, 5));
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent me) {
@@ -147,7 +147,7 @@ public class PhongButton extends JButton {
         g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_ATOP, alpha));
         int width = getWidth();
         int height = getHeight();
-        GradientPaint gra = new GradientPaint(0, 0, Color.CYAN, 0, height, new Color(255, 255, 255, 60));
+        GradientPaint gra = new GradientPaint(0, 0, Color.YELLOW, 0, height, new Color(255, 255, 255, 60));
         g2.setPaint(gra);
         Path2D.Float f = new Path2D.Float();
         f.moveTo(0, 0);
