@@ -75,7 +75,7 @@ public class PhongPnl extends javax.swing.JPanel {
         spTableDichVu.setVerticalScrollBar(new ScrollBar());
         spTableDichVu.getVerticalScrollBar().setBackground(Color.WHITE);
         spTableDichVu.getViewport().setBackground(Color.WHITE);
-        spTableDichVu.setCorner(JScrollPane.UPPER_RIGHT_CORNER, p);     
+        spTableDichVu.setCorner(JScrollPane.UPPER_RIGHT_CORNER, p);          
     }
 
     private void init() {
@@ -87,9 +87,10 @@ public class PhongPnl extends javax.swing.JPanel {
     
     public void viewListDanhMuc() {
         DefaultListModel<DanhMuc> listDanhMuc = new DefaultListModel<DanhMuc>();
+        List<Object[]> data = danhMucDAO.loadAllDichVu();
+        viewTableDichVu(data);
         for (DanhMuc danhMucs : danhMucDAO.getAll()) {
             listDanhMuc.addElement(danhMucs);
-            
             jlDanhMuc.addMouseListener(new MouseAdapter(){
             @Override
                 public void mouseClicked(MouseEvent e) {
@@ -105,6 +106,22 @@ public class PhongPnl extends javax.swing.JPanel {
             });
         }
         jlDanhMuc.setModel(listDanhMuc);      
+    }
+    
+    public void viewTableDichVu(List<Object[]> data) {
+        DefaultTableModel model = (DefaultTableModel) tblDichVu.getModel();  
+        if (data == null) {
+            for (int i = tblDichVu.getRowCount()-1; i >= 0; i--) {
+                model.removeRow(i);
+            }
+        }else {
+            for (int i = tblDichVu.getRowCount()-1; i >= 0; i--) {
+                model.removeRow(i);
+            }      
+            for (Object[] objects : data) {
+                model.addRow(objects);
+            }
+        }
     }
     
     public void viewBtnPhong(List<Phong> data) {
@@ -193,22 +210,6 @@ public class PhongPnl extends javax.swing.JPanel {
             cbbModel.addElement(giaphongs[i]);
         }
     }
-
-    public void viewTableDichVu(List<Object[]> data) {
-        DefaultTableModel model = (DefaultTableModel) tblDichVu.getModel();  
-        if (data == null) {
-            for (int i = tblDichVu.getRowCount()-1; i >= 0; i--) {
-                model.removeRow(i);
-            }
-        }else {
-            for (int i = tblDichVu.getRowCount()-1; i >= 0; i--) {
-                model.removeRow(i);
-            }      
-            for (Object[] objects : data) {
-                model.addRow(objects);
-            }
-        }
-    }
     
     public void viewTableChiTietDichVu(List<Object[]> data) {
         DefaultTableModel model = (DefaultTableModel) tblListDichVu.getModel();           
@@ -270,7 +271,7 @@ public class PhongPnl extends javax.swing.JPanel {
         txtTimDichVu.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent e) {
-                if (txtTimDichVu.getText().equals("Tìm dịch vụ")) {
+                if (txtTimDichVu.getText().equals("Tìm dịch vụ") || txtTimDichVu.getText().equals(txtTimDichVu.getText())) {
                     txtTimDichVu.setText("");
                 }
             }
@@ -307,12 +308,6 @@ public class PhongPnl extends javax.swing.JPanel {
         btnThemDichVu = new swing.PhongButton();
         btnKetToan = new swing.PhongButton();
         btnThanhToan = new swing.PhongButton();
-        jPanel4 = new javax.swing.JPanel();
-        jLabel20 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jlDanhMuc = new javax.swing.JList<>();
-        txtTimDichVu = new swing.TextInput();
-        btnResetTimDichVu = new swing.ButtonOutLine();
         panelCoverDialog2 = new component.PanelCoverDialog();
         jLabel5 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
@@ -349,6 +344,13 @@ public class PhongPnl extends javax.swing.JPanel {
         txtTienDichVu = new swing.TextInput();
         jLabel23 = new javax.swing.JLabel();
         txtTongTien = new swing.TextInput();
+        jPanel2 = new javax.swing.JPanel();
+        panelCoverDialog3 = new component.PanelCoverDialog();
+        jLabel20 = new javax.swing.JLabel();
+        jSeparator2 = new javax.swing.JSeparator();
+        txtTimDichVu = new swing.TextInput();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jlDanhMuc = new javax.swing.JList<>();
 
         setBackground(new java.awt.Color(246, 248, 248));
         setPreferredSize(new java.awt.Dimension(1200, 750));
@@ -375,6 +377,7 @@ public class PhongPnl extends javax.swing.JPanel {
         jLabel1.setForeground(new java.awt.Color(153, 0, 153));
         jLabel1.setText("DANH SÁCH PHÒNG");
 
+        tblListDichVu.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         tblListDichVu.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
@@ -445,6 +448,7 @@ public class PhongPnl extends javax.swing.JPanel {
                 .addGap(0, 11, Short.MAX_VALUE))
         );
 
+        tblDichVu.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         tblDichVu.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -523,54 +527,6 @@ public class PhongPnl extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        jLabel20.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel20.setText("Danh mục dịch vụ");
-
-        jScrollPane2.setViewportView(jlDanhMuc);
-
-        txtTimDichVu.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtTimDichVuKeyReleased(evt);
-            }
-        });
-
-        btnResetTimDichVu.setBackground(new java.awt.Color(255, 0, 51));
-        btnResetTimDichVu.setText("Xóa");
-        btnResetTimDichVu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnResetTimDichVuActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(txtTimDichVu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnResetTimDichVu, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtTimDichVu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnResetTimDichVu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2)
-                .addContainerGap())
-        );
-
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("Đặt phòng");
@@ -590,6 +546,8 @@ public class PhongPnl extends javax.swing.JPanel {
         });
         panelCoverDialog2.add(txtTenPhong);
         txtTenPhong.setBounds(310, 50, 150, 29);
+
+        jdNgayDat.setBackground(new java.awt.Color(213, 245, 227));
         panelCoverDialog2.add(jdNgayDat);
         jdNgayDat.setBounds(310, 90, 150, 30);
 
@@ -606,6 +564,8 @@ public class PhongPnl extends javax.swing.JPanel {
         jLabel13.setText("Ngày rời");
         panelCoverDialog2.add(jLabel13);
         jLabel13.setBounds(250, 130, 51, 30);
+
+        jdNgayRoi.setBackground(new java.awt.Color(213, 245, 227));
         panelCoverDialog2.add(jdNgayRoi);
         jdNgayRoi.setBounds(310, 130, 150, 30);
 
@@ -637,6 +597,7 @@ public class PhongPnl extends javax.swing.JPanel {
         panelCoverDialog2.add(jLabel19);
         jLabel19.setBounds(10, 210, 51, 30);
 
+        cbbHinhThucThue.setBackground(new java.awt.Color(213, 245, 227));
         panelCoverDialog2.add(cbbHinhThucThue);
         cbbHinhThucThue.setBounds(70, 210, 150, 30);
 
@@ -715,6 +676,38 @@ public class PhongPnl extends javax.swing.JPanel {
             .addComponent(panelCoverDialog1, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
         );
 
+        jLabel20.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel20.setText("Danh mục dịch vụ");
+        panelCoverDialog3.add(jLabel20);
+        jLabel20.setBounds(10, 0, 280, 30);
+        panelCoverDialog3.add(jSeparator2);
+        jSeparator2.setBounds(10, 30, 280, 10);
+
+        txtTimDichVu.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtTimDichVuKeyReleased(evt);
+            }
+        });
+        panelCoverDialog3.add(txtTimDichVu);
+        txtTimDichVu.setBounds(20, 40, 260, 29);
+
+        jScrollPane2.setViewportView(jlDanhMuc);
+
+        panelCoverDialog3.add(jScrollPane2);
+        jScrollPane2.setBounds(20, 80, 70, 220);
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(panelCoverDialog3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(panelCoverDialog3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -735,8 +728,8 @@ public class PhongPnl extends javax.swing.JPanel {
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(spTableDichVu, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(spTableDichVu, javax.swing.GroupLayout.DEFAULT_SIZE, 299, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -747,20 +740,20 @@ public class PhongPnl extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(panelCoverDialog2, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(spTableListDichVu, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(spTableDichVu, javax.swing.GroupLayout.PREFERRED_SIZE, 393, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 655, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(panelCoverDialog2, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(spTableListDichVu, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(spTableDichVu, javax.swing.GroupLayout.PREFERRED_SIZE, 393, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(15, 15, 15))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -833,10 +826,6 @@ public class PhongPnl extends javax.swing.JPanel {
         List<Object[]> data = dichVuController.searchDichVu(tenDichVu);
         viewTableDichVu(data);
     }//GEN-LAST:event_txtTimDichVuKeyReleased
-
-    private void btnResetTimDichVuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetTimDichVuActionPerformed
-        txtTimDichVu.setText("Tìm dịch vụ");
-    }//GEN-LAST:event_btnResetTimDichVuActionPerformed
 
     private void btnThemDichVuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemDichVuActionPerformed
         int clickDv = tblDichVu.getSelectedRow();
@@ -962,12 +951,11 @@ public class PhongPnl extends javax.swing.JPanel {
             tt.setLocationRelativeTo(null);
             tt.setVisible(true);
         }else{
-            JOptionPane.showMessageDialog(this, "Vui lòng ấn End trước !");
+            JOptionPane.showMessageDialog(this, "Trả phòng trước đi 3, đm ns hoài !");
         }
     }//GEN-LAST:event_btnThanhToanActionPerformed
 
     private void btnMoPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoPhongActionPerformed
-        System.out.println("xxx");
         Timestamp ngayDat = null;
         Date date = new Date();         
         ngayDat=new Timestamp(date.getTime());
@@ -991,6 +979,7 @@ public class PhongPnl extends javax.swing.JPanel {
         String hinhThucThue = myCbb.tenHinhThuc();  
         System.out.println(hinhThucThue);
         
+        //phongController.updateTinhTrangPhong("Đang sử dụng",phongHienTai);
         if (!isCMND) {
             khacHangController.insert(0,cmnd, tenKhach, diaChi, hoChieu, sdt);
         }      
@@ -1003,7 +992,6 @@ public class PhongPnl extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private swing.PhongButton btnKetToan;
     private swing.PhongButton btnMoPhong;
-    private swing.ButtonOutLine btnResetTimDichVu;
     private swing.PhongButton btnThanhToan;
     private swing.PhongButton btnThemDichVu;
     private javax.swing.JComboBox<String> cbbHinhThucThue;
@@ -1033,12 +1021,13 @@ public class PhongPnl extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
     private com.toedter.calendar.JDateChooser jdNgayDat;
     private com.toedter.calendar.JDateChooser jdNgayRoi;
     private javax.swing.JList<DanhMuc> jlDanhMuc;
@@ -1046,6 +1035,7 @@ public class PhongPnl extends javax.swing.JPanel {
     private javax.swing.JPanel panel;
     private component.PanelCoverDialog panelCoverDialog1;
     private component.PanelCoverDialog panelCoverDialog2;
+    private component.PanelCoverDialog panelCoverDialog3;
     private javax.swing.JScrollPane spTableDichVu;
     private javax.swing.JScrollPane spTableListDichVu;
     private javax.swing.JSpinner spnSoLuong;
