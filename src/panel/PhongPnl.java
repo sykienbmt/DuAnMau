@@ -55,7 +55,7 @@ public class PhongPnl extends javax.swing.JPanel {
         viewListDanhMuc();
         placeholderDichVu();
         jdNgayDat.setDateFormatString("dd-MM-yyyy HH:mm:ss");
-        btnThue.setEnabled(false);
+        btnMoPhong.setEnabled(false);
         btnThemDichVu.setEnabled(false);
         btnKetToan.setEnabled(false);
         btnThanhToan.setEnabled(false);
@@ -130,7 +130,7 @@ public class PhongPnl extends javax.swing.JPanel {
                     if (phong.getTrangThai().equals("Đang sử dụng")) {
                         List<Object[]> data = phongController.layChiTietDichVu(phong.getId());
                         viewTableChiTietDichVu(data);
-                        btnThue.setEnabled(false);
+                        btnMoPhong.setEnabled(false);
                         btnThemDichVu.setEnabled(true);
                         btnKetToan.setEnabled(true);
                         btnThanhToan.setEnabled(true);
@@ -154,7 +154,7 @@ public class PhongPnl extends javax.swing.JPanel {
                         btnThemDichVu.setEnabled(false);
                         jdNgayRoi.setEnabled(false);
                         viewTableChiTietDichVu(null);
-                        btnThue.setEnabled(true);
+                        btnMoPhong.setEnabled(true);
                         jdNgayDat.setDate(null);
                         jdNgayRoi.setDate(null);
                         txtTenPhong.setText("");
@@ -167,7 +167,7 @@ public class PhongPnl extends javax.swing.JPanel {
                         txtSoNguoi.setText("");
                     }
                     if(phong.getTrangThai().equals("Bảo trì")){
-                        btnThue.setEnabled(false);
+                        btnMoPhong.setEnabled(false);
                         jdNgayRoi.setEnabled(false);
                         viewTableChiTietDichVu(null);
                         btnThemDichVu.setEnabled(false);
@@ -337,7 +337,7 @@ public class PhongPnl extends javax.swing.JPanel {
         lbTenNhanVien = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         txtCMND = new swing.TextInput();
-        btnThue = new swing.PhongButton();
+        btnMoPhong = new swing.PhongButton();
         jPanel1 = new javax.swing.JPanel();
         panelCoverDialog1 = new component.PanelCoverDialog();
         jLabel21 = new javax.swing.JLabel();
@@ -629,12 +629,6 @@ public class PhongPnl extends javax.swing.JPanel {
         jLabel30.setText("Hộ Chiếu");
         panelCoverDialog2.add(jLabel30);
         jLabel30.setBounds(250, 210, 51, 30);
-
-        txtSdt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtSdtActionPerformed(evt);
-            }
-        });
         panelCoverDialog2.add(txtSdt);
         txtSdt.setBounds(310, 170, 150, 29);
 
@@ -663,14 +657,14 @@ public class PhongPnl extends javax.swing.JPanel {
         panelCoverDialog2.add(txtCMND);
         txtCMND.setBounds(70, 50, 150, 29);
 
-        btnThue.setText("Mở phòng");
-        btnThue.addActionListener(new java.awt.event.ActionListener() {
+        btnMoPhong.setText("Mở phòng");
+        btnMoPhong.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnThueActionPerformed(evt);
+                btnMoPhongActionPerformed(evt);
             }
         });
-        panelCoverDialog2.add(btnThue);
-        btnThue.setBounds(360, 255, 90, 40);
+        panelCoverDialog2.add(btnMoPhong);
+        btnMoPhong.setBounds(360, 255, 90, 40);
 
         jLabel21.setText("Giá phòng");
         panelCoverDialog1.add(jLabel21);
@@ -804,48 +798,9 @@ public class PhongPnl extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_txtTenPhongKeyReleased
 
-    private void btnThueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThueActionPerformed
-        StringBuilder sb = new StringBuilder();
-        
-        Timestamp ngayDat = null;
-        Date date = new Date();         
-        ngayDat=new Timestamp(date.getTime());
-        
-        String tenKhach = txtHoChieu.getText();
-        DataValidate.checkEmpty(tenKhach, sb, "Tên không được để trống! ");
-        
-        String hoChieu =" ";
-        if(!txtHoChieu.getText().equals("")){
-            hoChieu=txtHoChieu.getText();
-        }
-        DataValidate.checkEmpty(hoChieu, sb, "Số hộ chiếu không được để trống! ");
-        DataValidate.checkSoHoChieu(hoChieu, sb);
-        
-        String diaChi = txtDiaChi.getText();
-        DataValidate.checkEmpty(diaChi, sb, "Địa chỉ không được để trống! ");
-        
-        String sdt = txtSdt.getText();
-        DataValidate.checkEmpty(sdt, sb, "Số đt không được để trống! ");
-        DataValidate.checkSdtForm(sdt, sb);
-        DataValidate.checkPhoneExist(sdt, sb);         
-        
-        String cmnd = txtCMND.getText();
-        DataValidate.checkEmpty(cmnd, sb, "Số CMND không được để trống! ");
-        DataValidate.checkCMND(cmnd, sb);
-        
-        Integer soNguoi =Integer.parseInt(txtSoNguoi.getText());       
-        GiaPhong myCbb = (GiaPhong) cbbHinhThucThue.getSelectedItem();
-        
-        String hinhThucThue = myCbb.tenHinhThuc();       
-        phongController.updateTinhTrangPhong("Đang sử dụng",phongHienTai);
-        if (!isCMND) {
-            khacHangController.insert(0,cmnd, tenKhach, diaChi, hoChieu, sdt);
-        }      
-        phieuThuePhongController.insert(0, phongHienTai, 1, cmnd, soNguoi, ngayDat, null, hinhThucThue);
-        button.setBackground(new Color(255,51,0));
-        
-        loadLaiThongTinPhong();  
-    }//GEN-LAST:event_btnThueActionPerformed
+    private void btnThueActionPerformed(java.awt.event.ActionEvent evt) {                                        
+         
+    }                                       
 
     private void txtCMNDKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCMNDKeyReleased
         String CMND = txtCMND.getText();
@@ -1014,7 +969,46 @@ public class PhongPnl extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnThanhToanActionPerformed
 
-    private void btnThueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThueActionPerformed
+    private void btnMoPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoPhongActionPerformed
+//        StringBuilder sb = new StringBuilder();
+//        
+//        Timestamp ngayDat = null;
+//        Date date = new Date();         
+//        ngayDat=new Timestamp(date.getTime());
+//        
+//        String tenKhach = txtHoChieu.getText();
+//        DataValidate.checkEmpty(tenKhach, sb, "Tên không được để trống! ");
+//        
+//        String hoChieu =" ";
+//        if(!txtHoChieu.getText().equals("")){
+//            hoChieu=txtHoChieu.getText();
+//        }
+//        DataValidate.checkEmpty(hoChieu, sb, "Số hộ chiếu không được để trống! ");
+//        DataValidate.checkSoHoChieu(hoChieu, sb);
+//        
+//        String diaChi = txtDiaChi.getText();
+//        DataValidate.checkEmpty(diaChi, sb, "Địa chỉ không được để trống! ");
+//        
+//        String sdt = txtSdt.getText();
+//        DataValidate.checkEmpty(sdt, sb, "Số đt không được để trống! ");
+//        DataValidate.checkSdtForm(sdt, sb);
+//        DataValidate.checkPhoneExist(sdt, sb);         
+//        
+//        String cmnd = txtCMND.getText();
+//        DataValidate.checkEmpty(cmnd, sb, "Số CMND không được để trống! ");
+//        DataValidate.checkCMND(cmnd, sb);
+//        Integer soNguoi =Integer.parseInt(txtSoNguoi.getText()); 
+//        
+//        GiaPhong myCbb = (GiaPhong) cbbHinhThucThue.getSelectedItem();
+//        String hinhThucThue = myCbb.tenHinhThuc();       
+//        phongController.updateTinhTrangPhong("Đang sử dụng",phongHienTai);
+//        if (!isCMND) {
+//            khacHangController.insert(0,cmnd, tenKhach, diaChi, hoChieu, sdt);
+//        }      
+//        phieuThuePhongController.insert(0, phongHienTai, 1, cmnd, soNguoi, ngayDat, null, hinhThucThue);
+//        button.setBackground(new Color(255,51,0));
+//        
+//        loadLaiThongTinPhong();
         Timestamp ngayDat = null;
         Date date = new Date();         
         ngayDat=new Timestamp(date.getTime());
@@ -1028,7 +1022,8 @@ public class PhongPnl extends javax.swing.JPanel {
         String cmnd = txtTenPhong.getText();
         Integer soNguoi =Integer.parseInt(txtHoChieu.getText());       
         GiaPhong myCbb = (GiaPhong) cbbHinhThucThue.getSelectedItem();
-        String hinhThucThue = myCbb.tenHinhThuc();       
+        String hinhThucThue = myCbb.tenHinhThuc();  
+        
         phongController.updateTinhTrangPhong("Đang sử dụng",phongHienTai);
         if (!isCMND) {
             khacHangController.insert(0,cmnd, tenKhach, diaChi, hoChieu, sdt);
@@ -1037,7 +1032,7 @@ public class PhongPnl extends javax.swing.JPanel {
         button.setBackground(new Color(255,51,0));
         
         loadLaiThongTinPhong(); 
-    }//GEN-LAST:event_btnThueActionPerformed
+    }//GEN-LAST:event_btnMoPhongActionPerformed
 
     private void txtSdtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSdtActionPerformed
         // TODO add your handling code here:
@@ -1045,10 +1040,10 @@ public class PhongPnl extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private swing.PhongButton btnKetToan;
+    private swing.PhongButton btnMoPhong;
     private swing.ButtonOutLine btnResetTimDichVu;
     private swing.PhongButton btnThanhToan;
     private swing.PhongButton btnThemDichVu;
-    private swing.PhongButton btnThue;
     private javax.swing.JComboBox<String> cbbHinhThucThue;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;

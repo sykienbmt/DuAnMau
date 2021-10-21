@@ -709,12 +709,12 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="swing.PhongButton" name="btnThue">
+        <Component class="swing.PhongButton" name="btnMoPhong">
           <Properties>
             <Property name="text" type="java.lang.String" value="M&#x1edf; ph&#xf2;ng"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnThueActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnMoPhongActionPerformed"/>
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
