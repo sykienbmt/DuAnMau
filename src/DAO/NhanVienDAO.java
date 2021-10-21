@@ -19,6 +19,20 @@ public class NhanVienDAO extends AbsDAO<NhanVien>{
                             + "join ChucVu b on a.idChucVu = b.idChucVu where luong <= "+luongNhanVien+"");
     }
     
+    
+        public boolean checkEmailExist(String email){
+        List<Object[]> data=getRawValues("select count(*) from NhanVien where email = ?", email);
+        Integer count =(Integer) data.get(0)[0];
+        return count >0;
+    }
+    
+    public boolean checkPhoneExist(String phone){
+        List<Object[]> data=getRawValues("Select count(*) from NhanVien where sdt=?", phone);
+        Integer count =(Integer) data.get(0)[0];
+        return count >0;
+    }
+    
+    
 //    public List<Object[]> updateDataStaff() {
 //        return getRawValues("update NhanVien set TenNhanVien=?,DiaChi=?,SoDienThoai=?,GioiTinh=?,ChucVu=?,NgaySinh=?,"
 //                            + "NgayVaoLam=?,Luong=?,HinhAnh=?,Email where MaNhanVien=?");
