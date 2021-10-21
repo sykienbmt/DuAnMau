@@ -9,6 +9,7 @@ import controller.KhacHangController;
 import controller.PhieuThuePhongController;
 import controller.PhongController;
 import dialog.ThanhToan;
+import helper.DataValidate;
 import java.awt.Button;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -309,7 +310,7 @@ public class PhongPnl extends javax.swing.JPanel {
         spnSoLuong = new javax.swing.JSpinner();
         btnThanhToan = new swing.ButtonOutLine();
         btnKetToan = new swing.ButtonOutLine();
-        btnThemDichVu = new swing.PhongButton();
+        btnThemDichVu = new org.netbeans.modules.form.InvalidComponent();
         jPanel4 = new javax.swing.JPanel();
         jLabel20 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -554,13 +555,6 @@ public class PhongPnl extends javax.swing.JPanel {
             }
         });
 
-        btnThemDichVu.setText("+");
-        btnThemDichVu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnThemDichVuActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -703,6 +697,12 @@ public class PhongPnl extends javax.swing.JPanel {
         jLabel30.setText("Hộ Chiếu");
         panelCoverDialog2.add(jLabel30);
         jLabel30.setBounds(250, 210, 51, 30);
+
+        txtSdt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSdtActionPerformed(evt);
+            }
+        });
         panelCoverDialog2.add(txtSdt);
         txtSdt.setBounds(310, 170, 150, 29);
 
@@ -827,19 +827,37 @@ public class PhongPnl extends javax.swing.JPanel {
     }//GEN-LAST:event_txtTenPhongKeyReleased
 
     private void btnThueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThueActionPerformed
+        StringBuilder sb = new StringBuilder();
+        
         Timestamp ngayDat = null;
         Date date = new Date();         
         ngayDat=new Timestamp(date.getTime());
+        
         String tenKhach = txtHoChieu.getText();
+        DataValidate.checkEmpty(tenKhach, sb, "Tên không được để trống! ");
+        
         String hoChieu =" ";
         if(!txtHoChieu.getText().equals("")){
             hoChieu=txtHoChieu.getText();
         }
+        DataValidate.checkEmpty(hoChieu, sb, "Số hộ chiếu không được để trống! ");
+        DataValidate.checkSoHoChieu(hoChieu, sb);
+        
         String diaChi = txtDiaChi.getText();
-        String sdt = txtHoChieu.getText();
-        String cmnd = txtTenPhong.getText();
-        Integer soNguoi =Integer.parseInt(txtHoChieu.getText());       
+        DataValidate.checkEmpty(diaChi, sb, "Địa chỉ không được để trống! ");
+        
+        String sdt = txtSdt.getText();
+        DataValidate.checkEmpty(sdt, sb, "Số đt không được để trống! ");
+        DataValidate.checkSdtForm(sdt, sb);
+        DataValidate.checkPhoneExist(sdt, sb);         
+        
+        String cmnd = txtCMND.getText();
+        DataValidate.checkEmpty(cmnd, sb, "Số CMND không được để trống! ");
+        DataValidate.checkCMND(cmnd, sb);
+        
+        Integer soNguoi =Integer.parseInt(txtSoNguoi.getText());       
         GiaPhong myCbb = (GiaPhong) cbbHinhThucThue.getSelectedItem();
+        
         String hinhThucThue = myCbb.tenHinhThuc();       
         phongController.updateTinhTrangPhong("Đang sử dụng",phongHienTai);
         if (!isCMND) {
@@ -1017,11 +1035,15 @@ public class PhongPnl extends javax.swing.JPanel {
         }       
     }//GEN-LAST:event_btnThemDichVuActionPerformed
 
+    private void txtSdtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSdtActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSdtActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private swing.ButtonOutLine btnKetToan;
     private swing.ButtonOutLine btnResetTimDichVu;
     private swing.ButtonOutLine btnThanhToan;
-    private swing.PhongButton btnThemDichVu;
+    private org.netbeans.modules.form.InvalidComponent btnThemDichVu;
     private swing.ButtonOutLine btnThue;
     private javax.swing.JComboBox<String> cbbHinhThucThue;
     private javax.swing.JButton jButton1;

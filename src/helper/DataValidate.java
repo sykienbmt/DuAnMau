@@ -115,4 +115,11 @@ public class DataValidate {
         }
     }
     
+    public static void checkSoHoChieu(String shc,StringBuilder sb){
+        if (shc.length() != 7) {
+            sb.append("Số CMND phải đúng 7 ký tự\n");
+        }
+    }
+    
+    
 }

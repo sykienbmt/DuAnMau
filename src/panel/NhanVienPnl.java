@@ -573,7 +573,7 @@ public class NhanVienPnl extends javax.swing.JPanel {
                 StringBuilder sb = new StringBuilder();
                 
                 String hoTen = txtHoten.getText();
-                 DataValidate.checkEmpty(hoTen, sb, "Tên không được để trống! ");
+                DataValidate.checkEmpty(hoTen, sb, "Tên không được để trống! ");
                  
                 String email = txtEmail.getText();
                 DataValidate.checkEmpty(email, sb, "Email không được để trống! ");
