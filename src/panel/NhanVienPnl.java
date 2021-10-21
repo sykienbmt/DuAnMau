@@ -3,6 +3,7 @@ package panel;
 import helper.SaveImageSQL;
 import controller.NhanVienController;
 import dialog.GuiMail;
+import helper.DataValidate;
 import helper.MailSender;
 import swing.ScrollBar;
 import java.awt.Color;
@@ -45,6 +46,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
 
 public class NhanVienPnl extends javax.swing.JPanel {
     private NhanVienController nhanVienController;
@@ -568,66 +570,178 @@ public class NhanVienPnl extends javax.swing.JPanel {
         } else {
             int clickLuu = JOptionPane.showConfirmDialog(new Frame(),"Bạn có muốn sửa không ?", "Thông báo",JOptionPane.YES_NO_OPTION);
             if (clickLuu == JOptionPane.YES_OPTION) {
+                StringBuilder sb = new StringBuilder();
+                
                 String hoTen = txtHoten.getText();
+                 DataValidate.checkEmpty(hoTen, sb, "Tên không được để trống! ");
+                 
                 String email = txtEmail.getText();
+                DataValidate.checkEmpty(email, sb, "Email không được để trống! ");
+                DataValidate.checkEmailForm(email, sb);
+                DataValidate.checkEmailExist(email, sb);
+                
                 String sdt = txtSdt.getText(); 
+                DataValidate.checkEmpty(sdt, sb, "Số đt không được để trống! ");
+                DataValidate.checkSdtForm(sdt, sb);
+                DataValidate.checkPhoneExist(sdt, sb); 
+                            
+                //validate sex
                 String sex = null;
                 if(rdbNam.isSelected()){
                     sex="Nam";
                 }else if(rdbNu.isSelected()){
                     sex = "Nữ";
-                }else sex = "Khác";
-                Double luong = Double.parseDouble(txtLuong.getText()) ;
+                }else if (rdbNu.isSelected()){
+                    sex = "Khác";
+                }else{
+                    sb.append("Vui lòng chọn giới tính! \n");
+                }
+                
+                
+                double luong = 0;
+                try {
+                    luong = Double.parseDouble(txtLuong.getText()) ;
+                    if(luong < 0){
+                        sb.append("Lương phải lớn hớn 0 \n");
+                    }
+                } catch (Exception e) {
+                    sb.append("Lương phải là số \n");
+                }
+                
                 ChucVu chucVu =(ChucVu) cbxChucVu.getSelectedItem();
                 Integer tenChucVu = chucVu.getIdChucVu();
+                
                 String diaChi = txtDiaChi.getText(); 
-                java.util.Date DateOfBirth1 = jdcNgaySinh.getDate();
-                java.sql.Date ngaySinh= new java.sql.Date(DateOfBirth1.getTime());
-                java.util.Date StartingDate1 = jdcNgayVao.getDate();
-                java.sql.Date ngayVao = new java.sql.Date(StartingDate1.getTime());
+                DataValidate.checkEmpty(diaChi, sb, "Địa chỉ không được để trống! ");
+                
+                //validate day
+                java.sql.Date ngaySinh = null,ngayVao = null;
+                if(jdcNgaySinh.getDate() == null || jdcNgayVao.getDate() == null){
+                    sb.append("Vui lòng điền đủ ngày tháng ! \n");
+                }else{
+                    java.util.Date nSinhRaw = jdcNgaySinh.getDate();
+                    ngaySinh = new java.sql.Date(nSinhRaw.getTime());
+
+                    java.util.Date nVaoRaw = jdcNgayVao.getDate();
+                    ngayVao = new java.sql.Date(nVaoRaw.getTime());
+                    DataValidate.checkNgayThang(nSinhRaw, nVaoRaw, sb);
+                }
+                
+                
+                //validate trangThai
                 String trangThai = null;
                 if(rdbOn.isSelected()){
                     trangThai="ON";
                 }else if(rdbOff.isSelected()){
                     trangThai = "OFF";
-                }else trangThai = "REST";
+                }else if(rdbOff.isSelected()){
+                    trangThai = "REST";
+                }else{
+                    sb.append("Vui lòng chọn trạng thái! \n");
+                }
 
                 Integer idNhanVien = (Integer) tblNhanVien.getValueAt(chonDong, 0);
-                nhanVienController.update(idNhanVien,hoTen, email, sdt, sex, luong, tenChucVu, diaChi, ngaySinh, ngayVao,trangThai,hinhAnh);
-                JOptionPane.showMessageDialog(new Frame(),"Update success !!!");                  
+                
+                if(sb.length() > 0){
+                    JOptionPane.showMessageDialog(this, sb.toString(), "Error", JOptionPane.ERROR_MESSAGE);
+                }else{
+                    nhanVienController.update(idNhanVien,hoTen, email, sdt, sex, luong, tenChucVu, diaChi, ngaySinh, ngayVao,trangThai,hinhAnh);
+                    JOptionPane.showMessageDialog(new Frame(),"Update success !!!");    
+                }                           
             }
         }
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
+        
+        //validate hoTen
+        StringBuilder sb = new StringBuilder();
         String ten = txtHoten.getText();
+        DataValidate.checkEmpty(ten, sb, "Tên không được để trống! ");
+        
+        //validate phone
         String email = txtEmail.getText();
+        DataValidate.checkEmpty(email, sb, "Email không được để trống! ");
+        DataValidate.checkEmailForm(email, sb);
+        DataValidate.checkEmailExist(email, sb);
+        
+        //validate sdt
         String sdt = txtSdt.getText(); 
-        String sex = null;
-        Double luong = Double.parseDouble(txtLuong.getText()) ;
+        DataValidate.checkEmpty(sdt, sb, "Số đt không được để trống! ");
+        DataValidate.checkSdtForm(sdt, sb);
+        DataValidate.checkPhoneExist(sdt, sb);
+        
+        //validate luong
+        //Double luong = Double.parseDouble(txtLuong.getText()) ;
+        double luong = 0;
+        try {
+            luong = Double.parseDouble(txtLuong.getText()) ;
+            if(luong < 0){
+                sb.append("Lương phải lớn hớn 0 \n");
+            }
+        } catch (Exception e) {
+            sb.append("Lương phải là số \n");
+        }
+        
         ChucVu chucVu =(ChucVu) cbxChucVu.getSelectedItem();
         Integer tenChucVu = chucVu.getIdChucVu();
+        
+        //validate diaChi
         String diaChi = txtDiaChi.getText(); 
-        java.util.Date DateOfBirth1 = jdcNgaySinh.getDate();
-        java.sql.Date ngaySinh= new java.sql.Date(DateOfBirth1.getTime());
-        java.util.Date StartingDate1 = jdcNgayVao.getDate();
-        java.sql.Date ngayVao = new java.sql.Date(StartingDate1.getTime());
-        String trangThai = null;
+        DataValidate.checkEmpty(diaChi, sb, "Địa chỉ không được để trống! ");
+        
+        
+//        java.util.Date DateOfBirth1 = jdcNgaySinh.getDate();
+//        java.sql.Date ngaySinh= new java.sql.Date(DateOfBirth1.getTime());
+//        java.util.Date StartingDate1 = jdcNgayVao.getDate();
+//        java.sql.Date ngayVao = new java.sql.Date(StartingDate1.getTime());
+        
+        
+        //validate day
+        java.sql.Date ngaySinh = null,ngayVao = null;
+        if(jdcNgaySinh.getDate() == null || jdcNgayVao.getDate() == null){
+            sb.append("Vui lòng điền đủ ngày tháng ! \n");
+        }else{
+            java.util.Date nSinhRaw = jdcNgaySinh.getDate();
+            ngaySinh = new java.sql.Date(nSinhRaw.getTime());
+            
+            java.util.Date nVaoRaw = jdcNgayVao.getDate();
+            ngayVao = new java.sql.Date(nVaoRaw.getTime());
+            DataValidate.checkNgayThang(nSinhRaw, nVaoRaw, sb);
+        }
 
+        
+        //validate sex
+        String sex = null;
         if(rdbNam.isSelected()){
             sex="Nam";
         }else if(rdbNu.isSelected()){
             sex = "Nữ";
-        }else sex = "Khác";
+        }else if (rdbNu.isSelected()){
+            sex = "Khác";
+        }else{
+            sb.append("Vui lòng chọn giới tính! \n");
+        }
 
+        //validate trangThai
+        String trangThai = null;
         if(rdbOn.isSelected()){
             trangThai="ON";
         }else if(rdbOff.isSelected()){
             trangThai = "OFF";
-        }else trangThai = "REST";
+        }else if(rdbOff.isSelected()){
+            trangThai = "REST";
+        }else{
+            sb.append("Vui lòng chọn trạng thái! \n");
+        }
 
-        nhanVienController.insert(ten, email, sdt, sex, luong, tenChucVu, diaChi, ngaySinh, ngayVao,trangThai,hinhAnh);
-        hinhAnh = null;
+        if(sb.length() > 0){
+            JOptionPane.showMessageDialog(this, sb.toString(), "Error", JOptionPane.ERROR_MESSAGE);
+        }else{
+            nhanVienController.insert(ten, email, sdt, sex, luong, tenChucVu, diaChi, ngaySinh, ngayVao,trangThai,hinhAnh);
+            hinhAnh = null;            
+        }
+
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void tblNhanVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblNhanVienMouseClicked
