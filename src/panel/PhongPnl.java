@@ -57,7 +57,12 @@ public class PhongPnl extends javax.swing.JPanel {
     private cbbHinhThucThueDAO hinhThucThueDAO;
     private Button button;
     private boolean isCMND = false;
-    int phongHienTai =UNDEFINED_CONDITION;  
+    int phongHienTai =UNDEFINED_CONDITION;
+    boolean click = false;
+    Double tongTien=0.0;
+    Double tienPhong = 0.0;
+    Double tienDichVu = 0.0;
+    ThanhToan tt = null;
     
     public PhongPnl() {
         initComponents();
@@ -178,7 +183,6 @@ public class PhongPnl extends javax.swing.JPanel {
                         cbbHinhThucThue.getModel().setSelectedItem(ptp.get(0)[11].toString());
                         txtTenPhong.setText(ptp.get(0)[12].toString());
                     }else{
-                        txtTenPhong.setText(ptp.get(0)[12].toString());
                         btnThemDichVu.setEnabled(false);
                         jdNgayRoi.setEnabled(false);
                         viewTableChiTietDichVu(null);
@@ -237,6 +241,21 @@ public class PhongPnl extends javax.swing.JPanel {
         }
     }
     
+    public void XuatHoaDon(int idHoaDon){
+        try {            
+            Hashtable map = new Hashtable();
+            JasperReport report = JasperCompileManager.compileReport("src/panel/HoaDon.jrxml");
+            
+            map.put("idHoaDon", idHoaDon);
+            Connection connection = DriverManager.getConnection("jdbc:sqlserver://localhost;database=Java;", "sa", "123456");
+            JasperPrint p = JasperFillManager.fillReport(report,  map, connection );
+            JasperViewer.viewReport(p, false);
+            JasperExportManager.exportReportToPdfFile(p, "test.pdf");
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+    }   
+    
     public void setController (DichVuController dichVuController) {
         this.dichVuController = dichVuController;
     }
@@ -255,26 +274,7 @@ public class PhongPnl extends javax.swing.JPanel {
     
     public void setController (HoaDonController hoaDonController) {
         this.hoaDonController = hoaDonController;
-    }
-    
-    public void loadLaiThongTinPhong() {
-        List<Object[]> data = phongController.setThongTinPhong(phongHienTai);
-        txtTenPhong.setText(data.get(0) [0].toString());
-        System.out.println(data.get(0) [0].toString());
-        txtHoChieu.setText(data.get(0) [1].toString());     
-//        jdNgayDat.set(data.get(0) [2].toString());
-//        jdNgayDat.set(data.get(0) [3].toString());
-        cbbHinhThucThue.getModel().setSelectedItem(data.get(0) [4].toString());
-        txtHoChieu.setText(data.get(0) [5].toString());
-        System.out.println(data.get(0) [5].toString());
-        txtDiaChi.setText(data.get(0) [6].toString());
-        txtHoChieu.setText(data.get(0) [7].toString());
-        if(data.get(0) [8].toString() == " ") {
-            txtHoChieu.setText("");
-        }else {
-            txtHoChieu.setText(data.get(0) [8].toString());
-        }
-    }
+    }   
     
     public void placeholderDichVu() {
         txtTimDichVu.setText("Tìm dịch vụ");
@@ -778,12 +778,7 @@ public class PhongPnl extends javax.swing.JPanel {
                 .addGap(15, 15, 15))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    boolean click = false;
-    Double tongTien=0.0;
-    Double tienPhong = 0.0;
-    Double tienDichVu = 0.0;
-    ThanhToan tt = null;    
+        
     private void txtTenPhongKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTenPhongKeyReleased
         String CMND = txtTenPhong.getText();
         try {
@@ -947,8 +942,7 @@ public class PhongPnl extends javax.swing.JPanel {
                 @Override
                 public void keyReleased(KeyEvent e) {
                     Double traLai  = Double.parseDouble(tt.jTextField2.getText())-tongTien;
-                    tt.jTextField3.setText(traLai.toString());
-                    
+                    tt.jTextField3.setText(traLai.toString());                    
                 }
             });
             
@@ -967,9 +961,12 @@ public class PhongPnl extends javax.swing.JPanel {
                     System.out.println((int)ttHoaDon.get(0)[0]);
                     XuatHoaDon((int)ttHoaDon.get(0)[0]);
                     
-//                    phongController.offPhieuThuePhong((int)data2.get(0)[0]);
-//                    phongController.updateTinhTrangPhong("Phòng trống", phongHienTai);
-//                    phongController.offHoaDonDichVu(phongHienTai);
+                    phongController.offPhieuThuePhong((int)data2.get(0)[0]);
+                    phongController.updateTinhTrangPhong("Phòng trống", phongHienTai);
+                    phongController.offHoaDonDichVu(phongHienTai);
+                    tongTien=0.0;
+                    tienPhong = 0.0;
+                    tienDichVu = 0.0;
                 }});
             tt.setLocationRelativeTo(null);
             tt.setVisible(true);
@@ -977,47 +974,22 @@ public class PhongPnl extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Trả phòng trước đi 3, đm ns hoài !");
         }
     }//GEN-LAST:event_btnThanhToanActionPerformed
-
-        public void XuatHoaDon(int idHoaDon){
-        try {
-            
-            Hashtable map = new Hashtable();
-            JasperReport report = JasperCompileManager.compileReport("src/panel/HoaDon.jrxml");
-            
-            map.put("idHoaDon", idHoaDon);
-            Connection connection = DriverManager.getConnection("jdbc:sqlserver://localhost;database=Java;", "sa", "123456");
-            JasperPrint p = JasperFillManager.fillReport(report,  map, connection );
-            JasperViewer.viewReport(p, false);
-            JasperExportManager.exportReportToPdfFile(p, "test.pdf");
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-        }
-    }
-    
-    
+   
     private void btnMoPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoPhongActionPerformed
         Timestamp ngayDat = null;
         Date date = new Date();         
         ngayDat=new Timestamp(date.getTime());
-        System.out.println(ngayDat);
         String tenKhach = txtTenKhach.getText();
-        System.out.println(tenKhach);
         String hoChieu =" ";
         if(!txtHoChieu.getText().equals("")){
             hoChieu=txtHoChieu.getText();
         }
-        System.out.println(hoChieu);
         String diaChi = txtDiaChi.getText();
-        System.out.println(diaChi);
         String sdt = txtSdt.getText();
-        System.out.println(sdt);
         String cmnd = txtCMND.getText();
-        System.out.println(cmnd);
         Integer soNguoi =Integer.parseInt(txtSoNguoi.getText());  
-        System.out.println(soNguoi);
         GiaPhong myCbb = (GiaPhong) cbbHinhThucThue.getSelectedItem();
         String hinhThucThue = myCbb.tenHinhThuc();  
-        System.out.println(hinhThucThue);
         
         phongController.updateTinhTrangPhong("Đang sử dụng",phongHienTai);
         if (!isCMND) {
@@ -1026,7 +998,10 @@ public class PhongPnl extends javax.swing.JPanel {
         phieuThuePhongController.insert(0, phongHienTai, 1, cmnd, soNguoi, ngayDat, null, hinhThucThue);
         button.setBackground(new Color(255,51,0));
         
-        loadLaiThongTinPhong(); 
+        panel.removeAll();
+        phongController.loadListBtnPhong();
+        panel.revalidate();
+        panel.repaint();       
     }//GEN-LAST:event_btnMoPhongActionPerformed
     private DoiPhongDialog doiPhongDialog;
     private void phongButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_phongButton1ActionPerformed
