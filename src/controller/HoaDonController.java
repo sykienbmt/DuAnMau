@@ -7,17 +7,22 @@ package controller;
 
 import DAO.HoaDonDAO;
 import model.HoaDon;
+import panel.PhongPnl;
 
 /**
  *
  * @author Administrator
  */
 public class HoaDonController {
+    PhongPnl view ;
+    private HoaDonDAO hoaDonDAO=new HoaDonDAO();
+    public HoaDonController(PhongPnl view) {
+        this.view = view;
+        view.setController(this);
+    }
     
-    private HoaDonDAO hoaDonDAO;
     
-    public void insert(Integer idHoaDon , Integer idPhieuThue , Integer idHoaDonDichVu , Double tienPhong , Double tienDichVu){
-        HoaDon hd = new HoaDon(idHoaDon,idPhieuThue,idHoaDonDichVu,tienPhong,tienDichVu);
+    public void insert(HoaDon hd){
         hoaDonDAO.insert(hd);
     }
 }
