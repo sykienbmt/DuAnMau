@@ -3,7 +3,7 @@ package panel;
 import helper.SaveImageSQL;
 import controller.NhanVienController;
 import dialog.GuiMail;
-import helper.DataValidate;
+//import helper.DataValidate;
 import helper.MailSender;
 import swing.ScrollBar;
 import java.awt.Color;
@@ -573,17 +573,17 @@ public class NhanVienPnl extends javax.swing.JPanel {
                 StringBuilder sb = new StringBuilder();
                 
                 String hoTen = txtHoten.getText();
-                DataValidate.checkEmpty(hoTen, sb, "Tên không được để trống! ");
+                //DataValidate.checkEmpty(hoTen, sb, "Tên không được để trống! ");
                  
                 String email = txtEmail.getText();
-                DataValidate.checkEmpty(email, sb, "Email không được để trống! ");
-                DataValidate.checkEmailForm(email, sb);
-                DataValidate.checkEmailExist(email, sb);
+                //DataValidate.checkEmpty(email, sb, "Email không được để trống! ");
+                //DataValidate.checkEmailForm(email, sb);
+                //DataValidate.checkEmailExist(email, sb);
                 
                 String sdt = txtSdt.getText(); 
-                DataValidate.checkEmpty(sdt, sb, "Số đt không được để trống! ");
-                DataValidate.checkSdtForm(sdt, sb);
-                DataValidate.checkPhoneExist(sdt, sb); 
+                //DataValidate.checkEmpty(sdt, sb, "Số đt không được để trống! ");
+                //DataValidate.checkSdtForm(sdt, sb);
+                //DataValidate.checkPhoneExist(sdt, sb); 
                             
                 //validate sex
                 String sex = null;
@@ -612,7 +612,7 @@ public class NhanVienPnl extends javax.swing.JPanel {
                 Integer tenChucVu = chucVu.getIdChucVu();
                 
                 String diaChi = txtDiaChi.getText(); 
-                DataValidate.checkEmpty(diaChi, sb, "Địa chỉ không được để trống! ");
+                //DataValidate.checkEmpty(diaChi, sb, "Địa chỉ không được để trống! ");
                 
                 //validate day
                 java.sql.Date ngaySinh = null,ngayVao = null;
@@ -624,7 +624,7 @@ public class NhanVienPnl extends javax.swing.JPanel {
 
                     java.util.Date nVaoRaw = jdcNgayVao.getDate();
                     ngayVao = new java.sql.Date(nVaoRaw.getTime());
-                    DataValidate.checkNgayThang(nSinhRaw, nVaoRaw, sb);
+                    //DataValidate.checkNgayThang(nSinhRaw, nVaoRaw, sb);
                 }
                 
                 
@@ -657,19 +657,19 @@ public class NhanVienPnl extends javax.swing.JPanel {
         //validate hoTen
         StringBuilder sb = new StringBuilder();
         String ten = txtHoten.getText();
-        DataValidate.checkEmpty(ten, sb, "Tên không được để trống! ");
+        //DataValidate.checkEmpty(ten, sb, "Tên không được để trống! ");
         
         //validate phone
         String email = txtEmail.getText();
-        DataValidate.checkEmpty(email, sb, "Email không được để trống! ");
-        DataValidate.checkEmailForm(email, sb);
-        DataValidate.checkEmailExist(email, sb);
+        //DataValidate.checkEmpty(email, sb, "Email không được để trống! ");
+        //DataValidate.checkEmailForm(email, sb);
+        //DataValidate.checkEmailExist(email, sb);
         
         //validate sdt
         String sdt = txtSdt.getText(); 
-        DataValidate.checkEmpty(sdt, sb, "Số đt không được để trống! ");
-        DataValidate.checkSdtForm(sdt, sb);
-        DataValidate.checkPhoneExist(sdt, sb);
+        //DataValidate.checkEmpty(sdt, sb, "Số đt không được để trống! ");
+        //DataValidate.checkSdtForm(sdt, sb);
+        //DataValidate.checkPhoneExist(sdt, sb);
         
         //validate luong
         //Double luong = Double.parseDouble(txtLuong.getText()) ;
@@ -688,7 +688,7 @@ public class NhanVienPnl extends javax.swing.JPanel {
         
         //validate diaChi
         String diaChi = txtDiaChi.getText(); 
-        DataValidate.checkEmpty(diaChi, sb, "Địa chỉ không được để trống! ");
+        //DataValidate.checkEmpty(diaChi, sb, "Địa chỉ không được để trống! ");
         
         
 //        java.util.Date DateOfBirth1 = jdcNgaySinh.getDate();
@@ -707,7 +707,7 @@ public class NhanVienPnl extends javax.swing.JPanel {
             
             java.util.Date nVaoRaw = jdcNgayVao.getDate();
             ngayVao = new java.sql.Date(nVaoRaw.getTime());
-            DataValidate.checkNgayThang(nSinhRaw, nVaoRaw, sb);
+            //DataValidate.checkNgayThang(nSinhRaw, nVaoRaw, sb);
         }
 
         

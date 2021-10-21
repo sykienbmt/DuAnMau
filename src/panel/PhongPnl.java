@@ -9,7 +9,7 @@ import controller.KhacHangController;
 import controller.PhieuThuePhongController;
 import controller.PhongController;
 import dialog.ThanhToan;
-import helper.DataValidate;
+//import helper.DataValidate;
 import java.awt.Button;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -124,9 +124,11 @@ public class PhongPnl extends javax.swing.JPanel {
             btnphong.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mousePressed(MouseEvent e) {
-                    phongHienTai=phong.getId();
+                    phongHienTai = phong.getId();
+                    System.out.println(phongHienTai);
                     setcbb(phongHienTai);
                     button = btnphong;
+                    List<Object[]> ptp = phongController.loadDataPhong(phong.getId());
                     if (phong.getTrangThai().equals("Đang sử dụng")) {
                         List<Object[]> data = phongController.layChiTietDichVu(phong.getId());
                         viewTableChiTietDichVu(data);
@@ -135,8 +137,6 @@ public class PhongPnl extends javax.swing.JPanel {
                         btnKetToan.setEnabled(true);
                         btnThanhToan.setEnabled(true);
                         jdNgayRoi.setEnabled(true);
-                        List<Object[]> ptp = phongController.loadDataPhong(phong.getId());
-                       
                         jdNgayDat.setDate((java.sql.Timestamp) ptp.get(0)[1]);
                         jdNgayRoi.setDate(null);
                         txtCMND.setText(ptp.get(0)[3].toString());
@@ -151,13 +151,13 @@ public class PhongPnl extends javax.swing.JPanel {
                         cbbHinhThucThue.getModel().setSelectedItem(ptp.get(0)[11].toString());
                         txtTenPhong.setText(ptp.get(0)[12].toString());
                     }else{
+                        txtTenPhong.setText(ptp.get(0)[12].toString());
                         btnThemDichVu.setEnabled(false);
                         jdNgayRoi.setEnabled(false);
                         viewTableChiTietDichVu(null);
                         btnMoPhong.setEnabled(true);
                         jdNgayDat.setDate(null);
                         jdNgayRoi.setDate(null);
-                        txtTenPhong.setText("");
                         txtCMND.setText("");
                         txtDiaChi.setText("");
                         txtHoChieu.setText("");
@@ -167,6 +167,7 @@ public class PhongPnl extends javax.swing.JPanel {
                         txtSoNguoi.setText("");
                     }
                     if(phong.getTrangThai().equals("Bảo trì")){
+                        txtTenPhong.setText(ptp.get(0)[12].toString());
                         btnMoPhong.setEnabled(false);
                         jdNgayRoi.setEnabled(false);
                         viewTableChiTietDichVu(null);
@@ -798,10 +799,6 @@ public class PhongPnl extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_txtTenPhongKeyReleased
 
-    private void btnThueActionPerformed(java.awt.event.ActionEvent evt) {                                        
-         
-    }                                       
-
     private void txtCMNDKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCMNDKeyReleased
         String CMND = txtCMND.getText();
         try {
@@ -970,61 +967,30 @@ public class PhongPnl extends javax.swing.JPanel {
     }//GEN-LAST:event_btnThanhToanActionPerformed
 
     private void btnMoPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoPhongActionPerformed
-//        StringBuilder sb = new StringBuilder();
-//        
-//        Timestamp ngayDat = null;
-//        Date date = new Date();         
-//        ngayDat=new Timestamp(date.getTime());
-//        
-//        String tenKhach = txtHoChieu.getText();
-//        DataValidate.checkEmpty(tenKhach, sb, "Tên không được để trống! ");
-//        
-//        String hoChieu =" ";
-//        if(!txtHoChieu.getText().equals("")){
-//            hoChieu=txtHoChieu.getText();
-//        }
-//        DataValidate.checkEmpty(hoChieu, sb, "Số hộ chiếu không được để trống! ");
-//        DataValidate.checkSoHoChieu(hoChieu, sb);
-//        
-//        String diaChi = txtDiaChi.getText();
-//        DataValidate.checkEmpty(diaChi, sb, "Địa chỉ không được để trống! ");
-//        
-//        String sdt = txtSdt.getText();
-//        DataValidate.checkEmpty(sdt, sb, "Số đt không được để trống! ");
-//        DataValidate.checkSdtForm(sdt, sb);
-//        DataValidate.checkPhoneExist(sdt, sb);         
-//        
-//        String cmnd = txtCMND.getText();
-//        DataValidate.checkEmpty(cmnd, sb, "Số CMND không được để trống! ");
-//        DataValidate.checkCMND(cmnd, sb);
-//        Integer soNguoi =Integer.parseInt(txtSoNguoi.getText()); 
-//        
-//        GiaPhong myCbb = (GiaPhong) cbbHinhThucThue.getSelectedItem();
-//        String hinhThucThue = myCbb.tenHinhThuc();       
-//        phongController.updateTinhTrangPhong("Đang sử dụng",phongHienTai);
-//        if (!isCMND) {
-//            khacHangController.insert(0,cmnd, tenKhach, diaChi, hoChieu, sdt);
-//        }      
-//        phieuThuePhongController.insert(0, phongHienTai, 1, cmnd, soNguoi, ngayDat, null, hinhThucThue);
-//        button.setBackground(new Color(255,51,0));
-//        
-//        loadLaiThongTinPhong();
+        System.out.println("xxx");
         Timestamp ngayDat = null;
         Date date = new Date();         
         ngayDat=new Timestamp(date.getTime());
-        String tenKhach = txtHoChieu.getText();
+        System.out.println(ngayDat);
+        String tenKhach = txtTenKhach.getText();
+        System.out.println(tenKhach);
         String hoChieu =" ";
         if(!txtHoChieu.getText().equals("")){
             hoChieu=txtHoChieu.getText();
         }
+        System.out.println(hoChieu);
         String diaChi = txtDiaChi.getText();
-        String sdt = txtHoChieu.getText();
-        String cmnd = txtTenPhong.getText();
-        Integer soNguoi =Integer.parseInt(txtHoChieu.getText());       
+        System.out.println(diaChi);
+        String sdt = txtSdt.getText();
+        System.out.println(sdt);
+        String cmnd = txtCMND.getText();
+        System.out.println(cmnd);
+        Integer soNguoi =Integer.parseInt(txtSoNguoi.getText());  
+        System.out.println(soNguoi);
         GiaPhong myCbb = (GiaPhong) cbbHinhThucThue.getSelectedItem();
         String hinhThucThue = myCbb.tenHinhThuc();  
+        System.out.println(hinhThucThue);
         
-        phongController.updateTinhTrangPhong("Đang sử dụng",phongHienTai);
         if (!isCMND) {
             khacHangController.insert(0,cmnd, tenKhach, diaChi, hoChieu, sdt);
         }      
@@ -1033,10 +999,6 @@ public class PhongPnl extends javax.swing.JPanel {
         
         loadLaiThongTinPhong(); 
     }//GEN-LAST:event_btnMoPhongActionPerformed
-
-    private void txtSdtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSdtActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtSdtActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private swing.PhongButton btnKetToan;
