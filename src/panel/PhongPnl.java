@@ -8,6 +8,7 @@ import controller.HoaDonController;
 import controller.KhacHangController;
 import controller.PhieuThuePhongController;
 import controller.PhongController;
+import dialog.DoiPhongDialog;
 import dialog.ThanhToan;
 //import helper.DataValidate;
 import java.awt.Button;
@@ -308,6 +309,7 @@ public class PhongPnl extends javax.swing.JPanel {
         btnThemDichVu = new swing.PhongButton();
         btnKetToan = new swing.PhongButton();
         btnThanhToan = new swing.PhongButton();
+        phongButton1 = new swing.PhongButton();
         panelCoverDialog2 = new component.PanelCoverDialog();
         jLabel5 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
@@ -495,10 +497,20 @@ public class PhongPnl extends javax.swing.JPanel {
             }
         });
 
+        phongButton1.setText("????");
+        phongButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                phongButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(btnThanhToan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnKetToan, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(btnThemDichVu, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -507,14 +519,14 @@ public class PhongPnl extends javax.swing.JPanel {
                         .addComponent(spnSoLuong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 6, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addComponent(btnThanhToan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btnKetToan, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-            .addComponent(btnThemDichVu, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(phongButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(300, 300, 300)
+                .addContainerGap()
+                .addComponent(phongButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(250, 250, 250)
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(spnSoLuong, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -988,6 +1000,22 @@ public class PhongPnl extends javax.swing.JPanel {
         
         loadLaiThongTinPhong(); 
     }//GEN-LAST:event_btnMoPhongActionPerformed
+    private DoiPhongDialog doiPhongDialog;
+    private void phongButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_phongButton1ActionPerformed
+        if (doiPhongDialog == null) {
+            doiPhongDialog = new DoiPhongDialog(null,true);
+//            doiPhongDialog.btnThem.addActionListener(new AbstractAction(){
+//                @Override
+//                public void actionPerformed(ActionEvent e) {
+//                    int clickThem = JOptionPane.showConfirmDialog(new Frame(),"Bạn có muốn thêm không ?", "Thông báo",JOptionPane.YES_NO_OPTION);
+//                    if (clickThem == JOptionPane.YES_OPTION) {
+//                        
+//                    }
+//                }
+//            });
+        }
+        doiPhongDialog.setVisible(true);
+    }//GEN-LAST:event_phongButton1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private swing.PhongButton btnKetToan;
@@ -1036,6 +1064,7 @@ public class PhongPnl extends javax.swing.JPanel {
     private component.PanelCoverDialog panelCoverDialog1;
     private component.PanelCoverDialog panelCoverDialog2;
     private component.PanelCoverDialog panelCoverDialog3;
+    private swing.PhongButton phongButton1;
     private javax.swing.JScrollPane spTableDichVu;
     private javax.swing.JScrollPane spTableListDichVu;
     private javax.swing.JSpinner spnSoLuong;
