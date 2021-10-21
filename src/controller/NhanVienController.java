@@ -30,6 +30,11 @@ public class NhanVienController {
         return nhanViens;
     }
     
+    public List<Object[]> searchLuongNhanVien(int luongNhanVien) {
+        List<Object[]> nhanViens = nhanVienDAO.searchLuongNhanVien(luongNhanVien);
+        return nhanViens;
+    }
+    
     public void insert(String ten, String email, String sdt, String sex, Double luong, int chucVu, String diaChi, java.sql.Date ngaySinh, java.sql.Date ngayVao, String trangThai, byte[] hinhAnh) {
             NhanVien nhanVien = new NhanVien(0, ten, email, sdt, sex, luong, chucVu, diaChi, ngaySinh, ngayVao, trangThai, hinhAnh);
             nhanVienDAO.insert(nhanVien);

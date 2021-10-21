@@ -181,19 +181,19 @@ public class ProductPnl extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void lbImageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbImageMouseClicked
-        JFileChooser ch = new JFileChooser("E:\\avatar");
+        JFileChooser ch = new JFileChooser("E:\\Important\\Java\\Java_DA\\DuAnMau\\src\\icon");
         ch.setFileFilter(new FileFilter() {
             @Override
             public boolean accept(File f) {
                 if (f.isDirectory()) {
                     return true;
                 }else{
-                    return f.getName().toLowerCase().endsWith(".png");
+                    return f.getName().toLowerCase().endsWith(".jpg");
                 }
             }
             @Override
             public String getDescription() {
-                return "Image File (*.png)";
+                return "Image File (*.jpg)";
             }
         });
         if (ch.showOpenDialog(jPanel1)==JFileChooser.CANCEL_OPTION) {
