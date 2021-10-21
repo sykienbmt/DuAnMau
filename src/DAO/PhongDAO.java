@@ -24,7 +24,7 @@ public class PhongDAO extends AbsDAO<Phong>{
     }
     
     public void updateTinhTrangPhong(String trangThai,int idPhong) {
-        String query = "update Phong set trangThai = N'?' where idPhong = ?";
+        String query = "update Phong set trangThai = ? where idPhong = ?";
         DBConnection.executeUpdate(query,trangThai, idPhong);
     }
    
@@ -74,8 +74,10 @@ public class PhongDAO extends AbsDAO<Phong>{
         return getRawValues("select idPhieuThue from phieuThuePhong where idPhong = "+idPhong+" and ngayDi is null");
     }
 
-    //Tạo hoá đơn tính tiền
-    
+    //lấy id hoá đơn
+    public List<Object[]> getIdHoaDon(int idPhieuThue,int idHoaDonDv){
+        return getRawValues("select idHoaDon from HoaDon where idPhieuThue="+idPhieuThue+" and idHoaDonDichVu="+idHoaDonDv+"");
+    }
     
     //set trang thai phong tra tien
     public void offPhieuThuePhong(int idPhieuThue){

@@ -742,14 +742,14 @@ public class PhongPnl extends javax.swing.JPanel {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(spTableListDichVu, javax.swing.GroupLayout.DEFAULT_SIZE, 462, Short.MAX_VALUE)
+                    .addComponent(spTableListDichVu, javax.swing.GroupLayout.DEFAULT_SIZE, 464, Short.MAX_VALUE)
                     .addComponent(panelCoverDialog2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(2, 2, 2)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(spTableDichVu, javax.swing.GroupLayout.DEFAULT_SIZE, 299, Short.MAX_VALUE)
+                    .addComponent(spTableDichVu, javax.swing.GroupLayout.DEFAULT_SIZE, 302, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -955,19 +955,21 @@ public class PhongPnl extends javax.swing.JPanel {
             tt.btnThanhToanDone.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mousePressed(MouseEvent e) {
-//                    System.out.println("Thanh toán");
-//                    List<Object[]> data2 = phongController.getIdPhieuThue(phongHienTai);
-//                    List<Object[]> data3 = phongController.layIdHoaDonDichVu(phongHienTai);
-//                    
-//                    HoaDon hd = new HoaDon(0,(int) data2.get(0)[0],(int) data3.get(0)[0],tienPhong,tienDichVu);
-//                    System.out.println(hd.getIdPhieuThue()+"   "+hd.getIdHoaDonDichVu()+"   "+tienPhong+"    "+tienDichVu);
-////                    HoaDonDAO hdDAO = new HoaDonDAO();
-//                    hoaDonController.insert(hd);
-                    XuatHoaDon();
+                    System.out.println("Thanh toán");
+                    List<Object[]> data2 = phongController.getIdPhieuThue(phongHienTai);
+                    List<Object[]> data3 = phongController.layIdHoaDonDichVu(phongHienTai);
+                    
+                    HoaDon hd = new HoaDon(0,(int) data2.get(0)[0],(int) data3.get(0)[0],tienPhong,tienDichVu);
+                    System.out.println(hd.getIdPhieuThue()+"   "+hd.getIdHoaDonDichVu()+"   "+tienPhong+"    "+tienDichVu);
+//                    HoaDonDAO hdDAO = new HoaDonDAO();
+                    hoaDonController.insert(hd);
+                    List<Object[]> ttHoaDon = phongController.getIdHoaDon((int) data2.get(0)[0],(int) data3.get(0)[0]);
+                    System.out.println((int)ttHoaDon.get(0)[0]);
+                    XuatHoaDon((int)ttHoaDon.get(0)[0]);
                     
 //                    phongController.offPhieuThuePhong((int)data2.get(0)[0]);
 //                    phongController.updateTinhTrangPhong("Phòng trống", phongHienTai);
-//                    phongController.offHoaDonDichVu(phongHienTai);                   
+//                    phongController.offHoaDonDichVu(phongHienTai);
                 }});
             tt.setLocationRelativeTo(null);
             tt.setVisible(true);
@@ -976,13 +978,13 @@ public class PhongPnl extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnThanhToanActionPerformed
 
-        public void XuatHoaDon(){
+        public void XuatHoaDon(int idHoaDon){
         try {
             
             Hashtable map = new Hashtable();
             JasperReport report = JasperCompileManager.compileReport("src/panel/HoaDon.jrxml");
             
-            map.put("idHoaDon", 22);
+            map.put("idHoaDon", idHoaDon);
             Connection connection = DriverManager.getConnection("jdbc:sqlserver://localhost;database=Java;", "sa", "123456");
             JasperPrint p = JasperFillManager.fillReport(report,  map, connection );
             JasperViewer.viewReport(p, false);
@@ -1017,7 +1019,7 @@ public class PhongPnl extends javax.swing.JPanel {
         String hinhThucThue = myCbb.tenHinhThuc();  
         System.out.println(hinhThucThue);
         
-        //phongController.updateTinhTrangPhong("Đang sử dụng",phongHienTai);
+        phongController.updateTinhTrangPhong("Đang sử dụng",phongHienTai);
         if (!isCMND) {
             khacHangController.insert(0,cmnd, tenKhach, diaChi, hoChieu, sdt);
         }      

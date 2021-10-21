@@ -101,6 +101,11 @@ public class PhongController {
         phongDAO.updateTienDichVu(tien, idHoaDon);
     }
     
+    //lấy id hoá đơn
+    public List<Object[]> getIdHoaDon(int idPhieuThue,int idHoaDonDv){
+        return phongDAO.getIdHoaDon(idPhieuThue, idHoaDonDv);
+    }
+    
     //off Hoá đơn dịch vụ
     public void offHoaDonDichVu(int idPhong){
         phongDAO.offHoaDonDichVu(idPhong);
