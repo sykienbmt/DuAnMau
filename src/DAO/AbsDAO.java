@@ -66,9 +66,18 @@ public abstract class AbsDAO<T extends AbsTable> {
             System.out.println("Chạy lệnh sql: " + query);
             DBConnection.executeUpdate(query, integer);
         }
-        
-        
     }
+    
+    public void deleteOne(Integer id) {
+        T dto = this.createDto();
+        // câu lệnh delete
+        // delete {tableName} where {idColumn} = ?
+        String query = "delete " + dto.getTableName() + " where " + dto.getIdName() + "=?";
+        // chạy câu query
+        System.out.println("Chạy lệnh sql: " + query);
+        DBConnection.executeUpdate(query, id);
+    }
+    
     
     public List<T> getAll() {
         return getWithWhereClause(null);

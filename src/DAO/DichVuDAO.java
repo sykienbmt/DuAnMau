@@ -9,7 +9,7 @@ public class DichVuDAO extends AbsDAO<DichVu>{
     }
     
     public List<Object[]> getDataDichVu (){
-        return getRawValues("select idDichVu,tenDichVu,tenDonVi,gia from DichVu a join donViTinh b on a.idDonVi = b.idDonVi");
+        return getRawValues("select idDichVu,tenDichVu,tenDonVi,gia,b.idDonVi,idDanhMuc from DichVu a join donViTinh b on a.idDonVi = b.idDonVi");
     }
     
     public List<Object[]> searchDichVu(String tenDanhMuc) {
