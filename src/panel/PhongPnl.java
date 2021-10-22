@@ -33,6 +33,7 @@ import java.util.List;
 import javax.swing.AbstractAction;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
+import static javax.swing.JComponent.UNDEFINED_CONDITION;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -191,19 +192,7 @@ public class PhongPnl extends javax.swing.JPanel {
                         cbbHinhThucThue.getModel().setSelectedItem(ptp.get(0)[11].toString());
                         txtTenPhong.setText(ptp.get(0)[12].toString());
                     }else{
-                        btnThemDichVu.setEnabled(false);
-                        jdNgayRoi.setEnabled(false);
-                        viewTableChiTietDichVu(null);
-                        btnMoPhong.setEnabled(true);
-                        jdNgayDat.setDate(null);
-                        jdNgayRoi.setDate(null);
-                        txtCMND.setText("");
-                        txtDiaChi.setText("");
-                        txtHoChieu.setText("");
-                        txtSdt.setText("");
-                        txtTenKhach.setText("");
-                        lbTenNhanVien.setText("");
-                        txtSoNguoi.setText("");
+                        setNullValue();
                     }
                     if(phong.getTrangThai().equals("Bảo trì")){
                         btnMoPhong.setEnabled(false);
@@ -847,7 +836,9 @@ public class PhongPnl extends javax.swing.JPanel {
             int clickThem = JOptionPane.showConfirmDialog(new Frame(),"Bạn có muốn thêm không ?", "Thông báo",JOptionPane.YES_NO_OPTION);
             if (clickThem == JOptionPane.YES_OPTION) {
                 int click = tblDichVu.getSelectedRow();
+                System.out.println(phongHienTai);
                 List<Object[]> list = phongController.checkHoaDonPhong(phongHienTai);
+                System.out.println(list);
                 if(!list.get(0)[0].toString().equals("1")){
                     phongController.taoHoaDonDichVu(phongHienTai);
                 }
@@ -964,6 +955,9 @@ public class PhongPnl extends javax.swing.JPanel {
                     tienPhong = 0.0;
                     tienDichVu = 0.0;
                     reLoadPhong();
+                    setNullValue();
+                    phongHienTai=UNDEFINED_CONDITION;
+                    tt.setVisible(false);
                 }});
             
             tt.btnTTKhongIn.addMouseListener(new MouseAdapter() {
@@ -984,6 +978,9 @@ public class PhongPnl extends javax.swing.JPanel {
                     tienPhong = 0.0;
                     tienDichVu = 0.0;
                     reLoadPhong();
+                    setNullValue();
+                    phongHienTai=UNDEFINED_CONDITION;
+                    tt.setVisible(false);
                 }});
             tt.setLocationRelativeTo(null);
             tt.setVisible(true);
@@ -1008,14 +1005,15 @@ public class PhongPnl extends javax.swing.JPanel {
         GiaPhong myCbb = (GiaPhong) cbbHinhThucThue.getSelectedItem();
         String hinhThucThue = myCbb.tenHinhThuc();
         
-        phongController.updateTinhTrangPhong("Đang sử dụng",phongHienTai);
-        if (!isCMND) {
+        if (isCMND==false) {
             khacHangController.insert(0,cmnd, tenKhach, diaChi, hoChieu, sdt);
         }      
+        phongController.updateTinhTrangPhong("Đang sử dụng",phongHienTai);
         phieuThuePhongController.insert(0, phongHienTai, 1, cmnd, soNguoi, ngayDat, null, hinhThucThue);
         button.setBackground(new Color(255,51,0));
-        
+        setNullValue();
         reLoadPhong();
+        System.out.println(phongHienTai);
     }//GEN-LAST:event_btnMoPhongActionPerformed
     
     private void btnDoiPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDoiPhongActionPerformed
@@ -1088,6 +1086,25 @@ public class PhongPnl extends javax.swing.JPanel {
         doiPhongDialog.setVisible(true);
     }//GEN-LAST:event_btnDoiPhongActionPerformed
 
+    public void setNullValue(){
+        btnThemDichVu.setEnabled(false);
+        jdNgayRoi.setEnabled(false);
+        viewTableChiTietDichVu(null);
+        btnMoPhong.setEnabled(true);
+        jdNgayDat.setDate(null);
+        jdNgayRoi.setDate(null);
+        txtCMND.setText("");
+        txtDiaChi.setText("");
+        txtHoChieu.setText("");
+        txtSdt.setText("");
+        txtTenKhach.setText("");
+        lbTenNhanVien.setText("");
+        txtSoNguoi.setText("");
+        txtTienPhong.setText("0");
+        txtTienDichVu.setText("0");
+        txtTongTien.setText("0");
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private swing.PhongButton btnDoiPhong;
     private swing.PhongButton btnKetToan;
