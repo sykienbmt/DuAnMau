@@ -260,26 +260,6 @@ public class PhongPnl extends javax.swing.JPanel {
         }
     }   
     
-    public void setController (DichVuController dichVuController) {
-        this.dichVuController = dichVuController;
-    }
-    
-    public void setController (PhongController phongController) {
-        this.phongController = phongController;
-    }
-    
-    public void setController (PhieuThuePhongController phieuThuePhongController) {
-        this.phieuThuePhongController = phieuThuePhongController;
-    }
-    
-    public void setController (KhacHangController khacHangController) {
-        this.khacHangController = khacHangController;
-    }
-    
-    public void setController (HoaDonController hoaDonController) {
-        this.hoaDonController = hoaDonController;
-    }   
-    
     public void placeholderDichVu() {
         txtTimDichVu.setText("Tìm dịch vụ");
         txtTimDichVu.addFocusListener(new FocusListener() {
@@ -844,9 +824,7 @@ public class PhongPnl extends javax.swing.JPanel {
             int clickThem = JOptionPane.showConfirmDialog(new Frame(),"Bạn có muốn thêm không ?", "Thông báo",JOptionPane.YES_NO_OPTION);
             if (clickThem == JOptionPane.YES_OPTION) {
                 int click = tblDichVu.getSelectedRow();
-                System.out.println(phongHienTai);
                 List<Object[]> list = phongController.checkHoaDonPhong(phongHienTai);
-                System.out.println(list);
                 if(!list.get(0)[0].toString().equals("1")){
                     phongController.taoHoaDonDichVu(phongHienTai);
                 }
@@ -866,14 +844,11 @@ public class PhongPnl extends javax.swing.JPanel {
         int num = giaPhongString.indexOf("-");
         String hinhThucThue = giaPhongString.substring(0,num);
         Double giaThue = Double.valueOf(giaPhongString.substring(num+1,giaPhongString.length()));
-        System.out.println("-HÌnh thức thuê: " +hinhThucThue+"-  Giá: "+giaThue);
         
         Date now = new Date();
         Timestamp ngayDat = (Timestamp) data.get(0)[1];
         Date ngayDatDate=(Date) ngayDat;
-        System.out.println(ngayDatDate);
         long thoiGian = now.getTime()-ngayDatDate.getTime();
-        System.out.println("Khoảng cách là :" +thoiGian);
         
         long diffHours = thoiGian / (60 * 60 * 1000);
         if(thoiGian % (60 * 60 * 1000)!=0){
@@ -883,13 +858,7 @@ public class PhongPnl extends javax.swing.JPanel {
         if(thoiGian % (24 * 60 * 60 * 1000)!=0){
             diffDays+=1;
         }
-//        long diffMonths= thoiGian/ (30 * 24 * 60 * 60 * 1000);
-//        long diffQuys= thoiGian/ (3 * 30 * 24 * 60 * 60 * 1000);
 
-        System.out.print(diffDays + " days, ");
-        System.out.print(diffHours + " hours, ");
-//        System.out.print(diffMonths + " Month, ");
-//        System.out.print(diffQuys + " Quys, ");
         if(hinhThucThue.equalsIgnoreCase("Giờ")){
             if(diffHours<=1){
                 tienPhong=giaThue;
@@ -899,31 +868,20 @@ public class PhongPnl extends javax.swing.JPanel {
         }else if(hinhThucThue.equals("Ngày")){
             tienPhong=diffDays*giaThue;
         }
-//        else if(hinhThucThue.equals("Tháng")){
-//            Double tienThang = 0.0;
-//            
-//            tienPhong=diffMonths*giaThue;
-//        }else if(hinhThucThue.equals("Quý")){
-//            tienPhong=diffQuys*giaThue;
-//        }
-        
+
         txtTienPhong.setText(tienPhong.toString());
-//        System.out.println("Giá phòng là: "+tienPhong);
         
         for(int i=0;i<=tblListDichVu.getRowCount()-1;i++){
             System.out.println(tblListDichVu.getValueAt(i, 5));
             tienDichVu+= Double.parseDouble(tblListDichVu.getValueAt(i, 5).toString());
         }
-        System.out.println("Tiền dịch vụ là: " +tienDichVu);
         
         //update lại tiền dịch vụ
         List <Object[]> data2 = phongController.layIdHoaDonDichVu(phongHienTai);
         phongController.updateTienHoaDonDV(tienDichVu,(Integer.valueOf(data2.get(0)[0].toString())));
-        
         txtTienDichVu.setText(tienDichVu.toString());
         tongTien = tienDichVu+tienPhong;
         txtTongTien.setText(tongTien.toString());
-        System.out.println("x");
     }//GEN-LAST:event_btnKetToanActionPerformed
 
     private void btnThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToanActionPerformed
@@ -1114,6 +1072,27 @@ public class PhongPnl extends javax.swing.JPanel {
         txtTienDichVu.setText("0");
         txtTongTien.setText("0");
     }
+    
+    public void setController (DichVuController dichVuController) {
+        this.dichVuController = dichVuController;
+    }
+    
+    public void setController (PhongController phongController) {
+        this.phongController = phongController;
+    }
+    
+    public void setController (PhieuThuePhongController phieuThuePhongController) {
+        this.phieuThuePhongController = phieuThuePhongController;
+    }
+    
+    public void setController (KhacHangController khacHangController) {
+        this.khacHangController = khacHangController;
+    }
+    
+    public void setController (HoaDonController hoaDonController) {
+        this.hoaDonController = hoaDonController;
+    }   
+    
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private swing.PhongButton btnDoiPhong;
