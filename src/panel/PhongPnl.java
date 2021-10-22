@@ -690,7 +690,7 @@ public class PhongPnl extends javax.swing.JPanel {
         jLabel23.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel23.setText("Thành tiền");
         panelCoverDialog1.add(jLabel23);
-        jLabel23.setBounds(260, 70, 71, 15);
+        jLabel23.setBounds(160, 100, 71, 30);
 
         txtTongTien.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txtTongTien.setText("0");
