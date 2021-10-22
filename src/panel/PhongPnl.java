@@ -15,6 +15,7 @@ import helper.DataValidate;
 import java.awt.Button;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.FocusEvent;
@@ -101,7 +102,10 @@ public class PhongPnl extends javax.swing.JPanel {
         spTableDichVu.setVerticalScrollBar(new ScrollBar());
         spTableDichVu.getVerticalScrollBar().setBackground(Color.WHITE);
         spTableDichVu.getViewport().setBackground(Color.WHITE);
-        spTableDichVu.setCorner(JScrollPane.UPPER_RIGHT_CORNER, p);          
+        spTableDichVu.setCorner(JScrollPane.UPPER_RIGHT_CORNER, p);  
+        //css table Dịch vụ
+        tblDichVu.setRowHeight(30);
+        tblListDichVu.setRowHeight(25);
     }
 
     private void init() {
@@ -151,6 +155,7 @@ public class PhongPnl extends javax.swing.JPanel {
     }
     
     public void viewBtnPhong(List<Phong> data) {
+        setNullValue();
         for (Phong phong : data) {
             Button btnphong = new Button(phong.toString());           
             btnphong.setPreferredSize(new Dimension(95,60));
@@ -479,6 +484,10 @@ public class PhongPnl extends javax.swing.JPanel {
                 "id", "Dịch vụ", "ĐVT", "Giá"
             }
         ));
+        tblDichVu.setFocusable(false);
+        tblDichVu.setIntercellSpacing(new java.awt.Dimension(0, 0));
+        tblDichVu.setShowVerticalLines(false);
+        tblDichVu.getTableHeader().setReorderingAllowed(false);
         spTableDichVu.setViewportView(tblDichVu);
         if (tblDichVu.getColumnModel().getColumnCount() > 0) {
             tblDichVu.getColumnModel().getColumn(0).setMinWidth(0);
