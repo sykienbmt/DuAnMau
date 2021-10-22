@@ -8,6 +8,7 @@ import controller.NhanVienController;
 import controller.PhieuThuePhongController;
 import controller.PhongController;
 import controller.QlDichVuController;
+import dialog.DoiPhongDialog;
 import event.EventMenuSelected;
 import model.ModelMenu;
 import panel.HomePnl;

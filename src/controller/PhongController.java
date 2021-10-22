@@ -2,6 +2,7 @@ package controller;
 
 import DAO.LoaiPhongDAO;
 import DAO.PhongDAO;
+import dialog.DoiPhongDialog;
 import java.util.List;
 import model.LoaiPhong;
 import model.Phong;
@@ -33,6 +34,11 @@ public class PhongController {
         List<Phong> phongs = phongDAO.getAll();
         view.viewBtnPhong(phongs);
     }  
+
+    public List<Phong> loadPhongHienTai() {
+        List<Phong> phongs = phongDAO.getAll();
+        return phongs;
+    }
     
     public List<Object[]> checkHoaDonPhong(int idPhong){
         List<Object[]> phongs = phongDAO.checkHoaDonPhong(idPhong);
@@ -64,6 +70,10 @@ public class PhongController {
     public List<Object[]> getGiaPhong(int idPhong){
         return phongDAO.getGiaPhong(idPhong);
     }
+    public void updateTinhTrangPhong2(String trangThai,int idPhong, int idLoaiPhong) {
+        phongDAO.updateTinhTrangPhong2(trangThai,idPhong, idLoaiPhong);
+    }
+    
     public void updateTinhTrangPhong(String trangThai,int idPhong) {
         phongDAO.updateTinhTrangPhong(trangThai,idPhong);
     }
@@ -109,5 +119,22 @@ public class PhongController {
     //off Hoá đơn dịch vụ
     public void offHoaDonDichVu(int idPhong){
         phongDAO.offHoaDonDichVu(idPhong);
+    }
+    
+    //chuyển hóa đơn dịch vụ phòng
+    public void chuyenHoaDonDichVuPhong(int idPhong, int idPhongCanDoi) {
+        phongDAO.chuyenHoaDonDichVuPhong(idPhong, idPhongCanDoi);
+    }
+    
+    //chuyển phiếu thuê phòng
+    public void chuyenPhieuThuePhong(int idPhong, int idPhongCanDoi) {
+        phongDAO.chuyenPhieuThuePhong(idPhong, idPhongCanDoi);
+    }
+    public List<Object[]> getPhongDangDung(){
+        return phongDAO.getPhongDangDung();
+    }
+    
+    public List<Object[]> getPhongTrong(int idLoaiPhong){
+        return phongDAO.getPhongTrong(idLoaiPhong);
     }
 }

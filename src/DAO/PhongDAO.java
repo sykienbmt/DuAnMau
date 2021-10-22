@@ -6,7 +6,17 @@ import java.util.List;
 import model.Phong;
 import java.sql.Timestamp;
 
-public class PhongDAO extends AbsDAO<Phong>{
+public class PhongDAO extends AbsDAO<Phong>{  
+    public List<Object[]> getPhongDangDung() {
+        return getRawValues("select idPhong,tenPhong,a.idLoaiPhong,tenLoaiPhong from Phong a join LoaiPhong b "
+                            + "on a.idLoaiPhong = b.idLoaiPhong where trangThai = N'Đang sử dụng'");
+    }
+    
+    public List<Object[]> getPhongTrong(int idLoaiPhong) {
+        return getRawValues("select idPhong,tenPhong,a.idLoaiPhong,tenLoaiPhong from Phong a join LoaiPhong b "
+                            + "on a.idLoaiPhong = b.idLoaiPhong where trangThai = N'Phòng trống' and a.idLoaiPhong = "+idLoaiPhong+"");
+    }
+    
     public List<Object[]> setThongTinPhong(int idPhong) {
         return getRawValues("select a.soCMND,soNguoi,a.ngayDat,ngayDi,hinhThucThue,tenKhach,diaChi,soDT,hoChieu from phieuThuePhong a \n" +
                             "join KhachHang b on a.soCMND = b.soCMND join Phong c on c.idPhong = a.idPhong where a.idPhong = "+idPhong+" and a.ngayDi is null");
@@ -26,6 +36,11 @@ public class PhongDAO extends AbsDAO<Phong>{
     public void updateTinhTrangPhong(String trangThai,int idPhong) {
         String query = "update Phong set trangThai = ? where idPhong = ?";
         DBConnection.executeUpdate(query,trangThai, idPhong);
+    }
+    
+    public void updateTinhTrangPhong2(String trangThai,int idPhong, int idLoaiPhong) {
+        String query = "update Phong set trangThai = ? where idPhong = ? and idLoaiPhong = ?";
+        DBConnection.executeUpdate(query,trangThai, idPhong, idLoaiPhong);
     }
    
     public List<Object[]> checkHoaDonPhong(int idPhong){
@@ -96,5 +111,17 @@ public class PhongDAO extends AbsDAO<Phong>{
     public void offHoaDonDichVu(int idPhong){
         String query = "update HoaDonDichVu set trangThai=0 where idPhong=? and trangthai=1";
         DBConnection.executeUpdate(query,idPhong);
+    }
+    
+    //chuyển hóa đơn dịch vụ phòng
+    public void chuyenHoaDonDichVuPhong(int idPhong, int idPhongCanDoi) {
+        String query = "update HoaDonDichVu set idPhong = ? where idPhong = ? and trangThai = 1";
+        DBConnection.executeUpdate(query, idPhong, idPhongCanDoi);
+    }
+    
+    //chuyển phiếu thuê phòng
+    public void chuyenPhieuThuePhong(int idPhong, int idPhongCanDoi) {
+        String query = "update phieuThuePhong set idPhong = ? where idPhong = ? and ngayDi is null";
+        DBConnection.executeUpdate(query, idPhong, idPhongCanDoi);
     }
 }

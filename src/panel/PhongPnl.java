@@ -1,6 +1,7 @@
 package panel;
 
 import DAO.DanhMucDAO;
+import DAO.PhongDAO;
 import DAO.cbbHinhThucThueDAO;
 import helper.DBConnection;
 import controller.DichVuController;
@@ -10,11 +11,12 @@ import controller.PhieuThuePhongController;
 import controller.PhongController;
 import dialog.DoiPhongDialog;
 import dialog.ThanhToan;
-//import helper.DataValidate;
+import helper.DataValidate;
 import java.awt.Button;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Frame;
+import java.awt.event.ActionEvent;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyAdapter;
@@ -28,6 +30,7 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Hashtable;
 import java.util.List;
+import javax.swing.AbstractAction;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
@@ -53,16 +56,21 @@ public class PhongPnl extends javax.swing.JPanel {
     private HoaDonController hoaDonController;
     private DichVuController dichVuController;
     private PhongController phongController;
-    DanhMucDAO danhMucDAO = new DanhMucDAO();
+    DanhMucDAO danhMucDAO = new DanhMucDAO();  
+    PhongDAO phongDAO = new PhongDAO();
     private cbbHinhThucThueDAO hinhThucThueDAO;
     private Button button;
     private boolean isCMND = false;
     int phongHienTai =UNDEFINED_CONDITION;
+    int phongCanDoi =UNDEFINED_CONDITION;
+    int idLoaiPhongCanDoi =UNDEFINED_CONDITION;
+    int idLoaiPhongMuonDoi =UNDEFINED_CONDITION;
     boolean click = false;
     Double tongTien=0.0;
     Double tienPhong = 0.0;
     Double tienDichVu = 0.0;
     ThanhToan tt = null;
+    private DoiPhongDialog doiPhongDialog;
     
     public PhongPnl() {
         initComponents();
@@ -293,6 +301,47 @@ public class PhongPnl extends javax.swing.JPanel {
             }
         });
     }
+    
+    public void reLoadPhong(){
+        panel.removeAll();
+        phongController.loadListBtnPhong();
+        panel.revalidate();
+        panel.repaint();  
+    }
+    
+    public void getPhongDangDung() {
+        List<Object[]> data = phongController.getPhongDangDung();
+        DefaultTableModel model = (DefaultTableModel) doiPhongDialog.tblPhongCanDoi.getModel();  
+        if (data == null) {
+            for (int i = doiPhongDialog.tblPhongCanDoi.getRowCount()-1; i >= 0; i--) {
+                model.removeRow(i);
+            }
+        }else {
+            for (int i = doiPhongDialog.tblPhongCanDoi.getRowCount()-1; i >= 0; i--) {
+                model.removeRow(i);
+            }      
+            for (Object[] objects : data) {
+                model.addRow(objects);
+            }
+        }
+    }
+    
+//    public void getPhongTrong() {
+//        List<Object[]> data = phongController.getPhongTrong(idLoaiPhongCanDoi);
+//        DefaultTableModel model2 = (DefaultTableModel) doiPhongDialog.tblPhongMuonDoi.getModel();  
+//        if (data == null) {
+//            for (int i = doiPhongDialog.tblPhongCanDoi.getRowCount()-1; i >= 0; i--) {
+//                model2.removeRow(i);
+//            }
+//        }else {
+//            for (int i = doiPhongDialog.tblPhongCanDoi.getRowCount()-1; i >= 0; i--) {
+//                model2.removeRow(i);
+//            }      
+//            for (Object[] objects : data) {
+//                model2.addRow(objects);
+//            }
+//        }
+//    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -506,7 +555,7 @@ public class PhongPnl extends javax.swing.JPanel {
             }
         });
 
-        phongButton1.setText("????");
+        phongButton1.setText("Đổi phòng");
         phongButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 phongButton1ActionPerformed(evt);
@@ -533,9 +582,9 @@ public class PhongPnl extends javax.swing.JPanel {
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(32, 32, 32)
                 .addComponent(phongButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(250, 250, 250)
+                .addGap(229, 229, 229)
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(spnSoLuong, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -716,7 +765,7 @@ public class PhongPnl extends javax.swing.JPanel {
         jScrollPane2.setViewportView(jlDanhMuc);
 
         panelCoverDialog3.add(jScrollPane2);
-        jScrollPane2.setBounds(20, 80, 70, 220);
+        jScrollPane2.setBounds(20, 80, 260, 220);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -995,14 +1044,7 @@ public class PhongPnl extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Trả phòng trước đi 3, đm ns hoài !");
         }
     }//GEN-LAST:event_btnThanhToanActionPerformed
-   
-    public void reLoadPhong(){
-        panel.removeAll();
-        phongController.loadListBtnPhong();
-        panel.revalidate();
-        panel.repaint();  
-    }
-    
+     
     private void btnMoPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoPhongActionPerformed
         Timestamp ngayDat = null;
         Date date = new Date();         
@@ -1026,24 +1068,78 @@ public class PhongPnl extends javax.swing.JPanel {
         phieuThuePhongController.insert(0, phongHienTai, 1, cmnd, soNguoi, ngayDat, null, hinhThucThue);
         button.setBackground(new Color(255,51,0));
         
-        panel.removeAll();
-        phongController.loadListBtnPhong();
-        panel.revalidate();
-        panel.repaint();       
+        reLoadPhong();
     }//GEN-LAST:event_btnMoPhongActionPerformed
-    private DoiPhongDialog doiPhongDialog;
+    
     private void phongButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_phongButton1ActionPerformed
         if (doiPhongDialog == null) {
             doiPhongDialog = new DoiPhongDialog(null,true);
-//            doiPhongDialog.btnThem.addActionListener(new AbstractAction(){
-//                @Override
-//                public void actionPerformed(ActionEvent e) {
-//                    int clickThem = JOptionPane.showConfirmDialog(new Frame(),"Bạn có muốn thêm không ?", "Thông báo",JOptionPane.YES_NO_OPTION);
-//                    if (clickThem == JOptionPane.YES_OPTION) {
-//                        
-//                    }
-//                }
-//            });
+            getPhongDangDung();
+
+            doiPhongDialog.tblPhongCanDoi.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    DefaultTableModel p = (DefaultTableModel) doiPhongDialog.tblPhongCanDoi.getModel();
+                    int click = doiPhongDialog.tblPhongCanDoi.getSelectedRow();
+                    Integer idPhongCanDoi = (Integer) doiPhongDialog.tblPhongCanDoi.getValueAt(click, 0);
+                    phongCanDoi = idPhongCanDoi;
+                    Integer idLoaiPhong = (Integer) doiPhongDialog.tblPhongCanDoi.getValueAt(click, 2);
+                    idLoaiPhongCanDoi = idLoaiPhong;
+                    doiPhongDialog.lblPhongCanDoi.setText((String) doiPhongDialog.tblPhongCanDoi.getValueAt(click, 1));   
+                    
+                    List<Object[]> data = phongController.getPhongTrong(idLoaiPhongCanDoi);
+                    DefaultTableModel model2 = (DefaultTableModel) doiPhongDialog.tblPhongMuonDoi.getModel();  
+                    if (data == null) {
+                        for (int i = doiPhongDialog.tblPhongMuonDoi.getRowCount()-1; i >= 0; i--) {
+                            model2.removeRow(i);
+                        }
+                    }else {
+                        for (int i = doiPhongDialog.tblPhongMuonDoi.getRowCount()-1; i >= 0; i--) {
+                            model2.removeRow(i);
+                        }      
+                        for (Object[] objects : data) {
+                            model2.addRow(objects);
+                        }
+                    }
+                }
+            });
+            doiPhongDialog.tblPhongMuonDoi.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {                    
+                    DefaultTableModel p = (DefaultTableModel) doiPhongDialog.tblPhongMuonDoi.getModel();
+                    int click = doiPhongDialog.tblPhongMuonDoi.getSelectedRow();
+                    Integer idPhongMuonDoi = (Integer) doiPhongDialog.tblPhongMuonDoi.getValueAt(click, 0);
+                    phongHienTai = idPhongMuonDoi;
+//                    Integer idLoaiPhong = (Integer) doiPhongDialog.tblPhongMuonDoi.getValueAt(click, 2);
+//                    idLoaiPhongMuonDoi = idLoaiPhong;
+                    doiPhongDialog.lblPhongMuonDoi.setText((String) doiPhongDialog.tblPhongMuonDoi.getValueAt(click, 1));
+                }
+            });
+            doiPhongDialog.btnDoiPhong.addActionListener(new AbstractAction(){
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    int click = doiPhongDialog.tblPhongCanDoi.getSelectedRow();    
+                    int click2 = doiPhongDialog.tblPhongMuonDoi.getSelectedRow();
+                    if (click == -1) {
+                        JOptionPane.showMessageDialog(new Frame(), "Chọn phòng cần đổi !!!","Thông báo", JOptionPane.ERROR_MESSAGE);                       
+                    }else {
+                        if (click2 == -1) {
+                            JOptionPane.showMessageDialog(new Frame(), "Chọn phòng muốn đổi !!!","Thông báo", JOptionPane.ERROR_MESSAGE);
+                        }else {
+                            if(idLoaiPhongCanDoi == idLoaiPhongMuonDoi) {
+                                phongController.updateTinhTrangPhong2("Phòng trống", phongCanDoi,idLoaiPhongCanDoi);
+                                phongController.updateTinhTrangPhong2("Đang sử dụng", phongHienTai,idLoaiPhongCanDoi);
+                                phongController.chuyenPhieuThuePhong(phongHienTai, phongCanDoi);
+                                phongController.chuyenHoaDonDichVuPhong(phongHienTai, phongCanDoi);
+                                JOptionPane.showMessageDialog(new Frame(), "Đổi phòng thành công !!!");
+                                doiPhongDialog.dispose();
+                                reLoadPhong();
+                            }else JOptionPane.showMessageDialog(new Frame(), "Không thể đổi phòng có loại phòng khác nhau !!!","Thông báo", JOptionPane.ERROR_MESSAGE);                           
+                            
+                        }
+                    }
+                }
+            });
         }
         doiPhongDialog.setVisible(true);
     }//GEN-LAST:event_phongButton1ActionPerformed
