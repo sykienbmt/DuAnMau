@@ -967,6 +967,27 @@ public class PhongPnl extends javax.swing.JPanel {
                     tongTien=0.0;
                     tienPhong = 0.0;
                     tienDichVu = 0.0;
+                    reLoadPhong();
+                }});
+            
+            tt.btnTTKhongIn.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mousePressed(MouseEvent e) {
+                    System.out.println("Thanh toán");
+                    List<Object[]> data2 = phongController.getIdPhieuThue(phongHienTai);
+                    List<Object[]> data3 = phongController.layIdHoaDonDichVu(phongHienTai);
+                    
+                    HoaDon hd = new HoaDon(0,(int) data2.get(0)[0],(int) data3.get(0)[0],tienPhong,tienDichVu);
+                    System.out.println(hd.getIdPhieuThue()+"   "+hd.getIdHoaDonDichVu()+"   "+tienPhong+"    "+tienDichVu);
+                    hoaDonController.insert(hd);
+                    List<Object[]> ttHoaDon = phongController.getIdHoaDon((int) data2.get(0)[0],(int) data3.get(0)[0]);                
+                    phongController.offPhieuThuePhong((int)data2.get(0)[0]);
+                    phongController.updateTinhTrangPhong("Phòng trống", phongHienTai);
+                    phongController.offHoaDonDichVu(phongHienTai);
+                    tongTien=0.0;
+                    tienPhong = 0.0;
+                    tienDichVu = 0.0;
+                    reLoadPhong();
                 }});
             tt.setLocationRelativeTo(null);
             tt.setVisible(true);
@@ -975,6 +996,13 @@ public class PhongPnl extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnThanhToanActionPerformed
    
+    public void reLoadPhong(){
+        panel.removeAll();
+        phongController.loadListBtnPhong();
+        panel.revalidate();
+        panel.repaint();  
+    }
+    
     private void btnMoPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoPhongActionPerformed
         Timestamp ngayDat = null;
         Date date = new Date();         

@@ -38,7 +38,7 @@ public class ThanhToan extends javax.swing.JDialog {
         jLabel5 = new javax.swing.JLabel();
         jTextField3 = new javax.swing.JTextField();
         btnThanhToanDone = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnTTKhongIn = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -101,10 +101,10 @@ public class ThanhToan extends javax.swing.JDialog {
             }
         });
 
-        jButton3.setText("Thanh toán và không In");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnTTKhongIn.setText("Thanh toán và không In");
+        btnTTKhongIn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnTTKhongInActionPerformed(evt);
             }
         });
 
@@ -166,7 +166,7 @@ public class ThanhToan extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
+                            .addComponent(btnTTKhongIn, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
                             .addComponent(btnThanhToanDone, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(53, 53, 53))
@@ -196,7 +196,7 @@ public class ThanhToan extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addComponent(btnThanhToanDone)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton3)
+                .addComponent(btnTTKhongIn)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton5)
                 .addContainerGap(23, Short.MAX_VALUE))
@@ -213,9 +213,9 @@ public class ThanhToan extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnThanhToanDoneActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btnTTKhongInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTTKhongInActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_btnTTKhongInActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
@@ -234,9 +234,9 @@ public class ThanhToan extends javax.swing.JDialog {
     }//GEN-LAST:event_jTextField2ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JButton btnTTKhongIn;
     public javax.swing.JButton btnThanhToanDone;
     public javax.swing.JButton jButton1;
-    public javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     public javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
