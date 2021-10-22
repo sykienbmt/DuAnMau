@@ -88,6 +88,8 @@ public class PhongPnl extends javax.swing.JPanel {
         txtHoChieu.setEnabled(false);
         txtSdt.setEnabled(false);
         txtTenPhong.setEnabled(false);
+        btnKetToan.setEnabled(false);
+        btnThanhToan.setEnabled(false);
 //        css table list dich vu
         spTableListDichVu.setVerticalScrollBar(new ScrollBar());
         spTableListDichVu.getVerticalScrollBar().setBackground(Color.WHITE);
@@ -170,27 +172,7 @@ public class PhongPnl extends javax.swing.JPanel {
                     button = btnphong;
                     
                     if (phong.getTrangThai().equals("Đang sử dụng")) {
-                        List<Object[]> data = phongController.layChiTietDichVu(phong.getId());
-                        viewTableChiTietDichVu(data);
-                        btnMoPhong.setEnabled(false);
-                        btnThemDichVu.setEnabled(true);
-                        btnKetToan.setEnabled(true);
-                        btnThanhToan.setEnabled(true);
-                        jdNgayRoi.setEnabled(true);
-                        List<Object[]> ptp = phongController.loadDataPhong(phong.getId());
-                        jdNgayDat.setDate((java.sql.Timestamp) ptp.get(0)[1]);
-                        jdNgayRoi.setDate(null);
-                        txtCMND.setText(ptp.get(0)[3].toString());
-                        txtDiaChi.setText(ptp.get(0)[4].toString());
-                        if(ptp.get(0)[5]==null){
-                            txtHoChieu.setText("");
-                        }else txtHoChieu.setText(ptp.get(0)[5].toString());
-                        txtSdt.setText(ptp.get(0)[6].toString());
-                        txtTenKhach.setText(ptp.get(0)[7].toString());
-                        lbTenNhanVien.setText(ptp.get(0)[8].toString());
-                        txtSoNguoi.setText(ptp.get(0)[9].toString());
-                        cbbHinhThucThue.getModel().setSelectedItem(ptp.get(0)[11].toString());
-                        txtTenPhong.setText(ptp.get(0)[12].toString());
+                        setThongTinPhong(phong.getId());
                     }else{
                         setNullValue();
                     }
@@ -220,6 +202,32 @@ public class PhongPnl extends javax.swing.JPanel {
             cbbModel.addElement(giaphongs[i]);
         }
     }
+    
+    public void setThongTinPhong(int idPhong){
+        List<Object[]> data = phongController.layChiTietDichVu(idPhong);
+        viewTableChiTietDichVu(data);
+        btnMoPhong.setEnabled(false);
+        btnThemDichVu.setEnabled(true);
+        btnKetToan.setEnabled(true);
+        btnThanhToan.setEnabled(true);
+        jdNgayRoi.setEnabled(true);
+        List<Object[]> ptp = phongController.loadDataPhong(idPhong);
+        jdNgayDat.setDate((java.sql.Timestamp) ptp.get(0)[1]);
+        jdNgayRoi.setDate(null);
+        txtCMND.setText(ptp.get(0)[3].toString());
+        txtDiaChi.setText(ptp.get(0)[4].toString());
+        if(ptp.get(0)[5]==null){
+            txtHoChieu.setText("");
+        }else txtHoChieu.setText(ptp.get(0)[5].toString());
+        txtSdt.setText(ptp.get(0)[6].toString());
+        txtTenKhach.setText(ptp.get(0)[7].toString());
+        lbTenNhanVien.setText(ptp.get(0)[8].toString());
+        txtSoNguoi.setText(ptp.get(0)[9].toString());
+        cbbHinhThucThue.getModel().setSelectedItem(ptp.get(0)[11].toString());
+        txtTenPhong.setText(ptp.get(0)[12].toString());
+    }
+    
+    
     
     public void viewTableChiTietDichVu(List<Object[]> data) {
         DefaultTableModel model = (DefaultTableModel) tblListDichVu.getModel();           
@@ -1013,7 +1021,8 @@ public class PhongPnl extends javax.swing.JPanel {
         button.setBackground(new Color(255,51,0));
         setNullValue();
         reLoadPhong();
-        System.out.println(phongHienTai);
+        setThongTinPhong(phongHienTai);
+        btnThemDichVu.setEnabled(true);
     }//GEN-LAST:event_btnMoPhongActionPerformed
     
     private void btnDoiPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDoiPhongActionPerformed
@@ -1078,6 +1087,7 @@ public class PhongPnl extends javax.swing.JPanel {
                             reLoadPhong();    
                             doiPhongDialog.lblPhongCanDoi.setText("");
                             doiPhongDialog.lblPhongMuonDoi.setText("");
+                            setNullValue();
                         }                       
                     }                    
                 }
