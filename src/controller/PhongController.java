@@ -2,7 +2,6 @@ package controller;
 
 import DAO.LoaiPhongDAO;
 import DAO.PhongDAO;
-import dialog.DoiPhongDialog;
 import java.util.List;
 import model.LoaiPhong;
 import model.Phong;

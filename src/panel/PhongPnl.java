@@ -349,7 +349,7 @@ public class PhongPnl extends javax.swing.JPanel {
         btnThemDichVu = new swing.PhongButton();
         btnKetToan = new swing.PhongButton();
         btnThanhToan = new swing.PhongButton();
-        phongButton1 = new swing.PhongButton();
+        btnDoiPhong = new swing.PhongButton();
         panelCoverDialog2 = new component.PanelCoverDialog();
         jLabel5 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
@@ -537,10 +537,10 @@ public class PhongPnl extends javax.swing.JPanel {
             }
         });
 
-        phongButton1.setText("Đổi phòng");
-        phongButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnDoiPhong.setText("Đổi phòng");
+        btnDoiPhong.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                phongButton1ActionPerformed(evt);
+                btnDoiPhongActionPerformed(evt);
             }
         });
 
@@ -559,13 +559,13 @@ public class PhongPnl extends javax.swing.JPanel {
                         .addComponent(spnSoLuong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 6, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addComponent(phongButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnDoiPhong, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(32, 32, 32)
-                .addComponent(phongButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnDoiPhong, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(229, 229, 229)
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -590,12 +590,6 @@ public class PhongPnl extends javax.swing.JPanel {
         jLabel15.setText("CMND");
         panelCoverDialog2.add(jLabel15);
         jLabel15.setBounds(10, 50, 51, 30);
-
-        txtTenPhong.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtTenPhongKeyReleased(evt);
-            }
-        });
         panelCoverDialog2.add(txtTenPhong);
         txtTenPhong.setBounds(310, 50, 150, 29);
 
@@ -810,35 +804,6 @@ public class PhongPnl extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
         
-    private void txtTenPhongKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTenPhongKeyReleased
-        String CMND = txtTenPhong.getText();
-        try {
-            String sql_getdata = "select tenKhach,diaChi,hoChieu,soDT from KhachHang where soCMND = '"+CMND+"'";
-            ResultSet rs = DBConnection.executeQuery(sql_getdata);
-            if (rs.next()) {
-                isCMND = true;
-                txtHoChieu.setText(rs.getString("tenKhach"));
-                txtDiaChi.setText(rs.getString("diaChi"));
-                txtHoChieu.setText(rs.getString("hoChieu"));
-                txtHoChieu.setText(rs.getString("soDt"));
-                txtHoChieu.setEnabled(false);
-                txtDiaChi.setEnabled(false);
-                txtHoChieu.setEnabled(false);
-                txtHoChieu.setEnabled(false);
-            }else {
-                txtHoChieu.setEnabled(true);
-                txtDiaChi.setEnabled(true);
-                txtHoChieu.setEnabled(true);
-                txtHoChieu.setEnabled(true);
-                txtHoChieu.setText("");
-                txtDiaChi.setText("");
-                txtHoChieu.setText("");
-                txtHoChieu.setText("");
-            }
-        } catch (Exception e) {
-        }
-    }//GEN-LAST:event_txtTenPhongKeyReleased
-
     private void txtCMNDKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCMNDKeyReleased
         String CMND = txtCMND.getText();
         try {
@@ -1053,7 +1018,7 @@ public class PhongPnl extends javax.swing.JPanel {
         reLoadPhong();
     }//GEN-LAST:event_btnMoPhongActionPerformed
     
-    private void phongButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_phongButton1ActionPerformed
+    private void btnDoiPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDoiPhongActionPerformed
         if (doiPhongDialog == null) {
             doiPhongDialog = new DoiPhongDialog(null,true);
             getPhongDangDung();
@@ -1092,8 +1057,6 @@ public class PhongPnl extends javax.swing.JPanel {
                     int click = doiPhongDialog.tblPhongMuonDoi.getSelectedRow();
                     Integer idPhongMuonDoi = (Integer) doiPhongDialog.tblPhongMuonDoi.getValueAt(click, 0);
                     phongHienTai = idPhongMuonDoi;
-//                    Integer idLoaiPhong = (Integer) doiPhongDialog.tblPhongMuonDoi.getValueAt(click, 2);
-//                    idLoaiPhongMuonDoi = idLoaiPhong;
                     doiPhongDialog.lblPhongMuonDoi.setText((String) doiPhongDialog.tblPhongMuonDoi.getValueAt(click, 1));
                 }
             });
@@ -1108,25 +1071,25 @@ public class PhongPnl extends javax.swing.JPanel {
                         if (click2 == -1) {
                             JOptionPane.showMessageDialog(new Frame(), "Chọn phòng muốn đổi !!!","Thông báo", JOptionPane.ERROR_MESSAGE);
                         }else {
-                            if(idLoaiPhongCanDoi == idLoaiPhongMuonDoi) {
-                                phongController.updateTinhTrangPhong2("Phòng trống", phongCanDoi,idLoaiPhongCanDoi);
-                                phongController.updateTinhTrangPhong2("Đang sử dụng", phongHienTai,idLoaiPhongCanDoi);
-                                phongController.chuyenPhieuThuePhong(phongHienTai, phongCanDoi);
-                                phongController.chuyenHoaDonDichVuPhong(phongHienTai, phongCanDoi);
-                                JOptionPane.showMessageDialog(new Frame(), "Đổi phòng thành công !!!");
-                                doiPhongDialog.dispose();
-                                reLoadPhong();
-                            }else JOptionPane.showMessageDialog(new Frame(), "Không thể đổi phòng có loại phòng khác nhau !!!","Thông báo", JOptionPane.ERROR_MESSAGE);                           
-                            
-                        }
-                    }
+                            phongController.updateTinhTrangPhong2("Phòng trống", phongCanDoi,idLoaiPhongCanDoi);
+                            phongController.updateTinhTrangPhong2("Đang sử dụng", phongHienTai,idLoaiPhongCanDoi);
+                            phongController.chuyenPhieuThuePhong(phongHienTai, phongCanDoi);
+                            phongController.chuyenHoaDonDichVuPhong(phongHienTai, phongCanDoi);
+                            JOptionPane.showMessageDialog(new Frame(), "Đổi phòng thành công !!!");
+                            doiPhongDialog.dispose();
+                            reLoadPhong();    
+                            doiPhongDialog.lblPhongCanDoi.setText("");
+                            doiPhongDialog.lblPhongMuonDoi.setText("");
+                        }                       
+                    }                    
                 }
             });
         }
         doiPhongDialog.setVisible(true);
-    }//GEN-LAST:event_phongButton1ActionPerformed
+    }//GEN-LAST:event_btnDoiPhongActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private swing.PhongButton btnDoiPhong;
     private swing.PhongButton btnKetToan;
     private swing.PhongButton btnMoPhong;
     private swing.PhongButton btnThanhToan;
@@ -1173,7 +1136,6 @@ public class PhongPnl extends javax.swing.JPanel {
     private component.PanelCoverDialog panelCoverDialog1;
     private component.PanelCoverDialog panelCoverDialog2;
     private component.PanelCoverDialog panelCoverDialog3;
-    private swing.PhongButton phongButton1;
     private javax.swing.JScrollPane spTableDichVu;
     private javax.swing.JScrollPane spTableListDichVu;
     private javax.swing.JSpinner spnSoLuong;
