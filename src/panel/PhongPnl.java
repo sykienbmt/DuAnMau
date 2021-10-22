@@ -165,10 +165,9 @@ public class PhongPnl extends javax.swing.JPanel {
                 @Override
                 public void mousePressed(MouseEvent e) {
                     phongHienTai = phong.getId();
-                    System.out.println(phongHienTai);
                     setcbb(phongHienTai);
                     button = btnphong;
-                    List<Object[]> ptp = phongController.loadDataPhong(phong.getId());
+                    
                     if (phong.getTrangThai().equals("Đang sử dụng")) {
                         List<Object[]> data = phongController.layChiTietDichVu(phong.getId());
                         viewTableChiTietDichVu(data);
@@ -177,6 +176,7 @@ public class PhongPnl extends javax.swing.JPanel {
                         btnKetToan.setEnabled(true);
                         btnThanhToan.setEnabled(true);
                         jdNgayRoi.setEnabled(true);
+                        List<Object[]> ptp = phongController.loadDataPhong(phong.getId());
                         jdNgayDat.setDate((java.sql.Timestamp) ptp.get(0)[1]);
                         jdNgayRoi.setDate(null);
                         txtCMND.setText(ptp.get(0)[3].toString());
@@ -206,7 +206,6 @@ public class PhongPnl extends javax.swing.JPanel {
                         txtSoNguoi.setText("");
                     }
                     if(phong.getTrangThai().equals("Bảo trì")){
-                        txtTenPhong.setText(ptp.get(0)[12].toString());
                         btnMoPhong.setEnabled(false);
                         jdNgayRoi.setEnabled(false);
                         viewTableChiTietDichVu(null);
@@ -326,23 +325,6 @@ public class PhongPnl extends javax.swing.JPanel {
         }
     }
     
-//    public void getPhongTrong() {
-//        List<Object[]> data = phongController.getPhongTrong(idLoaiPhongCanDoi);
-//        DefaultTableModel model2 = (DefaultTableModel) doiPhongDialog.tblPhongMuonDoi.getModel();  
-//        if (data == null) {
-//            for (int i = doiPhongDialog.tblPhongCanDoi.getRowCount()-1; i >= 0; i--) {
-//                model2.removeRow(i);
-//            }
-//        }else {
-//            for (int i = doiPhongDialog.tblPhongCanDoi.getRowCount()-1; i >= 0; i--) {
-//                model2.removeRow(i);
-//            }      
-//            for (Object[] objects : data) {
-//                model2.addRow(objects);
-//            }
-//        }
-//    }
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -1059,7 +1041,7 @@ public class PhongPnl extends javax.swing.JPanel {
         String cmnd = txtCMND.getText();
         Integer soNguoi =Integer.parseInt(txtSoNguoi.getText());  
         GiaPhong myCbb = (GiaPhong) cbbHinhThucThue.getSelectedItem();
-        String hinhThucThue = myCbb.tenHinhThuc();  
+        String hinhThucThue = myCbb.tenHinhThuc();
         
         phongController.updateTinhTrangPhong("Đang sử dụng",phongHienTai);
         if (!isCMND) {

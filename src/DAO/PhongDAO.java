@@ -30,7 +30,7 @@ public class PhongDAO extends AbsDAO<Phong>{
         return getRawValues("select idPhieuThue,ptp.ngayDat,ngayDi,ptp.soCMND soCMND,kh.diaChi diaChi,hoChieu,soDT,tenKhach,ten tenNv,soNguoi,p.idloaiphong,hinhThucThue,p.tenPhong from phieuThuePhong ptp \n" +
                             "join KhachHang kh on kh.soCMND=ptp.soCMND \n" +
                             "join NhanVien nv on nv.idNhanVien=ptp.idNhanVien \n" +
-                            "join phong p on p.idphong=ptp.idphong where ptp.idPhong="+idPhong+"");
+                            "join phong p on p.idphong=ptp.idphong where ptp.idPhong="+idPhong+" and ngayDi is null");
     }
     
     public void updateTinhTrangPhong(String trangThai,int idPhong) {
