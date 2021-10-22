@@ -1,14 +1,29 @@
 package model;
 
 import javax.swing.Icon;
+import javax.swing.ImageIcon;
 
 public class Model_Card {
 
-    public Icon getIcon() {
+    private ImageIcon icon;
+    private String title;
+    private String description;
+
+    public Model_Card() {
+    }
+    
+    public Model_Card(ImageIcon icon, String title, String description) {
+        this.icon = icon;
+        this.title = title;
+        this.description = description;
+    }
+
+    
+    public ImageIcon getIcon() {
         return icon;
     }
 
-    public void setIcon(Icon icon) {
+    public void setIcon(ImageIcon icon) {
         this.icon = icon;
     }
 
@@ -27,17 +42,7 @@ public class Model_Card {
     public void setDescription(String description) {
         this.description = description;
     }
-
-    public Model_Card(Icon icon, String title, String description) {
-        this.icon = icon;
-        this.title = title;
-        this.description = description;
-    }
-
-    public Model_Card() {
-    }
-
-    private Icon icon;
-    private String title;
-    private String description;
+    
+    
+    
 }
