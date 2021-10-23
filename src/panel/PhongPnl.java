@@ -16,7 +16,9 @@ import helper.ChuyenDoi;
 import helper.DataValidate;
 import java.awt.Button;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.FocusEvent;
@@ -179,7 +181,8 @@ public class PhongPnl extends javax.swing.JPanel {
     public void viewBtnPhong(List<Phong> data) {
         setNullValue();
         for (Phong phong : data) {
-            Button btnphong = new Button(phong.toString());           
+            Button btnphong = new Button(phong.toString()); 
+            btnphong.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
             btnphong.setPreferredSize(new Dimension(105,60));
             btnphong.setFont(new java.awt.Font("Segoe UI Light", 1, 12));
             btnphong.setForeground(new java.awt.Color(255,255,255));
@@ -438,17 +441,15 @@ public class PhongPnl extends javax.swing.JPanel {
         ));
         spTableListDichVu.setViewportView(tblListDichVu);
         if (tblListDichVu.getColumnModel().getColumnCount() > 0) {
-            tblListDichVu.getColumnModel().getColumn(0).setMinWidth(100);
-            tblListDichVu.getColumnModel().getColumn(0).setPreferredWidth(100);
-            tblListDichVu.getColumnModel().getColumn(0).setMaxWidth(100);
-            tblListDichVu.getColumnModel().getColumn(3).setMinWidth(0);
-            tblListDichVu.getColumnModel().getColumn(3).setPreferredWidth(0);
-            tblListDichVu.getColumnModel().getColumn(3).setMaxWidth(0);
+            tblListDichVu.getColumnModel().getColumn(0).setMinWidth(0);
+            tblListDichVu.getColumnModel().getColumn(0).setPreferredWidth(0);
+            tblListDichVu.getColumnModel().getColumn(0).setMaxWidth(0);
+            tblListDichVu.getColumnModel().getColumn(3).setMinWidth(150);
+            tblListDichVu.getColumnModel().getColumn(3).setPreferredWidth(150);
+            tblListDichVu.getColumnModel().getColumn(3).setMaxWidth(150);
             tblListDichVu.getColumnModel().getColumn(4).setMinWidth(45);
             tblListDichVu.getColumnModel().getColumn(4).setPreferredWidth(45);
             tblListDichVu.getColumnModel().getColumn(4).setMaxWidth(45);
-            tblListDichVu.getColumnModel().getColumn(4).setHeaderValue("SL");
-            tblListDichVu.getColumnModel().getColumn(5).setHeaderValue("Thành tiền");
         }
 
         jButton1.setBackground(new java.awt.Color(102, 102, 102));
