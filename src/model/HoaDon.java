@@ -15,16 +15,18 @@ public class HoaDon extends AbsTable{
     private Integer idHoaDonDichVu ;
     private Double tienGio ;
     private Double tienDichVu ;
+    private Double phuThu ;
 
     public HoaDon() {
     }
 
-    public HoaDon(Integer idHoaDon, Integer idPhieuThue, Integer idHoaDonDichVu, Double tienGio, Double tienDichVu) {
+    public HoaDon(Integer idHoaDon, Integer idPhieuThue, Integer idHoaDonDichVu, Double tienGio, Double tienDichVu, Double phuThu) {
         this.idHoaDon = idHoaDon;
         this.idPhieuThue = idPhieuThue;
         this.idHoaDonDichVu = idHoaDonDichVu;
         this.tienGio = tienGio;
         this.tienDichVu = tienDichVu;
+        this.phuThu = phuThu;
     }
 
     public Integer getIdHoaDon() {
@@ -66,6 +68,16 @@ public class HoaDon extends AbsTable{
     public void setTienDichVu(Double tienDichVu) {
         this.tienDichVu = tienDichVu;
     }
+
+    public Double getPhuThu() {
+        return phuThu;
+    }
+
+    public void setPhuThu(Double phuThu) {
+        this.phuThu = phuThu;
+    }
+
+   
 
     @Override
     public int getId() {
