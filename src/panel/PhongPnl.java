@@ -36,10 +36,15 @@ import javax.swing.AbstractAction;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import static javax.swing.JComponent.UNDEFINED_CONDITION;
+import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+import main.Main;
 import model.DanhMuc;
 import model.Phong;
 import model.GiaPhong;
@@ -106,8 +111,22 @@ public class PhongPnl extends javax.swing.JPanel {
         spTableDichVu.getViewport().setBackground(Color.WHITE);
         spTableDichVu.setCorner(JScrollPane.UPPER_RIGHT_CORNER, p);  
         //css table Dịch vụ
+        cssHeaderJtable();
+        
         tblDichVu.setRowHeight(30);
         tblListDichVu.setRowHeight(25);
+        DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
+        rightRenderer.setHorizontalAlignment(JLabel.RIGHT);
+        tblListDichVu.getColumnModel().getColumn(5).setCellRenderer(rightRenderer);
+//        DefaultTableCellRenderer renderer = (DefaultTableCellRenderer) tblListDichVu.getTableHeader().getDefaultRenderer();
+//        renderer.setHorizontalAlignment(0);
+    }
+    
+    public void cssHeaderJtable(){
+        JTableHeader thead = tblDichVu.getTableHeader();
+        thead.setForeground(Color.BLUE);
+        thead.setBackground(Color.LIGHT_GRAY);
+        thead.setFont(new Font("Tahome",Font.BOLD,12));
     }
 
     private void init() {
