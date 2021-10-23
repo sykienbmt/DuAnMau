@@ -423,6 +423,9 @@ public class PhongPnl extends javax.swing.JPanel {
             tblListDichVu.getColumnModel().getColumn(2).setMinWidth(50);
             tblListDichVu.getColumnModel().getColumn(2).setPreferredWidth(50);
             tblListDichVu.getColumnModel().getColumn(2).setMaxWidth(50);
+            tblListDichVu.getColumnModel().getColumn(3).setMinWidth(150);
+            tblListDichVu.getColumnModel().getColumn(3).setPreferredWidth(150);
+            tblListDichVu.getColumnModel().getColumn(3).setMaxWidth(150);
             tblListDichVu.getColumnModel().getColumn(4).setMinWidth(45);
             tblListDichVu.getColumnModel().getColumn(4).setPreferredWidth(45);
             tblListDichVu.getColumnModel().getColumn(4).setMaxWidth(45);
@@ -489,11 +492,15 @@ public class PhongPnl extends javax.swing.JPanel {
             }
         ));
         tblDichVu.setPreferredSize(new java.awt.Dimension(227, 64));
+        tblDichVu.getTableHeader().setReorderingAllowed(false);
         spTableDichVu.setViewportView(tblDichVu);
         if (tblDichVu.getColumnModel().getColumnCount() > 0) {
             tblDichVu.getColumnModel().getColumn(0).setMinWidth(0);
             tblDichVu.getColumnModel().getColumn(0).setPreferredWidth(0);
             tblDichVu.getColumnModel().getColumn(0).setMaxWidth(0);
+            tblDichVu.getColumnModel().getColumn(1).setMinWidth(130);
+            tblDichVu.getColumnModel().getColumn(1).setPreferredWidth(130);
+            tblDichVu.getColumnModel().getColumn(1).setMaxWidth(130);
         }
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
