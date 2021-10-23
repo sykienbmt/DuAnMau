@@ -1,19 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dialog;
 
-/**
- *
- * @author Administrator
- */
 public class ThanhToan extends javax.swing.JDialog {
 
-    /**
-     * Creates new form NewJDialog
-     */
     public ThanhToan(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -29,19 +17,22 @@ public class ThanhToan extends javax.swing.JDialog {
     private void initComponents() {
 
         jButton4 = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        panelCoverDialog1 = new component.PanelCoverDialog();
+        jLabel6 = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        lblTenPhong = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        buttonOutLine1 = new swing.ButtonOutLine();
         jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
-        btnThanhToanDone = new javax.swing.JButton();
-        btnTTKhongIn = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        btnHuy = new swing.PhongButton();
+        btnTTKhongIn = new swing.PhongButton();
+        btnThanhToanDone = new swing.PhongButton();
+        txtTongTien = new swing.TextInput();
+        txtKhachDua = new swing.TextInput();
+        txtTraLai = new swing.TextInput();
 
         jButton4.setText("Thanh toán và In");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -54,199 +45,125 @@ public class ThanhToan extends javax.swing.JDialog {
         setTitle("Thanh Toán");
         setResizable(false);
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel2.setText("PHÒNG : Phòng 1");
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setText("THANH TOÁN");
+        panelCoverDialog1.add(jLabel6);
+        jLabel6.setBounds(0, 0, 480, 30);
+        panelCoverDialog1.add(jSeparator1);
+        jSeparator1.setBounds(0, 30, 480, 10);
 
-        jButton1.setText("In phiếu tạm tính");
+        lblTenPhong.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        panelCoverDialog1.add(lblTenPhong);
+        lblTenPhong.setBounds(80, 40, 90, 17);
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel7.setText("PHÒNG : ");
+        panelCoverDialog1.add(jLabel7);
+        jLabel7.setBounds(10, 40, 70, 17);
+
+        buttonOutLine1.setBackground(new java.awt.Color(255, 0, 51));
+        buttonOutLine1.setText("In phiếu tạm tính");
+        panelCoverDialog1.add(buttonOutLine1);
+        buttonOutLine1.setBounds(335, 40, 120, 25);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText("Tổng tiền: ");
-
-        jTextField1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jTextField1.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jTextField1.setText("0");
+        panelCoverDialog1.add(jLabel3);
+        jLabel3.setBounds(70, 90, 80, 30);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel4.setText("Khách đưa:");
-
-        jTextField2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jTextField2.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
-            }
-        });
-        jTextField2.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTextField2KeyReleased(evt);
-            }
-        });
+        panelCoverDialog1.add(jLabel4);
+        jLabel4.setBounds(70, 140, 80, 30);
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel5.setText("Trả lại: ");
+        panelCoverDialog1.add(jLabel5);
+        jLabel5.setBounds(70, 190, 70, 30);
 
-        jTextField3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jTextField3.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jTextField3.setText("0");
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+        btnHuy.setText("Hủy");
+        btnHuy.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
+                btnHuyActionPerformed(evt);
             }
         });
+        panelCoverDialog1.add(btnHuy);
+        btnHuy.setBounds(320, 300, 140, 40);
 
-        btnThanhToanDone.setText("Thanh toán và In");
-        btnThanhToanDone.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnThanhToanDoneActionPerformed(evt);
-            }
-        });
+        btnTTKhongIn.setText("Thanh toán và không in");
+        panelCoverDialog1.add(btnTTKhongIn);
+        btnTTKhongIn.setBounds(320, 240, 140, 40);
 
-        btnTTKhongIn.setText("Thanh toán và không In");
-        btnTTKhongIn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTTKhongInActionPerformed(evt);
-            }
-        });
+        btnThanhToanDone.setText("Thanh toán và in");
+        panelCoverDialog1.add(btnThanhToanDone);
+        btnThanhToanDone.setBounds(170, 240, 140, 40);
 
-        jButton5.setText("Huỷ");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
-            }
-        });
+        txtTongTien.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtTongTien.setText("0");
+        panelCoverDialog1.add(txtTongTien);
+        txtTongTien.setBounds(160, 90, 300, 29);
 
-        jPanel1.setBackground(new java.awt.Color(255, 153, 255));
+        txtKhachDua.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtKhachDua.setText("0");
+        panelCoverDialog1.add(txtKhachDua);
+        txtKhachDua.setBounds(160, 140, 300, 29);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("THANH TOÁN");
+        txtTraLai.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtTraLai.setText("0");
+        panelCoverDialog1.add(txtTraLai);
+        txtTraLai.setBounds(160, 190, 300, 29);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(panelCoverDialog1, javax.swing.GroupLayout.DEFAULT_SIZE, 482, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addContainerGap(12, Short.MAX_VALUE))
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(panelCoverDialog1, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(45, 45, 45)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(btnTTKhongIn, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
-                            .addComponent(btnThanhToanDone, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addGap(53, 53, 53))
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addGap(18, 18, 18)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextField1)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextField2)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextField3)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(btnThanhToanDone)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnTTKhongIn)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton5)
-                .addContainerGap(23, Short.MAX_VALUE))
+            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
-
-    private void btnThanhToanDoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToanDoneActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnThanhToanDoneActionPerformed
-
-    private void btnTTKhongInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTTKhongInActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnTTKhongInActionPerformed
-
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton4ActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-       this.setVisible(false);
-    }//GEN-LAST:event_jButton5ActionPerformed
-
-    private void jTextField2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2KeyReleased
-
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    private void btnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyActionPerformed
+        this.setVisible(false);
+    }//GEN-LAST:event_btnHuyActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public javax.swing.JButton btnTTKhongIn;
-    public javax.swing.JButton btnThanhToanDone;
-    public javax.swing.JButton jButton1;
+    private swing.PhongButton btnHuy;
+    public swing.PhongButton btnTTKhongIn;
+    public swing.PhongButton btnThanhToanDone;
+    private swing.ButtonOutLine buttonOutLine1;
     private javax.swing.JButton jButton4;
-    public javax.swing.JButton jButton5;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JPanel jPanel1;
-    public javax.swing.JTextField jTextField1;
-    public javax.swing.JTextField jTextField2;
-    public javax.swing.JTextField jTextField3;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JSeparator jSeparator1;
+    public javax.swing.JLabel lblTenPhong;
+    private component.PanelCoverDialog panelCoverDialog1;
+    public swing.TextInput txtKhachDua;
+    public swing.TextInput txtTongTien;
+    public swing.TextInput txtTraLai;
     // End of variables declaration//GEN-END:variables
 }

@@ -17,7 +17,6 @@ import helper.DataValidate;
 import java.awt.Button;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.FocusEvent;
@@ -28,7 +27,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.util.Date;
@@ -38,12 +36,10 @@ import javax.swing.AbstractAction;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import static javax.swing.JComponent.UNDEFINED_CONDITION;
-import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
-import main.Main;
 import model.DanhMuc;
 import model.Phong;
 import model.GiaPhong;
@@ -115,7 +111,7 @@ public class PhongPnl extends javax.swing.JPanel {
     }
 
     private void init() {
-        panel.setLayout(new WrapLayout(WrapLayout.CENTER));
+        panel.setLayout(new WrapLayout(WrapLayout.LEADING));
         jScrollPane1.setVerticalScrollBar(new ScrollBar());    
         panel.revalidate();
         panel.repaint();
@@ -165,7 +161,7 @@ public class PhongPnl extends javax.swing.JPanel {
         setNullValue();
         for (Phong phong : data) {
             Button btnphong = new Button(phong.toString());           
-            btnphong.setPreferredSize(new Dimension(100,60));
+            btnphong.setPreferredSize(new Dimension(105,60));
             btnphong.setFont(new java.awt.Font("Segoe UI Light", 1, 12));
             btnphong.setForeground(new java.awt.Color(255,255,255));
             if (phong.getTrangThai().equals("Đang sử dụng")) {
@@ -905,8 +901,7 @@ public class PhongPnl extends javax.swing.JPanel {
         txtTienPhong.setText(ChuyenDoi.SoString(tienPhong));
         
         for(int i=0;i<=tblListDichVu.getRowCount()-1;i++){
-            System.out.println(tblListDichVu.getValueAt(i, 5));
-            tienDichVu+= Double.parseDouble(tblListDichVu.getValueAt(i, 5).toString());
+            tienDichVu+= ChuyenDoi.SoDouble(tblListDichVu.getValueAt(i, 5).toString());
         }
         
         //update lại tiền dịch vụ
@@ -920,20 +915,22 @@ public class PhongPnl extends javax.swing.JPanel {
     private void btnThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToanActionPerformed
         if(click){
             tt = new ThanhToan(null,true);
-            tt.jTextField1.setEnabled(false);
-            tt.jTextField3.setEnabled(false);
-            tt.jTextField1.setText(ChuyenDoi.SoString(tongTien+phuThu));
+            tt.txtTongTien.setEnabled(false);
+            tt.txtTraLai.setEnabled(false);
+            tt.txtTongTien.setText(ChuyenDoi.SoString(tongTien+phuThu));
+            List<Object[]> ptp = phongController.loadDataPhong(phongHienTai);
+            tt.lblTenPhong.setText(ptp.get(0) [12].toString());
             
-            tt.jTextField2.addKeyListener(new KeyAdapter(){
+            tt.txtKhachDua.addKeyListener(new KeyAdapter(){
                 @Override
                 public void keyReleased(KeyEvent e) {
-                    double khachDua = ChuyenDoi.SoDouble(tt.jTextField2.getText());
-                    tt.jTextField2.setText(ChuyenDoi.SoString(khachDua));
+                    double khachDua = ChuyenDoi.SoDouble(tt.txtKhachDua.getText());
+                    tt.txtKhachDua.setText(ChuyenDoi.SoString(khachDua));
                     double traLai = khachDua-tongTien-phuThu;
                     if(traLai>0){
-                        tt.jTextField3.setText(ChuyenDoi.SoString(traLai));  
+                        tt.txtTraLai.setText(ChuyenDoi.SoString(traLai));  
                     }else{
-                        tt.jTextField3.setText("0");  
+                        tt.txtTraLai.setText("0");  
                     }           
                 }
             });

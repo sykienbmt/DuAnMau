@@ -6,7 +6,7 @@ import java.util.List;
 import model.Phong;
 import java.sql.Timestamp;
 
-public class PhongDAO extends AbsDAO<Phong>{  
+public class PhongDAO extends AbsDAO<Phong>{      
     public List<Object[]> getPhongDangDung() {
         return getRawValues("select idPhong,tenPhong,a.idLoaiPhong,tenLoaiPhong from Phong a join LoaiPhong b "
                             + "on a.idLoaiPhong = b.idLoaiPhong where trangThai = N'Đang sử dụng'");
