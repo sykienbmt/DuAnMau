@@ -72,7 +72,7 @@ public class PhongPnl extends javax.swing.JPanel {
     Double tongTien=0.0;
     Double tienPhong = 0.0;
     Double tienDichVu = 0.0;
-    Double phuThu ;
+    Double phuThu =0.0;
     ThanhToan tt = null;
     private DoiPhongDialog doiPhongDialog;
     
@@ -688,6 +688,7 @@ public class PhongPnl extends javax.swing.JPanel {
         jLabel22.setBounds(10, 70, 59, 14);
 
         txtTienDichVu.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtTienDichVu.setText("0");
         txtTienDichVu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtTienDichVuActionPerformed(evt);
