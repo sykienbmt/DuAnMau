@@ -72,6 +72,7 @@ public class PhongPnl extends javax.swing.JPanel {
     Double tongTien=0.0;
     Double tienPhong = 0.0;
     Double tienDichVu = 0.0;
+    Double phuThu ;
     ThanhToan tt = null;
     private DoiPhongDialog doiPhongDialog;
     
@@ -363,7 +364,7 @@ public class PhongPnl extends javax.swing.JPanel {
         panelCoverDialog1 = new component.PanelCoverDialog();
         jLabel21 = new javax.swing.JLabel();
         txtTienPhong = new swing.TextInput();
-        txtTienKhachDua = new swing.TextInput();
+        txtPhuThu = new swing.TextInput();
         jLabel24 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
         txtTienDichVu = new swing.TextInput();
@@ -666,14 +667,17 @@ public class PhongPnl extends javax.swing.JPanel {
         jLabel21.setBounds(10, 10, 50, 30);
 
         txtTienPhong.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        txtTienPhong.setText("0");
         panelCoverDialog1.add(txtTienPhong);
         txtTienPhong.setBounds(80, 10, 150, 29);
 
-        txtTienKhachDua.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        txtTienKhachDua.setText("0");
-        panelCoverDialog1.add(txtTienKhachDua);
-        txtTienKhachDua.setBounds(300, 10, 150, 29);
+        txtPhuThu.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtPhuThu.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtPhuThuKeyReleased(evt);
+            }
+        });
+        panelCoverDialog1.add(txtPhuThu);
+        txtPhuThu.setBounds(300, 10, 150, 29);
 
         jLabel24.setText("Phụ thu");
         panelCoverDialog1.add(jLabel24);
@@ -684,7 +688,11 @@ public class PhongPnl extends javax.swing.JPanel {
         jLabel22.setBounds(10, 70, 59, 14);
 
         txtTienDichVu.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        txtTienDichVu.setText("0");
+        txtTienDichVu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTienDichVuActionPerformed(evt);
+            }
+        });
         panelCoverDialog1.add(txtTienDichVu);
         txtTienDichVu.setBounds(80, 60, 150, 29);
 
@@ -879,7 +887,9 @@ public class PhongPnl extends javax.swing.JPanel {
             tienPhong=diffDays*giaThue;
         }
 
-        txtTienPhong.setText(tienPhong.toString());
+        
+        
+        txtTienPhong.setText(ChuyenDoi.SoString(tienPhong));
         
         for(int i=0;i<=tblListDichVu.getRowCount()-1;i++){
             System.out.println(tblListDichVu.getValueAt(i, 5));
@@ -889,9 +899,9 @@ public class PhongPnl extends javax.swing.JPanel {
         //update lại tiền dịch vụ
         List <Object[]> data2 = phongController.layIdHoaDonDichVu(phongHienTai);
         phongController.updateTienHoaDonDV(tienDichVu,(Integer.valueOf(data2.get(0)[0].toString())));
-        txtTienDichVu.setText(tienDichVu.toString());
+        txtTienDichVu.setText(ChuyenDoi.SoString(tienDichVu));
         tongTien = tienDichVu+tienPhong;
-        txtTongTien.setText(tongTien.toString());
+        txtTongTien.setText(ChuyenDoi.SoString(tongTien));
     }//GEN-LAST:event_btnKetToanActionPerformed
 
     private void btnThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToanActionPerformed
@@ -899,13 +909,19 @@ public class PhongPnl extends javax.swing.JPanel {
             tt = new ThanhToan(null,true);
             tt.jTextField1.setEnabled(false);
             tt.jTextField3.setEnabled(false);
-            tt.jTextField1.setText(tongTien.toString());
+            tt.jTextField1.setText(ChuyenDoi.SoString(tongTien+phuThu));
             
             tt.jTextField2.addKeyListener(new KeyAdapter(){
                 @Override
                 public void keyReleased(KeyEvent e) {
-                    Double traLai  = Double.parseDouble(tt.jTextField2.getText())-tongTien;
-                    tt.jTextField3.setText(traLai.toString());                    
+                    double khachDua = ChuyenDoi.SoDouble(tt.jTextField2.getText());
+                    tt.jTextField2.setText(ChuyenDoi.SoString(khachDua));
+                    double traLai = khachDua-tongTien-phuThu;
+                    if(traLai>0){
+                        tt.jTextField3.setText(ChuyenDoi.SoString(traLai));  
+                    }else{
+                        tt.jTextField3.setText("0");  
+                    }           
                 }
             });
             
@@ -916,7 +932,7 @@ public class PhongPnl extends javax.swing.JPanel {
                     List<Object[]> data2 = phongController.getIdPhieuThue(phongHienTai);
                     List<Object[]> data3 = phongController.layIdHoaDonDichVu(phongHienTai);
                     
-                    HoaDon hd = new HoaDon(0,(int) data2.get(0)[0],(int) data3.get(0)[0],tienPhong,tienDichVu);
+                    HoaDon hd = new HoaDon(0,(int) data2.get(0)[0],(int) data3.get(0)[0],tienPhong,tienDichVu,phuThu);
                     System.out.println(hd.getIdPhieuThue()+"   "+hd.getIdHoaDonDichVu()+"   "+tienPhong+"    "+tienDichVu);
 //                    HoaDonDAO hdDAO = new HoaDonDAO();
                     hoaDonController.insert(hd);
@@ -930,6 +946,7 @@ public class PhongPnl extends javax.swing.JPanel {
                     tongTien=0.0;
                     tienPhong = 0.0;
                     tienDichVu = 0.0;
+                    phuThu=0.0;
                     reLoadPhong();
                     setNullValue();
                     phongHienTai=UNDEFINED_CONDITION;
@@ -943,7 +960,7 @@ public class PhongPnl extends javax.swing.JPanel {
                     List<Object[]> data2 = phongController.getIdPhieuThue(phongHienTai);
                     List<Object[]> data3 = phongController.layIdHoaDonDichVu(phongHienTai);
                     
-                    HoaDon hd = new HoaDon(0,(int) data2.get(0)[0],(int) data3.get(0)[0],tienPhong,tienDichVu);
+                    HoaDon hd = new HoaDon(0,(int) data2.get(0)[0],(int) data3.get(0)[0],tienPhong,tienDichVu,phuThu);
                     System.out.println(hd.getIdPhieuThue()+"   "+hd.getIdHoaDonDichVu()+"   "+tienPhong+"    "+tienDichVu);
                     hoaDonController.insert(hd);
                     List<Object[]> ttHoaDon = phongController.getIdHoaDon((int) data2.get(0)[0],(int) data3.get(0)[0]);                
@@ -953,6 +970,7 @@ public class PhongPnl extends javax.swing.JPanel {
                     tongTien=0.0;
                     tienPhong = 0.0;
                     tienDichVu = 0.0;
+                    phuThu=0.0;
                     reLoadPhong();
                     setNullValue();
                     phongHienTai=UNDEFINED_CONDITION;
@@ -1064,6 +1082,17 @@ public class PhongPnl extends javax.swing.JPanel {
         doiPhongDialog.setVisible(true);
     }//GEN-LAST:event_btnDoiPhongActionPerformed
 
+    private void txtPhuThuKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPhuThuKeyReleased
+        phuThu = ChuyenDoi.SoDouble(txtPhuThu.getText());
+        txtPhuThu.setText(ChuyenDoi.SoString(phuThu));
+        double toTal = this.tongTien +phuThu;
+        txtTongTien.setText(ChuyenDoi.SoString(toTal));
+    }//GEN-LAST:event_txtPhuThuKeyReleased
+
+    private void txtTienDichVuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTienDichVuActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTienDichVuActionPerformed
+
     public void setNullValue(){
         btnThemDichVu.setEnabled(false);
         jdNgayRoi.setEnabled(false);
@@ -1081,6 +1110,7 @@ public class PhongPnl extends javax.swing.JPanel {
         txtTienPhong.setText("0");
         txtTienDichVu.setText("0");
         txtTongTien.setText("0");
+        txtPhuThu.setText("0");
     }
     
     public void setController (DichVuController dichVuController) {
@@ -1160,12 +1190,12 @@ public class PhongPnl extends javax.swing.JPanel {
     private swing.TextInput txtCMND;
     private swing.TextInput txtDiaChi;
     private swing.TextInput txtHoChieu;
+    private swing.TextInput txtPhuThu;
     private swing.TextInput txtSdt;
     private swing.TextInput txtSoNguoi;
     private swing.TextInput txtTenKhach;
     private swing.TextInput txtTenPhong;
     private swing.TextInput txtTienDichVu;
-    private swing.TextInput txtTienKhachDua;
     private swing.TextInput txtTienPhong;
     private swing.TextInput txtTimDichVu;
     private swing.TextInput txtTongTien;
