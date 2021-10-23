@@ -146,7 +146,7 @@ public class NhanVienPnl extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Id", "Tên", "Email", "Số điện thoại", "Giới tính", "Lương", "Chức vụ", "Địa chỉ", "Ngày sinh", "Ngày vào", "Trạng thái", "Hình ảnh"
+                "Id", "Tên", "Email", "Số điện thoại", "Giới tính", "Lương", "Chức vụ", "Địa chỉ", "Ngày sinh", "Ngày vào", "TT", "Hình ảnh"
             }
         ));
         tblNhanVien.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -156,9 +156,9 @@ public class NhanVienPnl extends javax.swing.JPanel {
         });
         spTable.setViewportView(tblNhanVien);
         if (tblNhanVien.getColumnModel().getColumnCount() > 0) {
-            tblNhanVien.getColumnModel().getColumn(0).setMinWidth(45);
-            tblNhanVien.getColumnModel().getColumn(0).setPreferredWidth(45);
-            tblNhanVien.getColumnModel().getColumn(0).setMaxWidth(45);
+            tblNhanVien.getColumnModel().getColumn(0).setMinWidth(0);
+            tblNhanVien.getColumnModel().getColumn(0).setPreferredWidth(0);
+            tblNhanVien.getColumnModel().getColumn(0).setMaxWidth(0);
             tblNhanVien.getColumnModel().getColumn(2).setMinWidth(135);
             tblNhanVien.getColumnModel().getColumn(2).setPreferredWidth(135);
             tblNhanVien.getColumnModel().getColumn(2).setMaxWidth(135);
@@ -171,9 +171,9 @@ public class NhanVienPnl extends javax.swing.JPanel {
             tblNhanVien.getColumnModel().getColumn(6).setMinWidth(70);
             tblNhanVien.getColumnModel().getColumn(6).setPreferredWidth(70);
             tblNhanVien.getColumnModel().getColumn(6).setMaxWidth(70);
-            tblNhanVien.getColumnModel().getColumn(10).setMinWidth(75);
-            tblNhanVien.getColumnModel().getColumn(10).setPreferredWidth(75);
-            tblNhanVien.getColumnModel().getColumn(10).setMaxWidth(75);
+            tblNhanVien.getColumnModel().getColumn(10).setMinWidth(40);
+            tblNhanVien.getColumnModel().getColumn(10).setPreferredWidth(40);
+            tblNhanVien.getColumnModel().getColumn(10).setMaxWidth(40);
             tblNhanVien.getColumnModel().getColumn(11).setMinWidth(0);
             tblNhanVien.getColumnModel().getColumn(11).setPreferredWidth(0);
             tblNhanVien.getColumnModel().getColumn(11).setMaxWidth(0);
