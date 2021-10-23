@@ -59,7 +59,7 @@ public class PhongDAO extends AbsDAO<Phong>{
     }
     
     public List<Object[]> layChiTietDichVu(int idPhong) {
-        return getRawValues("select hd.idHoaDonDichVu,dv.tenDichVu,dvt.tenDonVi,ctdv.ngaySuDung,ctdv.soLanSuDung,ctdv.thanhTien from HoaDonDichVu hd \n" +
+        return getRawValues("select hd.idHoaDonDichVu,dv.tenDichVu,dvt.tenDonVi,FORMAT(ctdv.ngaySuDung ,'dd/MM/yyyy HH:mm:ss') ngaySuDung,ctdv.soLanSuDung,format(ctdv.thanhTien,'#,#')thanhTien from HoaDonDichVu hd \n" +
             "join ChiTietDichVu ctdv on hd.idHoaDonDichVu=ctdv.idHoaDonDichVu  \n" +
             "join DichVu dv on ctdv.idDichVu=dv.idDichVu \n" +
             "join donViTinh dvt on dvt.idDonVi=dv.idDonVi\n" +

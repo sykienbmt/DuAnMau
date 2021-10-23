@@ -77,7 +77,7 @@ public class PhongPnl extends javax.swing.JPanel {
     Double tongTien=0.0;
     Double tienPhong = 0.0;
     Double tienDichVu = 0.0;
-    Double phuThu ;
+    Double phuThu =0.0;
     ThanhToan tt = null;
     private DoiPhongDialog doiPhongDialog;
     
@@ -256,7 +256,7 @@ public class PhongPnl extends javax.swing.JPanel {
     }
     
     public void XuatHoaDon(int idHoaDon){
-        try {            
+        try {
             Hashtable map = new Hashtable();
             JasperReport report = JasperCompileManager.compileReport("src/panel/HoaDon.jrxml");
             
@@ -949,13 +949,16 @@ public class PhongPnl extends javax.swing.JPanel {
                     System.out.println(hd.getIdPhieuThue()+"   "+hd.getIdHoaDonDichVu()+"   "+tienPhong+"    "+tienDichVu);
 //                    HoaDonDAO hdDAO = new HoaDonDAO();
                     hoaDonController.insert(hd);
-                    List<Object[]> ttHoaDon = phongController.getIdHoaDon((int) data2.get(0)[0],(int) data3.get(0)[0]);
-                    System.out.println((int)ttHoaDon.get(0)[0]);
-                    XuatHoaDon((int)ttHoaDon.get(0)[0]);
+                    
                     
                     phongController.offPhieuThuePhong((int)data2.get(0)[0]);
                     phongController.updateTinhTrangPhong("Phòng trống", phongHienTai);
                     phongController.offHoaDonDichVu(phongHienTai);
+                    
+                    List<Object[]> ttHoaDon = phongController.getIdHoaDon((int) data2.get(0)[0],(int) data3.get(0)[0]);
+                    System.out.println((int)ttHoaDon.get(0)[0]);
+                    XuatHoaDon((int)ttHoaDon.get(0)[0]);
+                    
                     tongTien=0.0;
                     tienPhong = 0.0;
                     tienDichVu = 0.0;
@@ -975,8 +978,7 @@ public class PhongPnl extends javax.swing.JPanel {
                     
                     HoaDon hd = new HoaDon(0,(int) data2.get(0)[0],(int) data3.get(0)[0],tienPhong,tienDichVu,phuThu);
                     System.out.println(hd.getIdPhieuThue()+"   "+hd.getIdHoaDonDichVu()+"   "+tienPhong+"    "+tienDichVu);
-                    hoaDonController.insert(hd);
-                    List<Object[]> ttHoaDon = phongController.getIdHoaDon((int) data2.get(0)[0],(int) data3.get(0)[0]);                
+                    hoaDonController.insert(hd);         
                     phongController.offPhieuThuePhong((int)data2.get(0)[0]);
                     phongController.updateTinhTrangPhong("Phòng trống", phongHienTai);
                     phongController.offHoaDonDichVu(phongHienTai);

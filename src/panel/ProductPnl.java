@@ -4,6 +4,7 @@ import DAO.DichVuDAO;
 import component.Card;
 import helper.SaveImageSQL;
 import controller.QlDichVuController;
+import helper.ChuyenDoi;
 import java.awt.Cursor;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
@@ -159,6 +160,12 @@ public class ProductPnl extends javax.swing.JPanel {
 
         jLabel9.setText("Giá:");
         jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(45, 102, 92, -1));
+
+        txtGiaDV.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtGiaDVKeyReleased(evt);
+            }
+        });
         jPanel1.add(txtGiaDV, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 100, 160, -1));
 
         lbImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -278,13 +285,7 @@ public class ProductPnl extends javax.swing.JPanel {
         DonViTinh dvt =(DonViTinh) cbbDonViTinh.getSelectedItem();
         Integer idDonViTinh = dvt.getId();
                 
-        Double gia;
-        try {
-            gia = Double.valueOf(txtGiaDV.getText());
-        } catch (Exception e) {
-            System.out.println("Lỗi nhập liệu");
-            return;
-        }
+        Double gia=ChuyenDoi.SoDouble(txtGiaDV.getText());
         
         DichVu dv = new DichVu(0, tenDichVu, gia, idDonViTinh, personalImage, idDanhMuc);
         qlDichVuController.insert(dv);
@@ -301,19 +302,18 @@ public class ProductPnl extends javax.swing.JPanel {
         DonViTinh dvt =(DonViTinh) cbbDonViTinh.getSelectedItem();
         Integer idDonViTinh = dvt.getId();
                 
-        Double gia;
-        try {
-            gia = Double.valueOf(txtGiaDV.getText());
-        } catch (Exception e) {
-            System.out.println("Giá sai");
-            return;
-        }
+        Double gia=ChuyenDoi.SoDouble(txtGiaDV.getText());
         
         DichVu dv = new DichVu(idDichVu, tenDichVu, gia, idDonViTinh, personalImage, idDanhMuc);
         qlDichVuController.edit(dv);
         qlDichVuController.loadDichVu();
         idDichVu=UNDEFINED_CONDITION;
     }//GEN-LAST:event_btnUpdateDVActionPerformed
+
+    private void txtGiaDVKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtGiaDVKeyReleased
+        Double gia = ChuyenDoi.SoDouble(txtGiaDV.getText());
+        txtGiaDV.setText(ChuyenDoi.SoString(gia));
+    }//GEN-LAST:event_txtGiaDVKeyReleased
     
     
     public void setCbbDonViTinh(){
