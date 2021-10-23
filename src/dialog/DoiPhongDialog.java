@@ -1,6 +1,8 @@
 package dialog;
 
+import component.Loading;
 import java.awt.Color;
+import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import swing.ScrollBar;
@@ -15,6 +17,7 @@ public class DoiPhongDialog extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
+        loading.setVisible(false);
         spTable.setVerticalScrollBar(new ScrollBar());
         spTable.getVerticalScrollBar().setBackground(Color.WHITE);
         spTable.getViewport().setBackground(Color.WHITE);
@@ -31,7 +34,10 @@ public class DoiPhongDialog extends javax.swing.JDialog {
     private void initComponents() {
 
         jSeparator2 = new javax.swing.JSeparator();
-        panelCoverDialog1 = new component.PanelCoverDialog();
+        bg1 = new javax.swing.JLayeredPane();
+        loading = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        bg = new component.PanelCoverDialog();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         spTable = new javax.swing.JScrollPane();
@@ -48,16 +54,25 @@ public class DoiPhongDialog extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
+        bg1.setBackground(new java.awt.Color(255, 255, 255));
+        bg1.setOpaque(true);
+
+        loading.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel5.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/81908-loading.gif"))); // NOI18N
+        loading.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(-70, -20, 600, 490));
+
         jLabel1.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Phòng muốn đổi");
-        panelCoverDialog1.add(jLabel1);
+        bg.add(jLabel1);
         jLabel1.setBounds(270, 50, 250, 30);
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Phòng cần đổi");
-        panelCoverDialog1.add(jLabel3);
+        bg.add(jLabel3);
         jLabel3.setBounds(10, 50, 250, 30);
 
         tblPhongCanDoi.setModel(new javax.swing.table.DefaultTableModel(
@@ -85,7 +100,7 @@ public class DoiPhongDialog extends javax.swing.JDialog {
             tblPhongCanDoi.getColumnModel().getColumn(2).setMaxWidth(0);
         }
 
-        panelCoverDialog1.add(spTable);
+        bg.add(spTable);
         spTable.setBounds(10, 90, 250, 300);
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
@@ -124,15 +139,15 @@ public class DoiPhongDialog extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
-        panelCoverDialog1.add(jPanel1);
+        bg.add(jPanel1);
         jPanel1.setBounds(10, 400, 510, 61);
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("ĐỔI PHÒNG");
-        panelCoverDialog1.add(jLabel4);
+        bg.add(jLabel4);
         jLabel4.setBounds(10, 0, 520, 40);
-        panelCoverDialog1.add(jSeparator1);
+        bg.add(jSeparator1);
         jSeparator1.setBounds(10, 40, 550, 10);
 
         tblPhongMuonDoi.setModel(new javax.swing.table.DefaultTableModel(
@@ -160,35 +175,60 @@ public class DoiPhongDialog extends javax.swing.JDialog {
             tblPhongMuonDoi.getColumnModel().getColumn(2).setMaxWidth(0);
         }
 
-        panelCoverDialog1.add(spTable2);
+        bg.add(spTable2);
         spTable2.setBounds(270, 92, 250, 300);
+
+        bg1.setLayer(loading, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        bg1.setLayer(bg, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        javax.swing.GroupLayout bg1Layout = new javax.swing.GroupLayout(bg1);
+        bg1.setLayout(bg1Layout);
+        bg1Layout.setHorizontalGroup(
+            bg1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 533, Short.MAX_VALUE)
+            .addGroup(bg1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(bg, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 451, Short.MAX_VALUE))
+            .addGroup(bg1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(loading, javax.swing.GroupLayout.DEFAULT_SIZE, 533, Short.MAX_VALUE))
+        );
+        bg1Layout.setVerticalGroup(
+            bg1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 471, Short.MAX_VALUE)
+            .addGroup(bg1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(bg, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 362, Short.MAX_VALUE))
+            .addGroup(bg1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(loading, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 471, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelCoverDialog1, javax.swing.GroupLayout.PREFERRED_SIZE, 533, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(bg1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelCoverDialog1, javax.swing.GroupLayout.PREFERRED_SIZE, 471, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(bg1)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public component.PanelCoverDialog bg;
+    public javax.swing.JLayeredPane bg1;
     public swing.PhongButton btnDoiPhong;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    public javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     public javax.swing.JLabel lblPhongCanDoi;
     public javax.swing.JLabel lblPhongMuonDoi;
-    private component.PanelCoverDialog panelCoverDialog1;
+    public javax.swing.JPanel loading;
     private javax.swing.JScrollPane spTable;
     private javax.swing.JScrollPane spTable2;
     public javax.swing.JTable tblPhongCanDoi;

@@ -3,6 +3,7 @@ package panel;
 import DAO.DanhMucDAO;
 import DAO.PhongDAO;
 import DAO.cbbHinhThucThueDAO;
+import component.Loading;
 import helper.DBConnection;
 import controller.DichVuController;
 import controller.HoaDonController;
@@ -27,6 +28,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.util.Date;
@@ -36,10 +38,12 @@ import javax.swing.AbstractAction;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import static javax.swing.JComponent.UNDEFINED_CONDITION;
+import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
+import main.Main;
 import model.DanhMuc;
 import model.Phong;
 import model.GiaPhong;
@@ -63,6 +67,7 @@ public class PhongPnl extends javax.swing.JPanel {
     PhongDAO phongDAO = new PhongDAO();
     private cbbHinhThucThueDAO hinhThucThueDAO;
     private Button button;
+    private Loading loading;
     private boolean isCMND = false;
     int phongHienTai =UNDEFINED_CONDITION;
     int phongCanDoi =UNDEFINED_CONDITION;
@@ -114,6 +119,7 @@ public class PhongPnl extends javax.swing.JPanel {
         jScrollPane1.setVerticalScrollBar(new ScrollBar());    
         panel.revalidate();
         panel.repaint();
+        loading = new Loading();       
     }   
     
     public void viewListDanhMuc() {
@@ -322,8 +328,6 @@ public class PhongPnl extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        spTableDichVu = new javax.swing.JScrollPane();
-        tblDichVu = new javax.swing.JTable();
         panelCoverDialog2 = new component.PanelCoverDialog();
         jLabel5 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
@@ -377,6 +381,8 @@ public class PhongPnl extends javax.swing.JPanel {
         jLabel9 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
+        spTableDichVu = new javax.swing.JScrollPane();
+        tblDichVu = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(246, 248, 248));
         setPreferredSize(new java.awt.Dimension(1200, 750));
@@ -417,15 +423,17 @@ public class PhongPnl extends javax.swing.JPanel {
         ));
         spTableListDichVu.setViewportView(tblListDichVu);
         if (tblListDichVu.getColumnModel().getColumnCount() > 0) {
-            tblListDichVu.getColumnModel().getColumn(0).setMinWidth(0);
-            tblListDichVu.getColumnModel().getColumn(0).setPreferredWidth(0);
-            tblListDichVu.getColumnModel().getColumn(0).setMaxWidth(0);
-            tblListDichVu.getColumnModel().getColumn(2).setMinWidth(50);
-            tblListDichVu.getColumnModel().getColumn(2).setPreferredWidth(50);
-            tblListDichVu.getColumnModel().getColumn(2).setMaxWidth(50);
+            tblListDichVu.getColumnModel().getColumn(0).setMinWidth(100);
+            tblListDichVu.getColumnModel().getColumn(0).setPreferredWidth(100);
+            tblListDichVu.getColumnModel().getColumn(0).setMaxWidth(100);
+            tblListDichVu.getColumnModel().getColumn(3).setMinWidth(0);
+            tblListDichVu.getColumnModel().getColumn(3).setPreferredWidth(0);
+            tblListDichVu.getColumnModel().getColumn(3).setMaxWidth(0);
             tblListDichVu.getColumnModel().getColumn(4).setMinWidth(45);
             tblListDichVu.getColumnModel().getColumn(4).setPreferredWidth(45);
             tblListDichVu.getColumnModel().getColumn(4).setMaxWidth(45);
+            tblListDichVu.getColumnModel().getColumn(4).setHeaderValue("SL");
+            tblListDichVu.getColumnModel().getColumn(5).setHeaderValue("Thành tiền");
         }
 
         jButton1.setBackground(new java.awt.Color(102, 102, 102));
@@ -475,26 +483,6 @@ public class PhongPnl extends javax.swing.JPanel {
                     .addComponent(jButton3))
                 .addGap(0, 11, Short.MAX_VALUE))
         );
-
-        tblDichVu.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        tblDichVu.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "id", "Dịch vụ", "ĐVT", "Giá"
-            }
-        ));
-        tblDichVu.setPreferredSize(new java.awt.Dimension(227, 64));
-        spTableDichVu.setViewportView(tblDichVu);
-        if (tblDichVu.getColumnModel().getColumnCount() > 0) {
-            tblDichVu.getColumnModel().getColumn(0).setMinWidth(0);
-            tblDichVu.getColumnModel().getColumn(0).setPreferredWidth(0);
-            tblDichVu.getColumnModel().getColumn(0).setMaxWidth(0);
-        }
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -605,10 +593,12 @@ public class PhongPnl extends javax.swing.JPanel {
         jLabel21.setBounds(10, 10, 60, 30);
 
         txtTienPhong.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtTienPhong.setText("0");
         panelCoverDialog1.add(txtTienPhong);
         txtTienPhong.setBounds(80, 10, 150, 29);
 
         txtPhuThu.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtPhuThu.setText("0");
         txtPhuThu.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtPhuThuKeyReleased(evt);
@@ -626,6 +616,7 @@ public class PhongPnl extends javax.swing.JPanel {
         jLabel22.setBounds(10, 80, 59, 14);
 
         txtTienDichVu.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtTienDichVu.setText("0");
         txtTienDichVu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtTienDichVuActionPerformed(evt);
@@ -711,16 +702,16 @@ public class PhongPnl extends javax.swing.JPanel {
             }
         });
         panelCoverDialog4.add(btnThemDichVu);
-        btnThemDichVu.setBounds(170, 40, 90, 40);
+        btnThemDichVu.setBounds(180, 50, 90, 40);
 
         spnSoLuong.setModel(new javax.swing.SpinnerNumberModel(1, 1, 99, 1));
         panelCoverDialog4.add(spnSoLuong);
-        spnSoLuong.setBounds(90, 50, 60, 20);
+        spnSoLuong.setBounds(100, 60, 60, 20);
 
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setText("Số lượng");
         panelCoverDialog4.add(jLabel9);
-        jLabel9.setBounds(20, 50, 60, 20);
+        jLabel9.setBounds(30, 60, 60, 20);
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -743,13 +734,35 @@ public class PhongPnl extends javax.swing.JPanel {
             .addComponent(panelCoverDialog4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE)
         );
 
+        tblDichVu.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        tblDichVu.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "idDv", "Tên dịch vụ", "ĐVT", "Giá"
+            }
+        ));
+        spTableDichVu.setViewportView(tblDichVu);
+        if (tblDichVu.getColumnModel().getColumnCount() > 0) {
+            tblDichVu.getColumnModel().getColumn(0).setMinWidth(0);
+            tblDichVu.getColumnModel().getColumn(0).setPreferredWidth(0);
+            tblDichVu.getColumnModel().getColumn(0).setMaxWidth(0);
+            tblDichVu.getColumnModel().getColumn(1).setMinWidth(100);
+            tblDichVu.getColumnModel().getColumn(1).setPreferredWidth(100);
+            tblDichVu.getColumnModel().getColumn(1).setMaxWidth(100);
+        }
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(15, 15, 15)
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
@@ -758,16 +771,15 @@ public class PhongPnl extends javax.swing.JPanel {
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                             .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(spTableListDichVu, javax.swing.GroupLayout.PREFERRED_SIZE, 469, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(panelCoverDialog2, javax.swing.GroupLayout.PREFERRED_SIZE, 469, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)))
-                .addGap(0, 0, 0)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(panelCoverDialog2, javax.swing.GroupLayout.DEFAULT_SIZE, 469, Short.MAX_VALUE)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(spTableListDichVu))
+                        .addGap(33, 33, 33)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(spTableDichVu, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(spTableDichVu, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -790,12 +802,12 @@ public class PhongPnl extends javax.swing.JPanel {
                                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 2, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(spTableDichVu, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(spTableListDichVu, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(spTableDichVu, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(8, 8, 8))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -1065,25 +1077,39 @@ public class PhongPnl extends javax.swing.JPanel {
                         if (click2 == -1) {
                             JOptionPane.showMessageDialog(new Frame(), "Chọn phòng muốn đổi !!!","Thông báo", JOptionPane.ERROR_MESSAGE);
                         }else {
-                            phongController.updateTinhTrangPhong2("Phòng trống", phongCanDoi,idLoaiPhongCanDoi);
-                            phongController.updateTinhTrangPhong2("Đang sử dụng", phongHienTai,idLoaiPhongCanDoi);
-                            phongController.chuyenPhieuThuePhong(phongHienTai, phongCanDoi);
-                            phongController.chuyenHoaDonDichVuPhong(phongHienTai, phongCanDoi);
-                            JOptionPane.showMessageDialog(new Frame(), "Đổi phòng thành công !!!");
-                            doiPhongDialog.dispose();
-                            reLoadPhong();    
-                            doiPhongDialog.lblPhongCanDoi.setText("");
-                            doiPhongDialog.lblPhongMuonDoi.setText("");
-                            setNullValue();
-                            getPhongDangDung();     
-                            DefaultTableModel model2 = (DefaultTableModel) doiPhongDialog.tblPhongMuonDoi.getModel(); 
-                            for (int i = doiPhongDialog.tblPhongMuonDoi.getRowCount()-1; i >= 0; i--) {
-                                model2.removeRow(i);
-                            }
+                            
+                            new Thread() {
+                                    @Override
+                                    public void run() {
+                                        try {
+                                            doiPhongDialog.loading.setVisible(true);
+                                            this.sleep(2500);                           
+                                        } catch (InterruptedException e) {
+                                            e.printStackTrace();
+                                        }
+
+                                        phongController.updateTinhTrangPhong2("Phòng trống", phongCanDoi,idLoaiPhongCanDoi);
+                                        phongController.updateTinhTrangPhong2("Đang sử dụng", phongHienTai,idLoaiPhongCanDoi);
+                                        phongController.chuyenPhieuThuePhong(phongHienTai, phongCanDoi);
+                                        phongController.chuyenHoaDonDichVuPhong(phongHienTai, phongCanDoi);                                       
+                                        doiPhongDialog.dispose();
+                                        reLoadPhong();    
+                                        doiPhongDialog.lblPhongCanDoi.setText("");
+                                        doiPhongDialog.lblPhongMuonDoi.setText("");
+                                        setNullValue();
+                                        getPhongDangDung();     
+                                        DefaultTableModel model2 = (DefaultTableModel) doiPhongDialog.tblPhongMuonDoi.getModel(); 
+                                        for (int i = doiPhongDialog.tblPhongMuonDoi.getRowCount()-1; i >= 0; i--) {
+                                            model2.removeRow(i);
+                                        }
+                                        JOptionPane.showMessageDialog(new Frame(), "Đổi phòng thành công !!!");
+                                        doiPhongDialog.loading.setVisible(false);                                        
+                                    }
+                            }.start();                           
                         }                       
                     }                    
                 }
-            });
+            });                       
         }
         doiPhongDialog.setVisible(true);
     }//GEN-LAST:event_btnDoiPhongActionPerformed
