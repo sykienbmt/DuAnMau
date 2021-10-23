@@ -967,8 +967,7 @@ public class PhongPnl extends javax.swing.JPanel {
                     
                     HoaDon hd = new HoaDon(0,(int) data2.get(0)[0],(int) data3.get(0)[0],tienPhong,tienDichVu,phuThu);
                     System.out.println(hd.getIdPhieuThue()+"   "+hd.getIdHoaDonDichVu()+"   "+tienPhong+"    "+tienDichVu);
-                    hoaDonController.insert(hd);
-                    List<Object[]> ttHoaDon = phongController.getIdHoaDon((int) data2.get(0)[0],(int) data3.get(0)[0]);                
+                    hoaDonController.insert(hd);         
                     phongController.offPhieuThuePhong((int)data2.get(0)[0]);
                     phongController.updateTinhTrangPhong("Phòng trống", phongHienTai);
                     phongController.offHoaDonDichVu(phongHienTai);
