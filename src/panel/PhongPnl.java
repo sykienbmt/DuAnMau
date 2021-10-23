@@ -11,6 +11,7 @@ import controller.PhieuThuePhongController;
 import controller.PhongController;
 import dialog.DoiPhongDialog;
 import dialog.ThanhToan;
+import helper.ChuyenDoi;
 import helper.DataValidate;
 import java.awt.Button;
 import java.awt.Color;
@@ -968,12 +969,12 @@ public class PhongPnl extends javax.swing.JPanel {
         Timestamp ngayDat = null;
         Date date = new Date();         
         ngayDat=new Timestamp(date.getTime());
-        String tenKhach = txtTenKhach.getText();
+        String tenKhach = ChuyenDoi.doiTen(txtTenKhach.getText());
         String hoChieu =" ";
         if(!txtHoChieu.getText().equals("")){
             hoChieu=txtHoChieu.getText();
         }
-        String diaChi = txtDiaChi.getText();
+        String diaChi =ChuyenDoi.doiTen(txtDiaChi.getText());
         String sdt = txtSdt.getText();
         String cmnd = txtCMND.getText();
         Integer soNguoi =Integer.parseInt(txtSoNguoi.getText());  
