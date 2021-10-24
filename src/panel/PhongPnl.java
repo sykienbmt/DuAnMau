@@ -16,10 +16,12 @@ import helper.ChuyenDoi;
 import helper.DataValidate;
 import java.awt.Button;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyAdapter;
@@ -28,12 +30,14 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Hashtable;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import javax.swing.AbstractAction;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
@@ -43,6 +47,7 @@ import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.Timer;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
@@ -127,17 +132,49 @@ public class PhongPnl extends javax.swing.JPanel {
     public void cssHeaderJtable(){
         JTableHeader thead = tblDichVu.getTableHeader();
         thead.setForeground(Color.BLUE);
-        thead.setBackground(Color.LIGHT_GRAY);
+        thead.setBackground(Color.WHITE);
         thead.setFont(new Font("Tahome",Font.BOLD,12));
     }
 
     private void init() {
-        panel.setLayout(new WrapLayout(WrapLayout.CENTER));
+        panel.setLayout(new WrapLayout(WrapLayout.LEADING));
         jScrollPane1.setVerticalScrollBar(new ScrollBar());    
         panel.revalidate();
         panel.repaint();
         loading = new Loading();       
     }   
+    
+//    Timer t;
+//    SimpleDateFormat st;
+    public void times(boolean a) {
+        Timer t = new Timer(0, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                
+                Date now = new Date();
+                Date ngayDatDate=(Date) openTime;
+                long thoiGian = now.getTime()-ngayDatDate.getTime();
+                if(hinhThucThue.contains("Giờ")){
+                    long diffHours = thoiGian / (60 * 60 * 1000);
+                    long min = (thoiGian %((60 * 60 * 1000)))/(60*1000);
+                    txtTimeUse.setText("Thời gian thuê: "+ diffHours + " Giờ - "+ min+ " Phút");
+                }else if (hinhThucThue.contains("Ngày")){
+                    long diffDays = thoiGian / (24 * 60 * 60 * 1000);
+                    long Hour = (thoiGian %((24*60 * 60 * 1000)))/(60*60*1000);
+                    txtTimeUse.setText("Thời gian thuê: "+ diffDays + " Ngày - "+ Hour+ " Giờ");
+                }else{
+                    txtTimeUse.setText("");
+                }
+
+            }
+        });
+        if(a==true )t.start();
+        else{
+            t.stop();
+            txtTimeUse.setText("");
+        }
+    }
+    
     
     public void viewListDanhMuc() {
         DefaultListModel<DanhMuc> listDanhMuc = new DefaultListModel<DanhMuc>();
@@ -181,8 +218,9 @@ public class PhongPnl extends javax.swing.JPanel {
     public void viewBtnPhong(List<Phong> data) {
         setNullValue();
         for (Phong phong : data) {
-            Button btnphong = new Button(phong.toString());           
-            btnphong.setPreferredSize(new Dimension(100,60));
+            Button btnphong = new Button(phong.toString()); 
+            btnphong.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+            btnphong.setPreferredSize(new Dimension(105,60));
             btnphong.setFont(new java.awt.Font("Segoe UI Light", 1, 12));
             btnphong.setForeground(new java.awt.Color(255,255,255));
             if (phong.getTrangThai().equals("Đang sử dụng")) {
@@ -204,12 +242,15 @@ public class PhongPnl extends javax.swing.JPanel {
                         setThongTinPhong(phong.getId());                      
                     }else{
                         setNullValue();
+                        txtTimeUse.setText("");
                     }
                     if(phong.getTrangThai().equals("Bảo trì")){
                         btnMoPhong.setEnabled(false);
                         jdNgayRoi.setEnabled(false);
                         viewTableChiTietDichVu(null);
                         btnThemDichVu.setEnabled(false);
+                        times(false);
+                        txtTimeUse.setText("");
                     }
                 }                    
             });
@@ -232,6 +273,9 @@ public class PhongPnl extends javax.swing.JPanel {
         }
     }
     
+    
+    Timestamp openTime;
+    String hinhThucThue;
     public void setThongTinPhong(int idPhong){
         List<Object[]> data = phongController.layChiTietDichVu(idPhong);
         viewTableChiTietDichVu(data);
@@ -254,6 +298,9 @@ public class PhongPnl extends javax.swing.JPanel {
         txtSoNguoi.setText(ptp.get(0)[9].toString());
         cbbHinhThucThue.getModel().setSelectedItem(ptp.get(0)[11].toString());
         txtTenPhong.setText(ptp.get(0)[12].toString());
+        openTime=(Timestamp) ptp.get(0)[1];
+        hinhThucThue=ptp.get(0)[11].toString();
+        times(true);
     }   
     
     public void viewTableChiTietDichVu(List<Object[]> data) {
@@ -384,6 +431,7 @@ public class PhongPnl extends javax.swing.JPanel {
         txtTongTien = new swing.TextInput();
         btnThanhToan = new swing.PhongButton();
         btnKetToan = new swing.PhongButton();
+        txtTimeUse = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         panelCoverDialog3 = new component.PanelCoverDialog();
         jLabel20 = new javax.swing.JLabel();
@@ -440,17 +488,15 @@ public class PhongPnl extends javax.swing.JPanel {
         ));
         spTableListDichVu.setViewportView(tblListDichVu);
         if (tblListDichVu.getColumnModel().getColumnCount() > 0) {
-            tblListDichVu.getColumnModel().getColumn(0).setMinWidth(100);
-            tblListDichVu.getColumnModel().getColumn(0).setPreferredWidth(100);
-            tblListDichVu.getColumnModel().getColumn(0).setMaxWidth(100);
+            tblListDichVu.getColumnModel().getColumn(0).setMinWidth(0);
+            tblListDichVu.getColumnModel().getColumn(0).setPreferredWidth(0);
+            tblListDichVu.getColumnModel().getColumn(0).setMaxWidth(0);
             tblListDichVu.getColumnModel().getColumn(3).setMinWidth(150);
             tblListDichVu.getColumnModel().getColumn(3).setPreferredWidth(150);
             tblListDichVu.getColumnModel().getColumn(3).setMaxWidth(150);
             tblListDichVu.getColumnModel().getColumn(4).setMinWidth(45);
             tblListDichVu.getColumnModel().getColumn(4).setPreferredWidth(45);
             tblListDichVu.getColumnModel().getColumn(4).setMaxWidth(45);
-            tblListDichVu.getColumnModel().getColumn(4).setHeaderValue("SL");
-            tblListDichVu.getColumnModel().getColumn(5).setHeaderValue("Thành tiền");
         }
 
         jButton1.setBackground(new java.awt.Color(102, 102, 102));
@@ -668,6 +714,10 @@ public class PhongPnl extends javax.swing.JPanel {
         });
         panelCoverDialog1.add(btnKetToan);
         btnKetToan.setBounds(370, 120, 78, 45);
+
+        txtTimeUse.setText("Time");
+        panelCoverDialog1.add(txtTimeUse);
+        txtTimeUse.setBounds(40, 140, 190, 14);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -922,8 +972,7 @@ public class PhongPnl extends javax.swing.JPanel {
         txtTienPhong.setText(ChuyenDoi.SoString(tienPhong));
         
         for(int i=0;i<=tblListDichVu.getRowCount()-1;i++){
-            System.out.println(tblListDichVu.getValueAt(i, 5));
-            tienDichVu+= Double.parseDouble(tblListDichVu.getValueAt(i, 5).toString());
+            tienDichVu+= ChuyenDoi.SoDouble(tblListDichVu.getValueAt(i, 5).toString());
         }
         
         //update lại tiền dịch vụ
@@ -937,20 +986,22 @@ public class PhongPnl extends javax.swing.JPanel {
     private void btnThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToanActionPerformed
         if(click){
             tt = new ThanhToan(null,true);
-            tt.jTextField1.setEnabled(false);
-            tt.jTextField3.setEnabled(false);
-            tt.jTextField1.setText(ChuyenDoi.SoString(tongTien+phuThu));
+            tt.txtTongTien.setEnabled(false);
+            tt.txtTraLai.setEnabled(false);
+            tt.txtTongTien.setText(ChuyenDoi.SoString(tongTien+phuThu));
+            List<Object[]> ptp = phongController.loadDataPhong(phongHienTai);
+            tt.lblTenPhong.setText(ptp.get(0) [12].toString());
             
-            tt.jTextField2.addKeyListener(new KeyAdapter(){
+            tt.txtKhachDua.addKeyListener(new KeyAdapter(){
                 @Override
                 public void keyReleased(KeyEvent e) {
-                    double khachDua = ChuyenDoi.SoDouble(tt.jTextField2.getText());
-                    tt.jTextField2.setText(ChuyenDoi.SoString(khachDua));
+                    double khachDua = ChuyenDoi.SoDouble(tt.txtKhachDua.getText());
+                    tt.txtKhachDua.setText(ChuyenDoi.SoString(khachDua));
                     double traLai = khachDua-tongTien-phuThu;
                     if(traLai>0){
-                        tt.jTextField3.setText(ChuyenDoi.SoString(traLai));  
+                        tt.txtTraLai.setText(ChuyenDoi.SoString(traLai));  
                     }else{
-                        tt.jTextField3.setText("0");  
+                        tt.txtTraLai.setText("0");  
                     }           
                 }
             });
@@ -1162,6 +1213,8 @@ public class PhongPnl extends javax.swing.JPanel {
         txtTienDichVu.setText("0");
         txtTongTien.setText("0");
         txtPhuThu.setText("0");
+        times(false);
+        txtTimeUse.setText("");
     }
     
     public void setController (DichVuController dichVuController) {
@@ -1252,6 +1305,7 @@ public class PhongPnl extends javax.swing.JPanel {
     private swing.TextInput txtTienDichVu;
     private swing.TextInput txtTienPhong;
     private swing.TextInput txtTimDichVu;
+    private javax.swing.JLabel txtTimeUse;
     private swing.TextInput txtTongTien;
     // End of variables declaration//GEN-END:variables
 }

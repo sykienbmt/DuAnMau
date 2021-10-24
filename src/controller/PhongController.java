@@ -129,6 +129,7 @@ public class PhongController {
     public void chuyenPhieuThuePhong(int idPhong, int idPhongCanDoi) {
         phongDAO.chuyenPhieuThuePhong(idPhong, idPhongCanDoi);
     }
+    
     public List<Object[]> getPhongDangDung(){
         return phongDAO.getPhongDangDung();
     }
