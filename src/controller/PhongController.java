@@ -137,4 +137,8 @@ public class PhongController {
     public List<Object[]> getPhongTrong(int idLoaiPhong){
         return phongDAO.getPhongTrong(idLoaiPhong);
     }
+    
+    public List<Object[]> getListLoaiPhong(String tenLoaiPhong){
+        return phongDAO.getListLoaiPhong(tenLoaiPhong);
+    }
 }

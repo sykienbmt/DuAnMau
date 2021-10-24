@@ -87,6 +87,7 @@ public class DoiPhongDialog extends javax.swing.JDialog {
                 "STT", "Tên phòng", "Id Loai Phong", "Loại phòng"
             }
         ));
+        tblPhongCanDoi.setRowHeight(23);
         spTable.setViewportView(tblPhongCanDoi);
         if (tblPhongCanDoi.getColumnModel().getColumnCount() > 0) {
             tblPhongCanDoi.getColumnModel().getColumn(0).setMinWidth(35);
@@ -162,6 +163,7 @@ public class DoiPhongDialog extends javax.swing.JDialog {
                 "STT", "Tên phòng", "Id phòng", "Loại phòng"
             }
         ));
+        tblPhongMuonDoi.setRowHeight(23);
         spTable2.setViewportView(tblPhongMuonDoi);
         if (tblPhongMuonDoi.getColumnModel().getColumnCount() > 0) {
             tblPhongMuonDoi.getColumnModel().getColumn(0).setMinWidth(35);
