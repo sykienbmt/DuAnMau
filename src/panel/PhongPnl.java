@@ -21,6 +21,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyAdapter;
@@ -31,9 +32,12 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Hashtable;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import javax.swing.AbstractAction;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
@@ -43,6 +47,7 @@ import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.Timer;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
@@ -139,6 +144,38 @@ public class PhongPnl extends javax.swing.JPanel {
         loading = new Loading();       
     }   
     
+//    Timer t;
+//    SimpleDateFormat st;
+    public void times(boolean a) {
+        Timer t = new Timer(0, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                
+                Date now = new Date();
+                Date ngayDatDate=(Date) openTime;
+                long thoiGian = now.getTime()-ngayDatDate.getTime();
+                if(hinhThucThue.contains("Giờ")){
+                    long diffHours = thoiGian / (60 * 60 * 1000);
+                    long min = (thoiGian %((60 * 60 * 1000)))/(60*1000);
+                    txtTimeUse.setText("Thời gian thuê: "+ diffHours + " Giờ - "+ min+ " Phút");
+                }else if (hinhThucThue.contains("Ngày")){
+                    long diffDays = thoiGian / (24 * 60 * 60 * 1000);
+                    long Hour = (thoiGian %((24*60 * 60 * 1000)))/(60*60*1000);
+                    txtTimeUse.setText("Thời gian thuê: "+ diffDays + " Ngày - "+ Hour+ " Giờ");
+                }else{
+                    txtTimeUse.setText("");
+                }
+
+            }
+        });
+        if(a==true )t.start();
+        else{
+            t.stop();
+            txtTimeUse.setText("");
+        }
+    }
+    
+    
     public void viewListDanhMuc() {
         DefaultListModel<DanhMuc> listDanhMuc = new DefaultListModel<DanhMuc>();
         List<Object[]> data = danhMucDAO.loadAllDichVu();
@@ -205,12 +242,15 @@ public class PhongPnl extends javax.swing.JPanel {
                         setThongTinPhong(phong.getId());                      
                     }else{
                         setNullValue();
+                        txtTimeUse.setText("");
                     }
                     if(phong.getTrangThai().equals("Bảo trì")){
                         btnMoPhong.setEnabled(false);
                         jdNgayRoi.setEnabled(false);
                         viewTableChiTietDichVu(null);
                         btnThemDichVu.setEnabled(false);
+                        times(false);
+                        txtTimeUse.setText("");
                     }
                 }                    
             });
@@ -233,6 +273,9 @@ public class PhongPnl extends javax.swing.JPanel {
         }
     }
     
+    
+    Timestamp openTime;
+    String hinhThucThue;
     public void setThongTinPhong(int idPhong){
         List<Object[]> data = phongController.layChiTietDichVu(idPhong);
         viewTableChiTietDichVu(data);
@@ -255,6 +298,9 @@ public class PhongPnl extends javax.swing.JPanel {
         txtSoNguoi.setText(ptp.get(0)[9].toString());
         cbbHinhThucThue.getModel().setSelectedItem(ptp.get(0)[11].toString());
         txtTenPhong.setText(ptp.get(0)[12].toString());
+        openTime=(Timestamp) ptp.get(0)[1];
+        hinhThucThue=ptp.get(0)[11].toString();
+        times(true);
     }   
     
     public void viewTableChiTietDichVu(List<Object[]> data) {
@@ -385,6 +431,7 @@ public class PhongPnl extends javax.swing.JPanel {
         txtTongTien = new swing.TextInput();
         btnThanhToan = new swing.PhongButton();
         btnKetToan = new swing.PhongButton();
+        txtTimeUse = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         panelCoverDialog3 = new component.PanelCoverDialog();
         jLabel20 = new javax.swing.JLabel();
@@ -667,6 +714,10 @@ public class PhongPnl extends javax.swing.JPanel {
         });
         panelCoverDialog1.add(btnKetToan);
         btnKetToan.setBounds(370, 120, 78, 45);
+
+        txtTimeUse.setText("Time");
+        panelCoverDialog1.add(txtTimeUse);
+        txtTimeUse.setBounds(40, 140, 190, 14);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -1162,6 +1213,8 @@ public class PhongPnl extends javax.swing.JPanel {
         txtTienDichVu.setText("0");
         txtTongTien.setText("0");
         txtPhuThu.setText("0");
+        times(false);
+        txtTimeUse.setText("");
     }
     
     public void setController (DichVuController dichVuController) {
@@ -1252,6 +1305,7 @@ public class PhongPnl extends javax.swing.JPanel {
     private swing.TextInput txtTienDichVu;
     private swing.TextInput txtTienPhong;
     private swing.TextInput txtTimDichVu;
+    private javax.swing.JLabel txtTimeUse;
     private swing.TextInput txtTongTien;
     // End of variables declaration//GEN-END:variables
 }
