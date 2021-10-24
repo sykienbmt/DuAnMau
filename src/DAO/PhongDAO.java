@@ -128,4 +128,10 @@ public class PhongDAO extends AbsDAO<Phong>{
         String query = "update phieuThuePhong set idPhong = ? where idPhong = ? and ngayDi is null";
         DBConnection.executeUpdate(query, idPhong, idPhongCanDoi);
     }
+    
+    //lấy tên phòng
+    public List<Object[]> getTenPhong(int idPhong){
+        return getRawValues("select tenPhong,tenLoaiPhong from Phong p join LoaiPhong lp on p.idLoaiPhong=lp.idLoaiPhong\n" +
+                                "where idPhong="+idPhong+"");
+    }
 }

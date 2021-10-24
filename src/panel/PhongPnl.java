@@ -231,24 +231,14 @@ public class PhongPnl extends javax.swing.JPanel {
                 btnphong.setBackground(new Color(102,102,102));
             }
             
-//            String trangThai = null;
-//                if(rdbOn.isSelected()){
-//                    trangThai="ON";
-//                }else if(rdbOff.isSelected()){
-//                    trangThai = "OFF";
-//                }else if(rdbOff.isSelected()){
-//                    trangThai = "REST";
-//                }else{
-//                    sb.append("Vui lòng chọn trạng thái! \n");
-//                }
-            
             btnphong.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mousePressed(MouseEvent e) {
                     phongHienTai = phong.getId();
                     setcbb(phongHienTai);
                     button = btnphong;
-                    
+                    List<Object[]> tenPhong = phongController.getTenPhong(phongHienTai);
+                    lblTenPhong.setText(tenPhong.get(0)[0].toString()+" - "+tenPhong.get(0)[1].toString());
                     if (phong.getTrangThai().equals("Đang sử dụng")) {
                         setThongTinPhong(phong.getId()); 
                         System.out.println(phong.getIdLoaiPhong());
@@ -412,7 +402,6 @@ public class PhongPnl extends javax.swing.JPanel {
         jButton3 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         panelCoverDialog2 = new component.PanelCoverDialog();
-        jLabel5 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel15 = new javax.swing.JLabel();
         txtTenPhong = new swing.TextInput();
@@ -438,6 +427,7 @@ public class PhongPnl extends javax.swing.JPanel {
         txtCMND = new swing.TextInput();
         btnMoPhong = new swing.PhongButton();
         btnDoiPhong = new swing.PhongButton();
+        lblTenPhong = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         panelCoverDialog1 = new component.PanelCoverDialog();
         jLabel21 = new javax.swing.JLabel();
@@ -626,11 +616,6 @@ public class PhongPnl extends javax.swing.JPanel {
                 .addGap(0, 11, Short.MAX_VALUE))
         );
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("Đặt phòng");
-        panelCoverDialog2.add(jLabel5);
-        jLabel5.setBounds(0, 7, 470, 20);
         panelCoverDialog2.add(jSeparator1);
         jSeparator1.setBounds(0, 30, 470, 10);
 
@@ -729,6 +714,12 @@ public class PhongPnl extends javax.swing.JPanel {
         });
         panelCoverDialog2.add(btnDoiPhong);
         btnDoiPhong.setBounds(270, 260, 90, 40);
+
+        lblTenPhong.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lblTenPhong.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTenPhong.setText("Phòng 1 - Phòng Chung");
+        panelCoverDialog2.add(lblTenPhong);
+        lblTenPhong.setBounds(0, 4, 470, 30);
 
         jLabel21.setText("Giá phòng");
         panelCoverDialog1.add(jLabel21);
@@ -1371,7 +1362,6 @@ public class PhongPnl extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
@@ -1388,6 +1378,7 @@ public class PhongPnl extends javax.swing.JPanel {
     private com.toedter.calendar.JDateChooser jdNgayRoi;
     private javax.swing.JList<DanhMuc> jlDanhMuc;
     private javax.swing.JLabel lbTenNhanVien;
+    private javax.swing.JLabel lblTenPhong;
     private javax.swing.JPanel panel;
     private component.PanelCoverDialog panelCoverDialog1;
     private component.PanelCoverDialog panelCoverDialog2;
