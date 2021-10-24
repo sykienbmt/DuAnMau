@@ -3,6 +3,7 @@ package panel;
 import helper.SaveImageSQL;
 import controller.NhanVienController;
 import dialog.GuiMail;
+import helper.ChuyenDoi;
 import helper.DataValidate;
 import helper.MailSender;
 import swing.ScrollBar;
@@ -598,7 +599,7 @@ public class NhanVienPnl extends javax.swing.JPanel {
                 
                 double luong = 0;
                 try {
-                    luong = Double.parseDouble(txtLuong.getText()) ;
+                    luong = ChuyenDoi.SoDouble(txtLuong.getText()) ;
                     if(luong < 0){
                         sb.append("Lương phải lớn hớn 0 \n");
                     }
