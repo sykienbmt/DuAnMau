@@ -610,7 +610,7 @@ public class NhanVienPnl extends javax.swing.JPanel {
                 ChucVu chucVu =(ChucVu) cbxChucVu.getSelectedItem();
                 Integer tenChucVu = chucVu.getIdChucVu();
                 
-                String diaChi = txtDiaChi.getText(); 
+                String diaChi = txtDiaChi.getText();
                 DataValidate.checkEmpty(diaChi, sb, "Địa chỉ không được để trống! ");
                 
                 //validate day

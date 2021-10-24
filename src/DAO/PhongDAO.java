@@ -94,8 +94,8 @@ public class PhongDAO extends AbsDAO<Phong>{
     }
 
     //lấy id hoá đơn
-    public List<Object[]> getIdHoaDon(int idPhieuThue,int idHoaDonDv){
-        return getRawValues("select idHoaDon from HoaDon where idPhieuThue="+idPhieuThue+" and idHoaDonDichVu="+idHoaDonDv+"");
+    public List<Object[]> getIdHoaDon(int idPhieuThue){
+        return getRawValues("select idHoaDon from HoaDon where idPhieuThue="+idPhieuThue+"");
     }
     
     //set trang thai phong tra tien

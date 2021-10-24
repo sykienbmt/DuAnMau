@@ -111,8 +111,8 @@ public class PhongController {
     }
     
     //lấy id hoá đơn
-    public List<Object[]> getIdHoaDon(int idPhieuThue,int idHoaDonDv){
-        return phongDAO.getIdHoaDon(idPhieuThue, idHoaDonDv);
+    public List<Object[]> getIdHoaDon(int idPhieuThue){
+        return phongDAO.getIdHoaDon(idPhieuThue);
     }
     
     //off Hoá đơn dịch vụ

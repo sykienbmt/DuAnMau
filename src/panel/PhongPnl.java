@@ -331,10 +331,10 @@ public class PhongPnl extends javax.swing.JPanel {
         }
     }
     
-    public void XuatHoaDon(int idHoaDon){
+    public void XuatHoaDon(int idHoaDon,String duongDanFile){
         try {
             Hashtable map = new Hashtable();
-            JasperReport report = JasperCompileManager.compileReport("src/panel/HoaDon.jrxml");
+            JasperReport report = JasperCompileManager.compileReport(duongDanFile);
             
             map.put("idHoaDon", idHoaDon);
             Connection connection = DriverManager.getConnection("jdbc:sqlserver://localhost;database=Java;", "sa", "123456");
@@ -344,7 +344,7 @@ public class PhongPnl extends javax.swing.JPanel {
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
-    }   
+    }
     
     public void placeholderDichVu() {
         txtTimDichVu.setText("Tìm dịch vụ");
@@ -1056,10 +1056,14 @@ public class PhongPnl extends javax.swing.JPanel {
         
         //update lại tiền dịch vụ
         List <Object[]> data2 = phongController.layIdHoaDonDichVu(phongHienTai);
-        phongController.updateTienHoaDonDV(tienDichVu,(Integer.valueOf(data2.get(0)[0].toString())));
+        if(data2.size()==0){
+        }else{
+            phongController.updateTienHoaDonDV(tienDichVu,(Integer.valueOf(data2.get(0)[0].toString())));
+        }
         txtTienDichVu.setText(ChuyenDoi.SoString(tienDichVu));
-        tongTien = tienDichVu+tienPhong;
-        txtTongTien.setText(ChuyenDoi.SoString(tongTien));
+            tongTien = tienDichVu+tienPhong;
+            txtTongTien.setText(ChuyenDoi.SoString(tongTien));
+        
     }//GEN-LAST:event_btnKetToanActionPerformed
 
     private void btnThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToanActionPerformed
@@ -1091,8 +1095,12 @@ public class PhongPnl extends javax.swing.JPanel {
                     System.out.println("Thanh toán");
                     List<Object[]> data2 = phongController.getIdPhieuThue(phongHienTai);
                     List<Object[]> data3 = phongController.layIdHoaDonDichVu(phongHienTai);
-                    
-                    HoaDon hd = new HoaDon(0,(int) data2.get(0)[0],(int) data3.get(0)[0],tienPhong,tienDichVu,phuThu);
+                    HoaDon hd = new HoaDon();
+                    if(tienDichVu==0){
+                        hd = new HoaDon(0,(int) data2.get(0)[0],null,tienPhong,tienDichVu,phuThu);
+                    }else{
+                        hd = new HoaDon(0,(int) data2.get(0)[0],(int) data3.get(0)[0],tienPhong,tienDichVu,phuThu);
+                    }
                     System.out.println(hd.getIdPhieuThue()+"   "+hd.getIdHoaDonDichVu()+"   "+tienPhong+"    "+tienDichVu);
 //                    HoaDonDAO hdDAO = new HoaDonDAO();
                     hoaDonController.insert(hd);
@@ -1100,11 +1108,17 @@ public class PhongPnl extends javax.swing.JPanel {
                     
                     phongController.offPhieuThuePhong((int)data2.get(0)[0]);
                     phongController.updateTinhTrangPhong("Phòng trống", phongHienTai);
-                    phongController.offHoaDonDichVu(phongHienTai);
+                    if(tienDichVu!=0){
+                        phongController.offHoaDonDichVu(phongHienTai);
+                    }
                     
-                    List<Object[]> ttHoaDon = phongController.getIdHoaDon((int) data2.get(0)[0],(int) data3.get(0)[0]);
+                    List<Object[]> ttHoaDon = phongController.getIdHoaDon((int) data2.get(0)[0]);
                     System.out.println((int)ttHoaDon.get(0)[0]);
-                    XuatHoaDon((int)ttHoaDon.get(0)[0]);
+                    if(tienDichVu!=0){
+                        XuatHoaDon((int)ttHoaDon.get(0)[0],"src/panel/HoaDon.jrxml");
+                    }else{
+                        XuatHoaDon((int)ttHoaDon.get(0)[0],"src/panel/HoaDonKhongDichVu.jrxml");
+                    }
                     
                     tongTien=0.0;
                     tienPhong = 0.0;
@@ -1122,13 +1136,22 @@ public class PhongPnl extends javax.swing.JPanel {
                     System.out.println("Thanh toán");
                     List<Object[]> data2 = phongController.getIdPhieuThue(phongHienTai);
                     List<Object[]> data3 = phongController.layIdHoaDonDichVu(phongHienTai);
+                    HoaDon hd = new HoaDon();
                     
-                    HoaDon hd = new HoaDon(0,(int) data2.get(0)[0],(int) data3.get(0)[0],tienPhong,tienDichVu,phuThu);
+                    if(tienDichVu==0){
+                        hd = new HoaDon(0,(int) data2.get(0)[0],null,tienPhong,tienDichVu,phuThu);
+                    }else{
+                        hd = new HoaDon(0,(int) data2.get(0)[0],(int) data3.get(0)[0],tienPhong,tienDichVu,phuThu);
+                    }
+                    
                     System.out.println(hd.getIdPhieuThue()+"   "+hd.getIdHoaDonDichVu()+"   "+tienPhong+"    "+tienDichVu);
                     hoaDonController.insert(hd);         
                     phongController.offPhieuThuePhong((int)data2.get(0)[0]);
                     phongController.updateTinhTrangPhong("Phòng trống", phongHienTai);
-                    phongController.offHoaDonDichVu(phongHienTai);
+                    
+                    if(tienDichVu!=0){
+                        phongController.offHoaDonDichVu(phongHienTai);
+                    }
                     tongTien=0.0;
                     tienPhong = 0.0;
                     tienDichVu = 0.0;

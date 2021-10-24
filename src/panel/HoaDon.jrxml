@@ -142,7 +142,7 @@ where idHoaDon =$P{idHoaDon}]]>
 			</textField>
 			<staticText>
 				<reportElement x="16" y="152" width="128" height="20" uuid="b2d0bba9-ecc8-4869-b1c6-e54eb85a9474"/>
-				<text><![CDATA[I, Chi tiết Thanh toán]]></text>
+				<text><![CDATA[II, Chi tiết Thanh toán]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="58" y="179" width="100" height="20" uuid="0a11e3ce-e2be-42ee-bce6-9fcb1de98284"/>
