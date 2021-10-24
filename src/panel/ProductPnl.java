@@ -244,7 +244,7 @@ public class ProductPnl extends javax.swing.JPanel {
     }//GEN-LAST:event_btnDeleteDVActionPerformed
 
     private void lbImageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbImageMouseClicked
-        JFileChooser ch = new JFileChooser("E:\\FPOLY\\4\\DuAnMau\\src\\icon");
+        JFileChooser ch = new JFileChooser("C:\\Users\\Dongnguyen\\Documents\\GitHub\\DuAnMau\\src\\icon\\sanPham");
         ch.setFileFilter(new FileFilter() {
             @Override
             public boolean accept(File f) {

@@ -579,12 +579,10 @@ public class NhanVienPnl extends javax.swing.JPanel {
                 String email = txtEmail.getText();
                 DataValidate.checkEmpty(email, sb, "Email không được để trống! ");
                 DataValidate.checkEmailForm(email, sb);
-                DataValidate.checkEmailExist(email, sb);
                 
                 String sdt = txtSdt.getText(); 
                 DataValidate.checkEmpty(sdt, sb, "Số đt không được để trống! ");
                 DataValidate.checkSdtForm(sdt, sb);
-                DataValidate.checkPhoneExist(sdt, sb); 
                             
                 //validate sex
                 String sex = null;
@@ -784,7 +782,7 @@ public class NhanVienPnl extends javax.swing.JPanel {
     }//GEN-LAST:event_tblNhanVienMouseClicked
 
     private void lblImageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblImageMouseClicked
-        JFileChooser ch = new JFileChooser("E:\\Important\\Java\\Java_DA\\DuAnMau\\src\\icon");
+        JFileChooser ch = new JFileChooser("C:\\Users\\Dongnguyen\\Documents\\GitHub\\DuAnMau\\src\\icon");
         ch.setFileFilter(new FileFilter() {
             @Override
             public boolean accept(File f) {

@@ -443,9 +443,9 @@ public class PhongPnl extends javax.swing.JPanel {
             tblListDichVu.getColumnModel().getColumn(0).setMinWidth(100);
             tblListDichVu.getColumnModel().getColumn(0).setPreferredWidth(100);
             tblListDichVu.getColumnModel().getColumn(0).setMaxWidth(100);
-            tblListDichVu.getColumnModel().getColumn(3).setMinWidth(0);
-            tblListDichVu.getColumnModel().getColumn(3).setPreferredWidth(0);
-            tblListDichVu.getColumnModel().getColumn(3).setMaxWidth(0);
+            tblListDichVu.getColumnModel().getColumn(3).setMinWidth(150);
+            tblListDichVu.getColumnModel().getColumn(3).setPreferredWidth(150);
+            tblListDichVu.getColumnModel().getColumn(3).setMaxWidth(150);
             tblListDichVu.getColumnModel().getColumn(4).setMinWidth(45);
             tblListDichVu.getColumnModel().getColumn(4).setPreferredWidth(45);
             tblListDichVu.getColumnModel().getColumn(4).setMaxWidth(45);
@@ -723,12 +723,12 @@ public class PhongPnl extends javax.swing.JPanel {
 
         spnSoLuong.setModel(new javax.swing.SpinnerNumberModel(1, 1, 99, 1));
         panelCoverDialog4.add(spnSoLuong);
-        spnSoLuong.setBounds(100, 60, 60, 20);
+        spnSoLuong.setBounds(100, 60, 60, 30);
 
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setText("Số lượng");
         panelCoverDialog4.add(jLabel9);
-        jLabel9.setBounds(30, 60, 60, 20);
+        jLabel9.setBounds(30, 70, 60, 20);
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
