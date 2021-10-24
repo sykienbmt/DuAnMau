@@ -27,12 +27,12 @@ public class ThanhToan extends javax.swing.JDialog {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        btnHuy = new swing.PhongButton();
-        btnTTKhongIn = new swing.PhongButton();
-        btnThanhToanDone = new swing.PhongButton();
         txtTongTien = new swing.TextInput();
         txtKhachDua = new swing.TextInput();
         txtTraLai = new swing.TextInput();
+        btnThanhToanDone = new swing.ButtonOutLine();
+        btnTTKhongIn = new swing.ButtonOutLine();
+        btnHuy = new swing.ButtonOutLine();
 
         jButton4.setText("Thanh toán và In");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -82,23 +82,6 @@ public class ThanhToan extends javax.swing.JDialog {
         panelCoverDialog1.add(jLabel5);
         jLabel5.setBounds(70, 190, 70, 30);
 
-        btnHuy.setText("Hủy");
-        btnHuy.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnHuyActionPerformed(evt);
-            }
-        });
-        panelCoverDialog1.add(btnHuy);
-        btnHuy.setBounds(320, 300, 140, 40);
-
-        btnTTKhongIn.setText("Thanh toán và không in");
-        panelCoverDialog1.add(btnTTKhongIn);
-        btnTTKhongIn.setBounds(320, 240, 140, 40);
-
-        btnThanhToanDone.setText("Thanh toán và in");
-        panelCoverDialog1.add(btnThanhToanDone);
-        btnThanhToanDone.setBounds(170, 240, 140, 40);
-
         txtTongTien.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txtTongTien.setText("0");
         panelCoverDialog1.add(txtTongTien);
@@ -113,6 +96,26 @@ public class ThanhToan extends javax.swing.JDialog {
         txtTraLai.setText("0");
         panelCoverDialog1.add(txtTraLai);
         txtTraLai.setBounds(160, 190, 300, 29);
+
+        btnThanhToanDone.setBackground(new java.awt.Color(255, 0, 51));
+        btnThanhToanDone.setText("Thanh toán và in");
+        panelCoverDialog1.add(btnThanhToanDone);
+        btnThanhToanDone.setBounds(190, 240, 130, 40);
+
+        btnTTKhongIn.setBackground(new java.awt.Color(255, 0, 51));
+        btnTTKhongIn.setText("Thanh toán và không in");
+        panelCoverDialog1.add(btnTTKhongIn);
+        btnTTKhongIn.setBounds(330, 240, 130, 40);
+
+        btnHuy.setBackground(new java.awt.Color(255, 0, 51));
+        btnHuy.setText("Hủy");
+        btnHuy.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHuyActionPerformed(evt);
+            }
+        });
+        panelCoverDialog1.add(btnHuy);
+        btnHuy.setBounds(335, 295, 120, 40);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -148,9 +151,9 @@ public class ThanhToan extends javax.swing.JDialog {
     }//GEN-LAST:event_btnHuyActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private swing.PhongButton btnHuy;
-    public swing.PhongButton btnTTKhongIn;
-    public swing.PhongButton btnThanhToanDone;
+    private swing.ButtonOutLine btnHuy;
+    public swing.ButtonOutLine btnTTKhongIn;
+    public swing.ButtonOutLine btnThanhToanDone;
     private swing.ButtonOutLine buttonOutLine1;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel3;

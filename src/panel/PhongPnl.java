@@ -127,7 +127,7 @@ public class PhongPnl extends javax.swing.JPanel {
     public void cssHeaderJtable(){
         JTableHeader thead = tblDichVu.getTableHeader();
         thead.setForeground(Color.BLUE);
-        thead.setBackground(Color.LIGHT_GRAY);
+        thead.setBackground(Color.WHITE);
         thead.setFont(new Font("Tahome",Font.BOLD,12));
     }
 
