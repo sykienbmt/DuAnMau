@@ -1,5 +1,6 @@
 package DAO;
 
+import helper.DBConnection;
 import java.util.List;
 import model.DichVu;
 
@@ -21,29 +22,16 @@ public class DichVuDAO extends AbsDAO<DichVu>{
         return getRawValues("select dv.idDichVu,tenDichVu,format(gia,'#,#') gia,tenDonVi,tenDanhMuc from DichVu dv join DanhMuc dm on dv.idDanhMuc=dm.idDanhMuc join donViTinh dvt on dv.idDonVi=dvt.idDonVi");
     }
     
+    public List<Object[]> layChiTietDichVu(int idPhong) {
+        return getRawValues("select hd.idHoaDonDichVu,dv.tenDichVu,dvt.tenDonVi,FORMAT(ctdv.ngaySuDung ,'dd/MM/yyyy HH:mm:ss') ngaySuDung,ctdv.soLanSuDung,format(ctdv.thanhTien,'#,#')thanhTien from HoaDonDichVu hd \n" +
+            "join ChiTietDichVu ctdv on hd.idHoaDonDichVu=ctdv.idHoaDonDichVu  \n" +
+            "join DichVu dv on ctdv.idDichVu=dv.idDichVu \n" +
+            "join donViTinh dvt on dvt.idDonVi=dv.idDonVi\n" +
+            "where idphong="+idPhong+" and trangThai=1");
+    }
     
-    
-//    public List<Phong> getListPhong() {
-//        return getAll();
-//    }
-    
-//    public List<Object[]> getListPhong() {
-//        return getRawValues("select * from Phong");
-//    }
-    
-//    public List<Object[]> updateDataStaff() {
-//        return getRawValues("update NhanVien set TenNhanVien=?,DiaChi=?,SoDienThoai=?,GioiTinh=?,ChucVu=?,NgaySinh=?,"
-//                            + "NgayVaoLam=?,Luong=?,HinhAnh=?,Email where MaNhanVien=?");
-//    }
-//    
-//    public List<Object[]> deleteStaff() {
-//        return getRawValues("delete from NhanVien where MaNhanVien = ?");
-//    }
-//    
-//    public List<Object[]> searchByName(String name){
-//        String query = "%" + name + "%";
-//        return getRawValues("select MaNhanVien,TenNhanVien,DiaChi,SoDienThoai,GioiTinh,b.TenChucVu, CONVERT(nvarchar,NgaySinh,105) as ngaySinh,"
-//                + "CONVERT(nvarchar,NgayVaoLam,105)as ngayVaoLam, CAST(Luong as decimal(15,0)),HinhAnh, Email from NhanVien a join ChucVu b "
-//                + "on a.ChucVu = b.IDChucVu where TenNhanVien like ?",query);
-//    }
+        public void updateTienDichVu(Double tongTien,int idHoaDonDichVu){
+        String query = "update HoaDonDichVu set tongTien = ? where idHoaDonDichVu =?";
+        DBConnection.executeUpdate(query,tongTien,idHoaDonDichVu);
+    }
 }

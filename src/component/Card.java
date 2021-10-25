@@ -25,7 +25,7 @@ public class Card extends javax.swing.JPanel {
     private final Timer timerStop;
     private final CardDescription cardDescription;
     private int y = 140;
-    private int speed = 3;
+    private int speed = 5;
     private boolean showing = false;
 
     public Card(Model_Card data) {
@@ -35,15 +35,15 @@ public class Card extends javax.swing.JPanel {
         cardDescription = new CardDescription(data.getTitle(), data.getDescription());
         cardDescription.setLocation(0, y);
         setPreferredSize(new Dimension(150, 200));
-        cardDescription.setSize(new Dimension(150, 150));
+        cardDescription.setSize(new Dimension(150, 120));
         add(cardDescription);
         timer = new Timer(0, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 if (showing) {
                     y -= speed;
-                    if (y <= 50) {
-                        y = 50;
+                    if (y <= 80) {
+                        y = 80;
                         cardDescription.setLocation(0, y);
                         timer.stop();
                     } else {

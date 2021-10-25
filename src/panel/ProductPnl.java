@@ -31,8 +31,7 @@ public class ProductPnl extends javax.swing.JPanel {
     
     public ProductPnl() {
         initComponents();
-        init();
-        
+        init();        
     }
 
     private void init() {
@@ -54,7 +53,6 @@ public class ProductPnl extends javax.swing.JPanel {
             byte[] img = (byte[]) dv.getAnhSanPham();
             personalImage=img;
             ImageIcon imageIcon = new ImageIcon(new ImageIcon(img).getImage());
-//            lbImage.setIcon(imageIcon);
             
             Card card = new Card(new Model_Card(imageIcon,tenDV,data.get(i)[2].toString()+ "\n"+data.get(i)[3].toString()));
             panel.add(card);
@@ -88,8 +86,7 @@ public class ProductPnl extends javax.swing.JPanel {
             
         }
     }
-    
-   
+ 
     public void setController (QlDichVuController qlDichVuController) {
         this.qlDichVuController = qlDichVuController;
     }
@@ -314,7 +311,6 @@ public class ProductPnl extends javax.swing.JPanel {
         Double gia = ChuyenDoi.SoDouble(txtGiaDV.getText());
         txtGiaDV.setText(ChuyenDoi.SoString(gia));
     }//GEN-LAST:event_txtGiaDVKeyReleased
-    
     
     public void setCbbDonViTinh(){
         List<DonViTinh> dvTinhs= qlDichVuController.getDonViTinh();

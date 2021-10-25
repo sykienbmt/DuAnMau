@@ -1,14 +1,18 @@
 package DAO;
 
 import helper.DBConnection;
-import java.util.Date;
 import java.util.List;
 import model.Phong;
-import java.sql.Timestamp;
 
 public class PhongDAO extends AbsDAO<Phong>{      
-    public List<Object[]> getListLoaiPhong(String tenLoaiPhong) {
-        return getRawValues("select idPhong,a.idLoaiPhong,tenPhong from Phong a join LoaiPhong b on a.idLoaiPhong = b.idLoaiPhong where b.tenLoaiPhong = N'"+tenLoaiPhong+"'");
+    public List<Object[]> getListAllLoaiPhong() {
+        return getRawValues("select idPhong,a.idLoaiPhong,tenPhong,soKhachMax,ngayDat,trangThai,tenLoaiPhong from Phong a join LoaiPhong b "
+                            + "on a.idLoaiPhong = b.idLoaiPhong");
+    }
+    
+    public List<Object[]> getListLoaiPhong(int idLoaiPhong) {
+        return getRawValues("select idPhong,a.idLoaiPhong,tenPhong,soKhachMax,ngayDat,trangThai,tenLoaiPhong from Phong a join LoaiPhong b "
+                            + "on a.idLoaiPhong = b.idLoaiPhong where b.idLoaiPhong = N'"+idLoaiPhong+"'");
     }
     
     public List<Object[]> getPhongDangDung() {
@@ -27,7 +31,8 @@ public class PhongDAO extends AbsDAO<Phong>{
     }
     
     public List<Object[]> getDataPhong() {
-        return getRawValues("select a.idPhong,b.tenLoaiPhong,a.tenPhong,a.soKhachMax,a.ngayDat,a.trangThai from Phong a join LoaiPhong b on a.idLoaiPhong = b.idLoaiPhong");
+        return getRawValues("select a.idPhong,b.tenLoaiPhong,a.tenPhong,a.soKhachMax,a.ngayDat,a.trangThai from Phong a join LoaiPhong b "
+                            + "on a.idLoaiPhong = b.idLoaiPhong");
     }
     
     public List<Object[]> getThongTinPhong(int idPhong) {
@@ -45,37 +50,8 @@ public class PhongDAO extends AbsDAO<Phong>{
     public void updateTinhTrangPhong2(String trangThai,int idPhong, int idLoaiPhong) {
         String query = "update Phong set trangThai = ? where idPhong = ? and idLoaiPhong = ?";
         DBConnection.executeUpdate(query,trangThai, idPhong, idLoaiPhong);
-    }
-   
-    public List<Object[]> checkHoaDonPhong(int idPhong){
-        return getRawValues("select count(*) from HoaDonDichVu where idPhong="+idPhong+" and trangThai=1");
-    }
-    
-    public void taoHoaDonDichVu(int idPhong){
-        String query = "insert into HoaDonDichVu values (?,?,?,?,?)";
-        Timestamp timeNow = new Timestamp(new Date().getTime());
-        DBConnection.executeUpdate(query,idPhong,0,timeNow,"khong",1);
-    }
-    
-    public List<Object[]> layIdHoaDonDichVu(int idPhong){
-        String  query = "select idHoaDonDichVu from hoaDonDichVu where idPhong ="+idPhong+" and trangthai=1";
-        return getRawValues(query);
-    }
-    
-    public List<Object[]> layChiTietDichVu(int idPhong) {
-        return getRawValues("select hd.idHoaDonDichVu,dv.tenDichVu,dvt.tenDonVi,FORMAT(ctdv.ngaySuDung ,'dd/MM/yyyy HH:mm:ss') ngaySuDung,ctdv.soLanSuDung,format(ctdv.thanhTien,'#,#')thanhTien from HoaDonDichVu hd \n" +
-            "join ChiTietDichVu ctdv on hd.idHoaDonDichVu=ctdv.idHoaDonDichVu  \n" +
-            "join DichVu dv on ctdv.idDichVu=dv.idDichVu \n" +
-            "join donViTinh dvt on dvt.idDonVi=dv.idDonVi\n" +
-            "where idphong="+idPhong+" and trangThai=1");
-    }
-    
-    public void themChiTietHoaDonDV(int idHoaDonDichVu,int idDichVu,int soLan){
-        String query2="insert into chiTietDichVu values (?,?,?,?,(select gia from DichVu where idDichVu=?)*?)";
-        Timestamp timeNow = new Timestamp(new Date().getTime());
-        DBConnection.executeUpdate(query2,idHoaDonDichVu,idDichVu,soLan,timeNow,idDichVu,soLan);
-    }
-    
+    }   
+
     public List<Object[]> getHinhThuc(int idLoaiPhong){
         return getRawValues("select giaGio,giaNgay,giaThang,giaquy from loaiPhong where idloaiPhong ="+idLoaiPhong+"");
     }
@@ -87,49 +63,7 @@ public class PhongDAO extends AbsDAO<Phong>{
     public List<Object[]> getGiaPhong(int idPhong){
         return getRawValues("select idLoaiPhong from phong p join loaiphong lp on  where idPhong = "+idPhong+"");
     }
-    
-    
-    public List<Object[]> getIdPhieuThue(int idPhong){
-        return getRawValues("select idPhieuThue from phieuThuePhong where idPhong = "+idPhong+" and ngayDi is null");
-    }
 
-    //lấy id hoá đơn
-    public List<Object[]> getIdHoaDon(int idPhieuThue){
-        return getRawValues("select idHoaDon from HoaDon where idPhieuThue="+idPhieuThue+"");
-    }
-    
-    //set trang thai phong tra tien
-    public void offPhieuThuePhong(int idPhieuThue){
-        Timestamp timeNow = new Timestamp(new Date().getTime());
-        String query = "update phieuThuePhong set ngayDi=? where idPhieuThue =?";
-        DBConnection.executeUpdate(query, timeNow,idPhieuThue);
-    }
-    
-    //set tiền dịch vụ vào phiếu dịch vụ
-    public void updateTienDichVu(Double tongTien,int idHoaDonDichVu){
-        String query = "update HoaDonDichVu set tongTien = ? where idHoaDonDichVu =?";
-        DBConnection.executeUpdate(query,tongTien,idHoaDonDichVu);
-    }
-    
-    //off hoá đơn dịch vụ
-    public void offHoaDonDichVu(int idPhong){
-        String query = "update HoaDonDichVu set trangThai=0 where idPhong=? and trangthai=1";
-        DBConnection.executeUpdate(query,idPhong);
-    }
-    
-    //chuyển hóa đơn dịch vụ phòng
-    public void chuyenHoaDonDichVuPhong(int idPhong, int idPhongCanDoi) {
-        String query = "update HoaDonDichVu set idPhong = ? where idPhong = ? and trangThai = 1";
-        DBConnection.executeUpdate(query, idPhong, idPhongCanDoi);
-    }
-    
-    //chuyển phiếu thuê phòng
-    public void chuyenPhieuThuePhong(int idPhong, int idPhongCanDoi) {
-        String query = "update phieuThuePhong set idPhong = ? where idPhong = ? and ngayDi is null";
-        DBConnection.executeUpdate(query, idPhong, idPhongCanDoi);
-    }
-    
-    //lấy tên phòng
     public List<Object[]> getTenPhong(int idPhong){
         return getRawValues("select tenPhong,tenLoaiPhong from Phong p join LoaiPhong lp on p.idLoaiPhong=lp.idLoaiPhong\n" +
                                 "where idPhong="+idPhong+"");

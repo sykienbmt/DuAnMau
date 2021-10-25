@@ -1,6 +1,9 @@
 package controller;
 
+import DAO.DichVuDAO;
+import DAO.HoaDonDAO;
 import DAO.LoaiPhongDAO;
+import DAO.PhieuThuePhongDAO;
 import DAO.PhongDAO;
 import java.util.List;
 import model.LoaiPhong;
@@ -9,15 +12,18 @@ import panel.PhongPnl;
 
 public class PhongController {
     PhongPnl view;
+    PhieuThuePhongDAO phieuThueDAO = new PhieuThuePhongDAO();
+    DichVuDAO dichVuDAO = new DichVuDAO();
+    HoaDonDAO hoaDonDAO = new HoaDonDAO();
+    LoaiPhongDAO loaiPhongDAO = new LoaiPhongDAO();
+    PhongDAO phongDAO = new PhongDAO();
     
     public PhongController(PhongPnl view) {
         this.view = view;
         loadListBtnPhong();
+        getListAllLoaiPhong();
         view.setController(this);
     }
-    
-    LoaiPhongDAO loaiPhongDAO = new LoaiPhongDAO();
-    PhongDAO phongDAO = new PhongDAO();
     
     public List<Object[]> loadDataPhong(int idPhong){
         List<Object[]> phongs = phongDAO.getThongTinPhong(idPhong);
@@ -40,26 +46,26 @@ public class PhongController {
     }
     
     public List<Object[]> checkHoaDonPhong(int idPhong){
-        List<Object[]> phongs = phongDAO.checkHoaDonPhong(idPhong);
+        List<Object[]> phongs = hoaDonDAO.checkHoaDonPhong(idPhong);
         return phongs;
     }
     
     public List<Object[]> layChiTietDichVu(int idPhong) {
-        List<Object[]> phongs = phongDAO.layChiTietDichVu(idPhong);
+        List<Object[]> phongs = dichVuDAO.layChiTietDichVu(idPhong);
         return phongs; 
     }
     
     public void taoHoaDonDichVu (int idPhong){
-        phongDAO.taoHoaDonDichVu(idPhong);
+        hoaDonDAO.taoHoaDonDichVu(idPhong);
     }
     
     public List<Object[]> layIdHoaDonDichVu(int idPhong){
-        List<Object[]> phongs = phongDAO.layIdHoaDonDichVu(idPhong);
+        List<Object[]> phongs = hoaDonDAO.layIdHoaDonDichVu(idPhong);
         return phongs;
     }
     
     public void themChiTietDichVu(int idHoaDon,int idDichVu,int soLan){
-        phongDAO.themChiTietHoaDonDV(idHoaDon, idDichVu, soLan);
+        hoaDonDAO.themChiTietHoaDonDV(idHoaDon, idDichVu, soLan);
     }
     
     public List<Object[]> getHinhThuc(int idLoaiPhong){
@@ -97,37 +103,37 @@ public class PhongController {
     
     //Lấy id Phiếu Thuê Phòng
     public List<Object[]> getIdPhieuThue(int idPhong){
-        return phongDAO.getIdPhieuThue(idPhong);
+        return phieuThueDAO.getIdPhieuThue(idPhong);
     }    
     
     //off phieu thue phong
     public void offPhieuThuePhong(int idPhieuThue){
-        phongDAO.offPhieuThuePhong(idPhieuThue);
+        phieuThueDAO.offPhieuThuePhong(idPhieuThue);
     }
     
     //update tienDichVu
     public void updateTienHoaDonDV(Double tien , int idHoaDon){
-        phongDAO.updateTienDichVu(tien, idHoaDon);
+        dichVuDAO.updateTienDichVu(tien, idHoaDon);
     }
     
     //lấy id hoá đơn
     public List<Object[]> getIdHoaDon(int idPhieuThue){
-        return phongDAO.getIdHoaDon(idPhieuThue);
+        return hoaDonDAO.getIdHoaDon(idPhieuThue);
     }
     
     //off Hoá đơn dịch vụ
     public void offHoaDonDichVu(int idPhong){
-        phongDAO.offHoaDonDichVu(idPhong);
+        hoaDonDAO.offHoaDonDichVu(idPhong);
     }
     
     //chuyển hóa đơn dịch vụ phòng
     public void chuyenHoaDonDichVuPhong(int idPhong, int idPhongCanDoi) {
-        phongDAO.chuyenHoaDonDichVuPhong(idPhong, idPhongCanDoi);
+        hoaDonDAO.chuyenHoaDonDichVuPhong(idPhong, idPhongCanDoi);
     }
     
     //chuyển phiếu thuê phòng
     public void chuyenPhieuThuePhong(int idPhong, int idPhongCanDoi) {
-        phongDAO.chuyenPhieuThuePhong(idPhong, idPhongCanDoi);
+        phieuThueDAO.chuyenPhieuThuePhong(idPhong, idPhongCanDoi);
     }
     
     public List<Object[]> getPhongDangDung(){
@@ -138,8 +144,8 @@ public class PhongController {
         return phongDAO.getPhongTrong(idLoaiPhong);
     }
     
-    public List<Object[]> getListLoaiPhong(String tenLoaiPhong){
-        return phongDAO.getListLoaiPhong(tenLoaiPhong);
+    public List<Object[]> getListAllLoaiPhong(){
+        return phongDAO.getListAllLoaiPhong();
     }
     
     public List<Object[]> getTenPhong(int idPhong){
