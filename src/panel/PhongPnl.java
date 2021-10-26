@@ -14,10 +14,12 @@ import dialog.DoiPhongDialog;
 import dialog.ThanhToan;
 import helper.ChuyenDoi;
 import java.awt.Button;
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Frame;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
@@ -49,6 +51,7 @@ import model.DanhMuc;
 import model.Phong;
 import model.GiaPhong;
 import model.HoaDon;
+import net.miginfocom.swing.MigLayout;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -102,6 +105,7 @@ public class PhongPnl extends javax.swing.JPanel {
         txtTenPhong.setEnabled(false);
         btnKetToan.setEnabled(false);
         btnThanhToan.setEnabled(false);
+//        jScrollPane1.setHorizontalScrollBar (null);
 //        css table list dich vu
         spTableListDichVu.setVerticalScrollBar(new ScrollBar());
         spTableListDichVu.getVerticalScrollBar().setBackground(Color.WHITE);
@@ -125,7 +129,10 @@ public class PhongPnl extends javax.swing.JPanel {
     }
     
     private void init() {
-        panel.setLayout(new WrapLayout(WrapLayout.LEADING));
+        GridLayout layout = new GridLayout(10, 3);
+        layout.setHgap(5);
+        layout.setVgap(10);
+        panel.setLayout(layout);
         jScrollPane1.setVerticalScrollBar(new ScrollBar());   
         jScrollPane2.setVerticalScrollBar(new ScrollBar()); 
         panel.revalidate();
@@ -146,7 +153,6 @@ public class PhongPnl extends javax.swing.JPanel {
          }else {
              btnphong.setBackground(new Color(102,102,102));
          }
-        
         btnphong.addMouseListener(new MouseAdapter() {
         @Override
             public void mousePressed(MouseEvent e) {
