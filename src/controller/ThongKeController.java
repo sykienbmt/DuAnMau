@@ -50,4 +50,16 @@ public class ThongKeController {
         view.viewTableThongKe(khoang);
         view.setValueSum(tienPhong,tienDichVu,phuThu,Tong);
     }
+    
+    public List<Object[]> thongKeBieuDo(String tu, String den) {
+        List<Object[]> bieuDos = thongKeDAO.thongKeBieuDo(tu, den);
+        Double tienPhong = 0.0,tienDichVu=0.0 ,phuThu=0.0 ,Tong=0.0;
+        
+        for(int i=0 ;i<=bieuDos.size()-1;i++){
+            tienPhong+=ChuyenDoi.SoDouble(bieuDos.get(i)[1].toString());
+            tienDichVu+=ChuyenDoi.SoDouble(bieuDos.get(i)[2].toString());
+            phuThu+=ChuyenDoi.SoDouble(bieuDos.get(i)[3].toString());
+        }
+        return bieuDos;
+    }
 }

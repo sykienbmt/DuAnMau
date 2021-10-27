@@ -7,7 +7,10 @@ import java.awt.Color;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
+import swing.ScrollBar;
 
 public class ThongKePnl extends javax.swing.JPanel {
 
@@ -15,31 +18,21 @@ public class ThongKePnl extends javax.swing.JPanel {
     
     public ThongKePnl() {
         initComponents();
-        testData();
+        spTable2.setVerticalScrollBar(new ScrollBar());
+        spTable2.getVerticalScrollBar().setBackground(Color.WHITE);
+        spTable2.getViewport().setBackground(Color.WHITE);
+        JPanel p = new JPanel();
+        p.setBackground(Color.WHITE);
+        spTable2.setCorner(JScrollPane.UPPER_RIGHT_CORNER, p);
         jDateChooser1.setDateFormatString("dd-MM-yyyy");
         jDateChooser2.setDateFormatString("dd-MM-yyyy");
-    }
-
-    private void testData() {
-        chart1.addLegend("Income", new Color(245, 189, 135));
-        chart1.addLegend("Expense", new Color(135, 189, 245));
-        chart1.addLegend("Profit", new Color(189, 135, 245));
-        chart1.addData(new ModelChart("January", new double[]{500, 200, 80}));
-        chart1.addData(new ModelChart("February", new double[]{600, 750, 90}));
-        chart1.addData(new ModelChart("March", new double[]{200, 350, 460}));
-        chart1.addData(new ModelChart("April", new double[]{480, 150, 750}));
-        chart1.addData(new ModelChart("May", new double[]{350, 540, 300}));
-        chart1.addData(new ModelChart("June", new double[]{190, 280, 81}));
-    }
-    
+    }   
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblThongKe = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
         jLabel4 = new javax.swing.JLabel();
@@ -55,6 +48,8 @@ public class ThongKePnl extends javax.swing.JPanel {
         lblTienPhong = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        spTable2 = new javax.swing.JScrollPane();
+        tblThongKe = new swing.Table();
 
         setBackground(new java.awt.Color(242, 246, 253));
 
@@ -62,24 +57,6 @@ public class ThongKePnl extends javax.swing.JPanel {
         jLabel1.setForeground(new java.awt.Color(140, 110, 207));
         jLabel1.setText("THỐNG KÊ DOANH THU");
         jLabel1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
-
-        tblThongKe.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "STT", "Tên phòng", "Tên nhân viên", "Ngày thanh Toán", "Tiền Phòng", "Tiền Dịch vụ", "Phụ Thu", "Tổng hoá đơn"
-            }
-        ));
-        jScrollPane1.setViewportView(tblThongKe);
-        if (tblThongKe.getColumnModel().getColumnCount() > 0) {
-            tblThongKe.getColumnModel().getColumn(0).setMinWidth(40);
-            tblThongKe.getColumnModel().getColumn(0).setPreferredWidth(40);
-            tblThongKe.getColumnModel().getColumn(0).setMaxWidth(40);
-        }
 
         jLabel3.setText("Từ ngày");
 
@@ -143,7 +120,7 @@ public class ThongKePnl extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(lblTienDichVu, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
                     .addComponent(lblTongTien, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -166,6 +143,35 @@ public class ThongKePnl extends javax.swing.JPanel {
                             .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap())))
         );
+
+        spTable2.setBorder(null);
+
+        tblThongKe.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Id", "Phòng", "Nhân viên", "Ngày trả phòng", "Tiền phòng", "Dịch vụ", "Phụ thu", "Tổng tiền"
+            }
+        ));
+        spTable2.setViewportView(tblThongKe);
+        if (tblThongKe.getColumnModel().getColumnCount() > 0) {
+            tblThongKe.getColumnModel().getColumn(0).setMinWidth(40);
+            tblThongKe.getColumnModel().getColumn(0).setPreferredWidth(40);
+            tblThongKe.getColumnModel().getColumn(0).setMaxWidth(40);
+            tblThongKe.getColumnModel().getColumn(1).setMinWidth(70);
+            tblThongKe.getColumnModel().getColumn(1).setPreferredWidth(70);
+            tblThongKe.getColumnModel().getColumn(1).setMaxWidth(70);
+            tblThongKe.getColumnModel().getColumn(2).setMinWidth(70);
+            tblThongKe.getColumnModel().getColumn(2).setPreferredWidth(70);
+            tblThongKe.getColumnModel().getColumn(2).setMaxWidth(70);
+            tblThongKe.getColumnModel().getColumn(3).setMinWidth(100);
+            tblThongKe.getColumnModel().getColumn(3).setPreferredWidth(100);
+            tblThongKe.getColumnModel().getColumn(3).setMaxWidth(100);
+            tblThongKe.getColumnModel().getColumn(6).setMinWidth(60);
+            tblThongKe.getColumnModel().getColumn(6).setPreferredWidth(60);
+            tblThongKe.getColumnModel().getColumn(6).setMaxWidth(60);
+        }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -192,10 +198,10 @@ public class ThongKePnl extends javax.swing.JPanel {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 611, Short.MAX_VALUE)
+                        .addComponent(spTable2, javax.swing.GroupLayout.PREFERRED_SIZE, 569, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(chart1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(chart1, javax.swing.GroupLayout.DEFAULT_SIZE, 635, Short.MAX_VALUE)
                             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
@@ -225,7 +231,7 @@ public class ThongKePnl extends javax.swing.JPanel {
                         .addComponent(chart1, javax.swing.GroupLayout.DEFAULT_SIZE, 513, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1))
+                    .addComponent(spTable2))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -236,6 +242,16 @@ public class ThongKePnl extends javax.swing.JPanel {
         Date date2 = jDateChooser2.getDate();
         thongKeController.thongKeTheoKhoang(sdf.format(date1), sdf.format(date2));
         
+        chart1.addLegend("Tiền phòng", new Color(245, 189, 135));
+        chart1.addLegend("Dịch vụ", new Color(135, 189, 245));
+        chart1.addLegend("Phụ thu", new Color(189, 135, 245));
+        List<Object[]> data = thongKeController.thongKeBieuDo(sdf.format(date1), sdf.format(date2));
+        for (int i = 0; i <= data.size()-1; i++) {
+            Double tienGio = Double.parseDouble(data.get(i)[1].toString());
+            Double dichVu = Double.parseDouble(data.get(i)[2].toString());
+            Double phuThu = Double.parseDouble(data.get(i)[3].toString());
+            chart1.addData(new ModelChart(data.get(i)[0].toString()+"/"+data.get(i)[4].toString(),new double[]{tienGio,dichVu,phuThu}));
+        }      
     }//GEN-LAST:event_btnThongKeActionPerformed
     
     public void viewTableThongKe(List<Object[]> data) {
@@ -280,11 +296,15 @@ public class ThongKePnl extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblTienDichVu;
     private javax.swing.JLabel lblTienPhong;
     private javax.swing.JLabel lblTienPhuThu;
     private javax.swing.JLabel lblTongTien;
-    private javax.swing.JTable tblThongKe;
+    private javax.swing.JScrollPane spTable;
+    private javax.swing.JScrollPane spTable1;
+    private javax.swing.JScrollPane spTable2;
+    private swing.Table tblNhanVien;
+    private swing.Table tblNhanVien1;
+    private swing.Table tblThongKe;
     // End of variables declaration//GEN-END:variables
 }
