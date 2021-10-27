@@ -14,7 +14,8 @@ public class PhieuThuePhongDAO extends AbsDAO<PhieuThuePhong>{
     public void offPhieuThuePhong(int idPhieuThue){
         Timestamp timeNow = new Timestamp(new Date().getTime());
         String query = "update phieuThuePhong set ngayDi=? where idPhieuThue =?";
-        DBConnection.executeQuery(query, timeNow,idPhieuThue);
+        System.out.println("update phieuThuePhong set ngayDi='"+timeNow+"' where idPhieuThue ="+idPhieuThue+"");
+        DBConnection.executeUpdate(query, timeNow,idPhieuThue);
     }
     
     public List<Object[]> getIdPhieuThue(int idPhong){

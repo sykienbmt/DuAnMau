@@ -1162,6 +1162,7 @@ public class PhongPnl extends javax.swing.JPanel {
                         hd = new HoaDon(0,(int) data2.get(0)[0],(int) data3.get(0)[0],tienPhong,tienDichVu,phuThu);
                     }                                       
                     hoaDonController.insert(hd);         
+                    System.out.println((int)data2.get(0)[0]);
                     phongController.offPhieuThuePhong((int)data2.get(0)[0]);
                     phongController.updateTinhTrangPhong("Phòng trống", phongHienTai);
                     
@@ -1206,9 +1207,9 @@ public class PhongPnl extends javax.swing.JPanel {
         phongController.updateTinhTrangPhong("Đang sử dụng",phongHienTai);
         phieuThuePhongController.insert(0, phongHienTai, 1, cmnd, soNguoi, ngayDat, null, hinhThucThue);
         button.setBackground(new Color(255,51,0));
-        setNullValue();
-        reLoadPhong();
         setThongTinPhong(phongHienTai);
+//        setNullValue();
+        reLoadPhong();
         btnThemDichVu.setEnabled(true);
     }//GEN-LAST:event_btnMoPhongActionPerformed
     
