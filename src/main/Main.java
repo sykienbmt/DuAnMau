@@ -8,6 +8,7 @@ import controller.NhanVienController;
 import controller.PhieuThuePhongController;
 import controller.PhongController;
 import controller.QlDichVuController;
+import controller.ThongKeController;
 import dialog.DoiPhongDialog;
 import event.EventMenuSelected;
 import model.ModelMenu;
@@ -54,6 +55,8 @@ public class Main extends javax.swing.JFrame {
         KhacHangController khacHangController = new KhacHangController(phongPnl);
         
         HoaDonController hoaDonController = new HoaDonController(phongPnl);
+        thongKepnl = new ThongKePnl();
+        ThongKeController thongKeController = new ThongKeController(thongKepnl);
     }
     
     private void init() {
@@ -84,7 +87,7 @@ public class Main extends javax.swing.JFrame {
                 } else if (index == 1) {
                     showForm(nhanVienpnl);
                 } else if (index == 2) {
-                    showForm(new ThongKePnl());
+                    showForm(thongKepnl);
                 } else if (index == 3) {
                     showForm(productPnl);
                 }
