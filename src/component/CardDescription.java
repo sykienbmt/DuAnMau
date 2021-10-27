@@ -44,7 +44,7 @@ public class CardDescription extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lbTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
+                .addComponent(lbTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
@@ -65,8 +65,8 @@ public class CardDescription extends javax.swing.JPanel {
         g2.setColor(new Color(255, 255, 255, 200));
         Path2D.Float f = new Path2D.Float();
         f.moveTo(0, 30);
-        f.curveTo(50, 0, 100, 40, 150, 0);
-        f.lineTo(150, getHeight());
+        f.curveTo(50, 0, 100, 40, 180, 0);
+        f.lineTo(190, getHeight());
         f.lineTo(0, getHeight());
         g2.fill(f);
         super.paintComponent(grphcs);

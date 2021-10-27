@@ -34,8 +34,8 @@ public class Card extends javax.swing.JPanel {
         setOpaque(false);
         cardDescription = new CardDescription(data.getTitle(), data.getDescription());
         cardDescription.setLocation(0, y);
-        setPreferredSize(new Dimension(150, 200));
-        cardDescription.setSize(new Dimension(150, 120));
+        setPreferredSize(new Dimension(170, 200));
+        cardDescription.setSize(new Dimension(180, 120));
         add(cardDescription);
         timer = new Timer(0, new ActionListener() {
             @Override
