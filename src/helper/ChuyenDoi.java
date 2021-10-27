@@ -44,7 +44,6 @@ public class ChuyenDoi {
         try {
             return NumberFormat.getNumberInstance().parse(so).doubleValue();
         } catch (ParseException ex) {
-            System.out.println("Lỗi chuyển số");
             return 0;
         }
     }
