@@ -5,6 +5,7 @@ public class ThanhToan extends javax.swing.JDialog {
     public ThanhToan(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        loading.setVisible(false);
     }
 
     /**
@@ -17,6 +18,8 @@ public class ThanhToan extends javax.swing.JDialog {
     private void initComponents() {
 
         jButton4 = new javax.swing.JButton();
+        loading = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         panelCoverDialog1 = new component.PanelCoverDialog();
         jLabel6 = new javax.swing.JLabel();
@@ -44,6 +47,11 @@ public class ThanhToan extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Thanh Toán");
         setResizable(false);
+
+        loading.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/81908-loading.gif"))); // NOI18N
+        loading.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-78, -46, 560, 400));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -133,10 +141,14 @@ public class ThanhToan extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(loading, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(loading, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -156,6 +168,7 @@ public class ThanhToan extends javax.swing.JDialog {
     public swing.ButtonOutLine btnThanhToanDone;
     private swing.ButtonOutLine buttonOutLine1;
     private javax.swing.JButton jButton4;
+    public javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -164,6 +177,7 @@ public class ThanhToan extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSeparator jSeparator1;
     public javax.swing.JLabel lblTenPhong;
+    public javax.swing.JPanel loading;
     private component.PanelCoverDialog panelCoverDialog1;
     public swing.TextInput txtKhachDua;
     public swing.TextInput txtTongTien;

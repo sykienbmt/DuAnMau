@@ -5,7 +5,6 @@ import DAO.KhachHangDAO;
 import DAO.PhongDAO;
 import DAO.cbbHinhThucThueDAO;
 import component.Loading;
-import helper.DBConnection;
 import controller.DichVuController;
 import controller.HoaDonController;
 import controller.KhacHangController;
@@ -15,7 +14,6 @@ import dialog.DoiPhongDialog;
 import dialog.ThanhToan;
 import helper.ChuyenDoi;
 import java.awt.Button;
-import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
@@ -31,7 +29,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Hashtable;
@@ -47,12 +44,10 @@ import javax.swing.JScrollPane;
 import javax.swing.Timer;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.JTableHeader;
 import model.DanhMuc;
 import model.Phong;
 import model.GiaPhong;
 import model.HoaDon;
-import net.miginfocom.swing.MigLayout;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -60,7 +55,6 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.view.JasperViewer;
 import swing.ScrollBar;
-import swing.WrapLayout;
 
 public class PhongPnl extends javax.swing.JPanel {
     private KhacHangController khacHangController;
@@ -980,14 +974,7 @@ public class PhongPnl extends javax.swing.JPanel {
     private void txtCMNDKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCMNDKeyReleased
         String CMND = txtCMND.getText();
         
-        List<Object[]> rs = khacHangController.getCMND(CMND);
-        
-        System.out.println(rs.get(0)[4].toString());
-        System.out.println(rs.get(0)[0].toString());
-        System.out.println(rs.get(0)[1].toString());
-        System.out.println("hoChieu"+rs.get(0)[2].toString());
-        System.out.println(rs.get(0)[3].toString());
-        
+        List<Object[]> rs = khacHangController.getCMND(CMND);        
         if (CMND.equals(rs.get(0)[4].toString())) {
             isCMND = true;
             txtTenKhach.setText(rs.get(0)[0].toString());
@@ -1113,39 +1100,49 @@ public class PhongPnl extends javax.swing.JPanel {
             tt.btnThanhToanDone.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mousePressed(MouseEvent e) {
-                    System.out.println("Thanh toán");
-                    List<Object[]> data2 = phongController.getIdPhieuThue(phongHienTai);
-                    List<Object[]> data3 = phongController.layIdHoaDonDichVu(phongHienTai);
-                    HoaDon hd = new HoaDon();
-                    if(tienDichVu==0){
-                        hd = new HoaDon(0,(int) data2.get(0)[0],null,tienPhong,tienDichVu,phuThu);
-                    }else{
-                        hd = new HoaDon(0,(int) data2.get(0)[0],(int) data3.get(0)[0],tienPhong,tienDichVu,phuThu);
-                    }
-                    System.out.println(hd.getIdPhieuThue()+"   "+hd.getIdHoaDonDichVu()+"   "+tienPhong+"    "+tienDichVu);
-                    hoaDonController.insert(hd);            
-                    phongController.offPhieuThuePhong((int)data2.get(0)[0]);
-                    phongController.updateTinhTrangPhong("Phòng trống", phongHienTai);
-                    if(tienDichVu!=0){
-                        phongController.offHoaDonDichVu(phongHienTai);
-                    }
-                    
-                    List<Object[]> ttHoaDon = phongController.getIdHoaDon((int) data2.get(0)[0]);
-                    System.out.println((int)ttHoaDon.get(0)[0]);
-                    if(tienDichVu!=0){
-                        XuatHoaDon((int)ttHoaDon.get(0)[0],"src/panel/HoaDon.jrxml");
-                    }else{
-                        XuatHoaDon((int)ttHoaDon.get(0)[0],"src/panel/HoaDonKhongDichVu.jrxml");
-                    }
-                    
-                    tongTien=0.0;
-                    tienPhong = 0.0;
-                    tienDichVu = 0.0;
-                    phuThu=0.0;
-                    reLoadPhong();
-                    setNullValue();
-                    phongHienTai=UNDEFINED_CONDITION;
-                    tt.setVisible(false);
+                    new Thread() {
+                        @Override
+                        public void run() {
+                            try {
+                                tt.loading.setVisible(true);
+                                this.sleep(2000);                           
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            List<Object[]> data2 = phongController.getIdPhieuThue(phongHienTai);
+                            List<Object[]> data3 = phongController.layIdHoaDonDichVu(phongHienTai);
+                            HoaDon hd = new HoaDon();
+                            if(tienDichVu==0){
+                                hd = new HoaDon(0,(int) data2.get(0)[0],null,tienPhong,tienDichVu,phuThu);
+                            }else{
+                                hd = new HoaDon(0,(int) data2.get(0)[0],(int) data3.get(0)[0],tienPhong,tienDichVu,phuThu);
+                            }
+                            System.out.println(hd.getIdPhieuThue()+"   "+hd.getIdHoaDonDichVu()+"   "+tienPhong+"    "+tienDichVu);
+                            hoaDonController.insert(hd);            
+                            phongController.offPhieuThuePhong((int)data2.get(0)[0]);
+                            phongController.updateTinhTrangPhong("Phòng trống", phongHienTai);
+                            if(tienDichVu!=0){
+                                phongController.offHoaDonDichVu(phongHienTai);
+                            }
+
+                            List<Object[]> ttHoaDon = phongController.getIdHoaDon((int) data2.get(0)[0]);
+                            System.out.println((int)ttHoaDon.get(0)[0]);
+                            if(tienDichVu!=0){
+                                XuatHoaDon((int)ttHoaDon.get(0)[0],"src/panel/HoaDon.jrxml");
+                            }else{
+                                XuatHoaDon((int)ttHoaDon.get(0)[0],"src/panel/HoaDonKhongDichVu.jrxml");
+                            }
+
+                            tongTien=0.0;
+                            tienPhong = 0.0;
+                            tienDichVu = 0.0;
+                            phuThu=0.0;
+                            reLoadPhong();
+                            setNullValue();
+                            phongHienTai=UNDEFINED_CONDITION;
+                            tt.setVisible(false);
+                        }
+                    }.start();                   
                 }});
             
             tt.btnTTKhongIn.addMouseListener(new MouseAdapter() {

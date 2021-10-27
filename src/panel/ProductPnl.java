@@ -2,10 +2,12 @@ package panel;
 
 import DAO.DichVuDAO;
 import component.Card;
+import controller.DichVuController;
 import helper.SaveImageSQL;
 import controller.QlDichVuController;
 import helper.ChuyenDoi;
 import java.awt.Cursor;
+import java.awt.Frame;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -26,6 +28,7 @@ public class ProductPnl extends javax.swing.JPanel {
 
     private QlDichVuController qlDichVuController;
     private byte[] personalImage ;
+    private DichVuController dichVuController;
     DichVuDAO dichVuDAO;
     int idDichVu=UNDEFINED_CONDITION ;
     
@@ -86,9 +89,18 @@ public class ProductPnl extends javax.swing.JPanel {
             
         }
     }
+    
+    public void setNullField() {
+        txtGiaDV.setText("");
+        txtTenDV.setText("");
+    }
  
     public void setController (QlDichVuController qlDichVuController) {
         this.qlDichVuController = qlDichVuController;
+    }
+    
+    public void setController (DichVuController dichVuController) {
+        this.dichVuController = dichVuController;
     }
     
     @SuppressWarnings("unchecked")
@@ -111,9 +123,9 @@ public class ProductPnl extends javax.swing.JPanel {
         txtGiaDV = new swing.TextInput();
         jLabel2 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
-        textInput1 = new swing.TextInput();
+        txtSearchDichVu = new swing.TextInput();
         btnXoa = new swing.ButtonOutLine();
-        buttonOutLine1 = new swing.ButtonOutLine();
+        btnThem = new swing.ButtonOutLine();
         btnUpdateDV = new swing.ButtonOutLine();
 
         setBackground(new java.awt.Color(242, 242, 242));
@@ -165,7 +177,7 @@ public class ProductPnl extends javax.swing.JPanel {
         jLabel9.setBounds(20, 570, 92, 35);
 
         lbImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbImage.setText("Hình ảnh");
+        lbImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/products (1).png"))); // NOI18N
         lbImage.setBorder(javax.swing.BorderFactory.createCompoundBorder());
         lbImage.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lbImage.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -188,9 +200,9 @@ public class ProductPnl extends javax.swing.JPanel {
         panelCoverDialog2.add(jSeparator1);
         jSeparator1.setBounds(10, 40, 280, 10);
 
-        textInput1.setText("Search");
-        panelCoverDialog2.add(textInput1);
-        textInput1.setBounds(20, 60, 260, 29);
+        txtSearchDichVu.setText("Tìm dịch vụ");
+        panelCoverDialog2.add(txtSearchDichVu);
+        txtSearchDichVu.setBounds(20, 60, 260, 29);
 
         btnXoa.setBackground(new java.awt.Color(255, 0, 0));
         btnXoa.setText("Xóa");
@@ -202,15 +214,15 @@ public class ProductPnl extends javax.swing.JPanel {
         panelCoverDialog2.add(btnXoa);
         btnXoa.setBounds(10, 640, 80, 40);
 
-        buttonOutLine1.setBackground(new java.awt.Color(255, 0, 204));
-        buttonOutLine1.setText("Thêm");
-        buttonOutLine1.addActionListener(new java.awt.event.ActionListener() {
+        btnThem.setBackground(new java.awt.Color(255, 0, 204));
+        btnThem.setText("Thêm");
+        btnThem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonOutLine1ActionPerformed(evt);
+                btnThemActionPerformed(evt);
             }
         });
-        panelCoverDialog2.add(buttonOutLine1);
-        buttonOutLine1.setBounds(210, 640, 80, 40);
+        panelCoverDialog2.add(btnThem);
+        btnThem.setBounds(210, 640, 80, 40);
 
         btnUpdateDV.setBackground(new java.awt.Color(153, 153, 0));
         btnUpdateDV.setText("Sửa");
@@ -296,17 +308,18 @@ public class ProductPnl extends javax.swing.JPanel {
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         if (idDichVu==UNDEFINED_CONDITION) {
-            JOptionPane.showMessageDialog(this, "Vui lòng chọn sp cần xoá !");
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn sản phẩm cần xoá !");
         }else{
             int click = JOptionPane.showConfirmDialog(this,"Bạn có muốn xóa không ?", "Thông báo",JOptionPane.YES_NO_OPTION);
             if (click == JOptionPane.YES_OPTION) {
                 qlDichVuController.delele(idDichVu);
             }
+            JOptionPane.showMessageDialog(new Frame(),"Xóa thành công !");
         }
         qlDichVuController.loadDichVu();
     }//GEN-LAST:event_btnXoaActionPerformed
 
-    private void buttonOutLine1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonOutLine1ActionPerformed
+    private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         String tenDichVu = txtTenDV.getText();
 
         DanhMuc dm =(DanhMuc) cbbDanhMuc.getSelectedItem();
@@ -321,23 +334,32 @@ public class ProductPnl extends javax.swing.JPanel {
         qlDichVuController.insert(dv);
         qlDichVuController.loadDichVu();
         idDichVu=UNDEFINED_CONDITION;
-    }//GEN-LAST:event_buttonOutLine1ActionPerformed
+        setNullField();
+        JOptionPane.showMessageDialog(new Frame(),"Thêm thành công !");
+    }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnUpdateDVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateDVActionPerformed
-        String tenDichVu = txtTenDV.getText();
+        if (idDichVu==UNDEFINED_CONDITION) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn sản phẩm cần sửa !");
+        }else{
+            String tenDichVu = txtTenDV.getText();
         
-        DanhMuc dm =(DanhMuc) cbbDanhMuc.getSelectedItem();
-        Integer idDanhMuc = dm.getId();
+            DanhMuc dm =(DanhMuc) cbbDanhMuc.getSelectedItem();
+            Integer idDanhMuc = dm.getId();
+
+            DonViTinh dvt =(DonViTinh) cbbDonViTinh.getSelectedItem();
+            Integer idDonViTinh = dvt.getId();
+
+            Double gia=ChuyenDoi.SoDouble(txtGiaDV.getText());
+
+            DichVu dv = new DichVu(idDichVu, tenDichVu, gia, idDonViTinh, personalImage, idDanhMuc);
+            qlDichVuController.edit(dv);
+            qlDichVuController.loadDichVu();
+            idDichVu=UNDEFINED_CONDITION;
+            setNullField();
+            JOptionPane.showMessageDialog(new Frame(),"Sửa thành công !");
+        }
         
-        DonViTinh dvt =(DonViTinh) cbbDonViTinh.getSelectedItem();
-        Integer idDonViTinh = dvt.getId();
-                
-        Double gia=ChuyenDoi.SoDouble(txtGiaDV.getText());
-        
-        DichVu dv = new DichVu(idDichVu, tenDichVu, gia, idDonViTinh, personalImage, idDanhMuc);
-        qlDichVuController.edit(dv);
-        qlDichVuController.loadDichVu();
-        idDichVu=UNDEFINED_CONDITION;
     }//GEN-LAST:event_btnUpdateDVActionPerformed
     
     public void setCbbDonViTinh(){
@@ -357,9 +379,9 @@ public class ProductPnl extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private swing.ButtonOutLine btnThem;
     private swing.ButtonOutLine btnUpdateDV;
     private swing.ButtonOutLine btnXoa;
-    private swing.ButtonOutLine buttonOutLine1;
     private javax.swing.JComboBox<DanhMuc> cbbDanhMuc;
     private javax.swing.JComboBox<DonViTinh> cbbDonViTinh;
     private javax.swing.JLabel jLabel1;
@@ -374,8 +396,8 @@ public class ProductPnl extends javax.swing.JPanel {
     private javax.swing.JLabel lbImage;
     private javax.swing.JPanel panel;
     private component.PanelCoverDialog panelCoverDialog2;
-    private swing.TextInput textInput1;
     private swing.TextInput txtGiaDV;
+    private swing.TextInput txtSearchDichVu;
     private swing.TextInput txtTenDV;
     // End of variables declaration//GEN-END:variables
 }
