@@ -985,29 +985,29 @@ public class PhongPnl extends javax.swing.JPanel {
         System.out.println(rs.get(0)[4].toString());
         System.out.println(rs.get(0)[0].toString());
         System.out.println(rs.get(0)[1].toString());
-        System.out.println(rs.get(0)[2].toString());
+        System.out.println("hoChieu"+rs.get(0)[2].toString());
         System.out.println(rs.get(0)[3].toString());
         
-//        if (CMND == rs.get(0)[4].toString()) {
-//            isCMND = true;
-//            txtTenKhach.setText(rs.get(0)[0].toString());
-//            txtDiaChi.setText(rs.get(0)[1].toString());
-//            txtHoChieu.setText(rs.get(0)[2].toString());
-//            txtSdt.setText(rs.get(0)[3].toString());
-//            txtTenKhach.setEnabled(false);
-//            txtDiaChi.setEnabled(false);
-//            txtHoChieu.setEnabled(false);
-//            txtSdt.setEnabled(false);
-//        }else {
-//            txtTenKhach.setEnabled(true);
-//            txtDiaChi.setEnabled(true);
-//            txtHoChieu.setEnabled(true);
-//            txtSdt.setEnabled(true);
-//            txtTenKhach.setText("");
-//            txtDiaChi.setText("");
-//            txtHoChieu.setText("");
-//            txtSdt.setText("");
-//        }
+        if (CMND.equals(rs.get(0)[4].toString())) {
+            isCMND = true;
+            txtTenKhach.setText(rs.get(0)[0].toString());
+            txtDiaChi.setText(rs.get(0)[1].toString());
+            txtHoChieu.setText(rs.get(0)[2].toString());
+            txtSdt.setText(rs.get(0)[3].toString());
+            txtTenKhach.setEnabled(false);
+            txtDiaChi.setEnabled(false);
+            txtHoChieu.setEnabled(false);
+            txtSdt.setEnabled(false);
+        }else {
+            txtTenKhach.setEnabled(true);
+            txtDiaChi.setEnabled(true);
+            txtHoChieu.setEnabled(true);
+            txtSdt.setEnabled(true);
+            txtTenKhach.setText("");
+            txtDiaChi.setText("");
+            txtHoChieu.setText("");
+            txtSdt.setText("");
+        }
 
     }//GEN-LAST:event_txtCMNDKeyReleased
 
