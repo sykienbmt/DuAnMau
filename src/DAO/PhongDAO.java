@@ -53,7 +53,7 @@ public class PhongDAO extends AbsDAO<Phong>{
     }   
 
     public List<Object[]> getHinhThuc(int idLoaiPhong){
-        return getRawValues("select giaGio,giaNgay,giaThang,giaquy from loaiPhong where idloaiPhong ="+idLoaiPhong+"");
+        return getRawValues("select giaGio,giaNgay from loaiPhong where idloaiPhong ="+idLoaiPhong+"");
     }
     
     public List<Object[]> idHinhThucThue(int idPhong){

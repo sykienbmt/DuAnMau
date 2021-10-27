@@ -1,6 +1,7 @@
 package panel;
 
 import DAO.DanhMucDAO;
+import DAO.KhachHangDAO;
 import DAO.PhongDAO;
 import DAO.cbbHinhThucThueDAO;
 import component.Loading;
@@ -67,6 +68,7 @@ public class PhongPnl extends javax.swing.JPanel {
     private HoaDonController hoaDonController;
     private DichVuController dichVuController;
     private PhongController phongController;
+    private KhachHangDAO khachHangDAO;
     private cbbHinhThucThueDAO hinhThucThueDAO;
     private Button button;
     private Loading loading;
@@ -977,31 +979,36 @@ public class PhongPnl extends javax.swing.JPanel {
         
     private void txtCMNDKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCMNDKeyReleased
         String CMND = txtCMND.getText();
-        try {
-            String sql_getdata = "select tenKhach,diaChi,hoChieu,soDT from KhachHang where soCMND = '"+CMND+"'";
-            ResultSet rs = DBConnection.executeQuery(sql_getdata);
-            if (rs.next()) {
-                isCMND = true;
-                txtTenKhach.setText(rs.getString("tenKhach"));
-                txtDiaChi.setText(rs.getString("diaChi"));
-                txtHoChieu.setText(rs.getString("hoChieu"));
-                txtSdt.setText(rs.getString("soDt"));
-                txtTenKhach.setEnabled(false);
-                txtDiaChi.setEnabled(false);
-                txtHoChieu.setEnabled(false);
-                txtSdt.setEnabled(false);
-            }else {
-                txtTenKhach.setEnabled(true);
-                txtDiaChi.setEnabled(true);
-                txtHoChieu.setEnabled(true);
-                txtSdt.setEnabled(true);
-                txtTenKhach.setText("");
-                txtDiaChi.setText("");
-                txtHoChieu.setText("");
-                txtSdt.setText("");
-            }
-        } catch (Exception e) {
-        }
+        
+        List<Object[]> rs = khacHangController.getCMND(CMND);
+        
+        System.out.println(rs.get(0)[4].toString());
+        System.out.println(rs.get(0)[0].toString());
+        System.out.println(rs.get(0)[1].toString());
+        System.out.println(rs.get(0)[2].toString());
+        System.out.println(rs.get(0)[3].toString());
+        
+//        if (CMND == rs.get(0)[4].toString()) {
+//            isCMND = true;
+//            txtTenKhach.setText(rs.get(0)[0].toString());
+//            txtDiaChi.setText(rs.get(0)[1].toString());
+//            txtHoChieu.setText(rs.get(0)[2].toString());
+//            txtSdt.setText(rs.get(0)[3].toString());
+//            txtTenKhach.setEnabled(false);
+//            txtDiaChi.setEnabled(false);
+//            txtHoChieu.setEnabled(false);
+//            txtSdt.setEnabled(false);
+//        }else {
+//            txtTenKhach.setEnabled(true);
+//            txtDiaChi.setEnabled(true);
+//            txtHoChieu.setEnabled(true);
+//            txtSdt.setEnabled(true);
+//            txtTenKhach.setText("");
+//            txtDiaChi.setText("");
+//            txtHoChieu.setText("");
+//            txtSdt.setText("");
+//        }
+
     }//GEN-LAST:event_txtCMNDKeyReleased
 
     private void txtTimDichVuKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimDichVuKeyReleased
