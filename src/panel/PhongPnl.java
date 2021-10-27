@@ -256,9 +256,8 @@ public class PhongPnl extends javax.swing.JPanel {
         setNullValue();
         for (Phong phong : data) {   
             String tenPhong = phong.toString();
-            phongHienTai = phong.getId();
             String ttPhong = phong.getTrangThai();
-            getPhongButton(tenPhong, phongHienTai, ttPhong);
+            getPhongButton(tenPhong, phong.getId(), ttPhong);
         }
     }
     
@@ -301,7 +300,8 @@ public class PhongPnl extends javax.swing.JPanel {
         txtTenPhong.setText(ptp.get(0)[12].toString());
         openTime=(Timestamp) ptp.get(0)[1];
         hinhThucThue=ptp.get(0)[11].toString();
-        times(true);
+        System.out.println("Đã set");
+//        times(true);
     }   
     
     public void viewTableChiTietDichVu(List<Object[]> data) {
@@ -1207,9 +1207,9 @@ public class PhongPnl extends javax.swing.JPanel {
         phongController.updateTinhTrangPhong("Đang sử dụng",phongHienTai);
         phieuThuePhongController.insert(0, phongHienTai, 1, cmnd, soNguoi, ngayDat, null, hinhThucThue);
         button.setBackground(new Color(255,51,0));
-        setThongTinPhong(phongHienTai);
 //        setNullValue();
         reLoadPhong();
+        setThongTinPhong(phongHienTai);
         btnThemDichVu.setEnabled(true);
     }//GEN-LAST:event_btnMoPhongActionPerformed
     
