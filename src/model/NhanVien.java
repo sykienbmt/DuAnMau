@@ -16,11 +16,12 @@ public class NhanVien extends AbsTable{
     private String trangThai;
     private byte[] hinhAnh;
     private String pass ;
+    private String code ;
 
     public NhanVien() {
     }
 
-    public NhanVien(Integer idNhanVien, String ten, String email, String sdt, String sex, Double luong, Integer idChucVu, String diaChi, Date ngaySinh, Date ngayVaoLam, String trangThai, byte[] hinhAnh, String pass) {
+    public NhanVien(Integer idNhanVien, String ten, String email, String sdt, String sex, Double luong, Integer idChucVu, String diaChi, Date ngaySinh, Date ngayVaoLam, String trangThai, byte[] hinhAnh, String pass, String code) {
         this.idNhanVien = idNhanVien;
         this.ten = ten;
         this.email = email;
@@ -34,7 +35,17 @@ public class NhanVien extends AbsTable{
         this.trangThai = trangThai;
         this.hinhAnh = hinhAnh;
         this.pass = pass;
+        this.code = code;
     }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
 
     public String getPass() {
         return pass;

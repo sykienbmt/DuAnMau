@@ -5,7 +5,11 @@
  */
 package dialog;
 
+import controller.LoginController;
+import controller.NhanVienController;
+import helper.MD5Convert;
 import java.util.Random;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -16,6 +20,9 @@ public class getPass extends javax.swing.JDialog {
     /**
      * Creates new form getPass
      */
+    private String code2; 
+    private String email ;
+    
     public getPass(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -34,6 +41,14 @@ public class getPass extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         txtEmail = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        txtXacNhanCode = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        btnXacNhan = new javax.swing.JButton();
+        txtPass = new javax.swing.JPasswordField();
+        jLabel3 = new javax.swing.JLabel();
+        txtRepass = new javax.swing.JPasswordField();
+        jLabel4 = new javax.swing.JLabel();
+        btnCheck = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -43,6 +58,38 @@ public class getPass extends javax.swing.JDialog {
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Nhập mã xác nhận :");
+
+        btnXacNhan.setText("Xác nhận");
+        btnXacNhan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXacNhanActionPerformed(evt);
+            }
+        });
+
+        txtPass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPassActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setText("Nhập mật khẩu mới:");
+
+        txtRepass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtRepassActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setText("Nhập mật khẩu mới:");
+
+        btnCheck.setText("Check");
+        btnCheck.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCheckActionPerformed(evt);
             }
         });
 
@@ -57,12 +104,32 @@ public class getPass extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(85, 85, 85)
-                        .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(20, 20, 20)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButton1))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtXacNhanCode, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnCheck, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(144, 144, 144)
-                        .addComponent(jButton1)))
-                .addContainerGap(78, Short.MAX_VALUE))
+                        .addGap(31, 31, 31)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addGap(29, 29, 29)
+                                .addComponent(txtPass, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addGap(29, 29, 29)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnXacNhan, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtRepass))))))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -70,10 +137,25 @@ public class getPass extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                    .addComponent(txtEmail))
+                .addGap(59, 59, 59)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtXacNhanCode, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCheck, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(63, 63, 63)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtRepass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30)
+                .addComponent(btnXacNhan, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         pack();
@@ -81,12 +163,62 @@ public class getPass extends javax.swing.JDialog {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         txtEmail.getText();
-        
         String abc = generateRandomString();
-        
+        loginController.resetVerifycode(txtEmail.getText(), abc);
+        Object[] info = new Object[3];
+        info[0]=txtEmail.getText();
+        info[1]="ResetPass";
+        info[2]=abc;
+        email = txtEmail.getText();
+        loginController.sendMail(info);
+        JOptionPane.showMessageDialog(this, "Gửi thành công vui lòng kiểm tra email!");
+        txtXacNhanCode.setEnabled(true);
+        btnCheck.setEnabled(true);
+        code2=loginController.getVerifycode(txtEmail.getText());
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnXacNhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXacNhanActionPerformed
+        String pass = new String(txtPass.getPassword());
+        String RePass = new String(txtRepass.getPassword());
+        
+        if(!pass.equals(RePass)){
+            JOptionPane.showMessageDialog(this, "Mật khẩu không trùng khớp");
+        }else{
+            pass=MD5Convert.getMd5(pass);
+            loginController.updatePass(email,pass);
+            JOptionPane.showMessageDialog(this, "Đổi mật khẩu thành công!");
+            this.dispose();
+        }
+        
+        
+    }//GEN-LAST:event_btnXacNhanActionPerformed
+
+    private void txtPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPassActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPassActionPerformed
+
+    private void txtRepassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRepassActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtRepassActionPerformed
+
+    private void btnCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckActionPerformed
+        String code=txtXacNhanCode.getText();
+        if(code.equals(code2)){
+            txtPass.setEnabled(true);
+            txtRepass.setEnabled(true);
+            btnXacNhan.setEnabled(true);
+        }else{
+            JOptionPane.showMessageDialog(this, "Sai mã xác nhận vui lòng nhập lại!");
+        }
+    }//GEN-LAST:event_btnCheckActionPerformed
     
     
+    
+    LoginController loginController;
+    
+    public void setController(LoginController loginController){
+        this.loginController= loginController;
+    }
     
     String CHAR_LIST = "0123456789";
     public String generateRandomString(){
@@ -158,11 +290,16 @@ public class getPass extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JButton btnCheck;
+    public javax.swing.JButton btnXacNhan;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JTextField txtEmail;
+    public javax.swing.JPasswordField txtPass;
+    public javax.swing.JPasswordField txtRepass;
+    public javax.swing.JTextField txtXacNhanCode;
     // End of variables declaration//GEN-END:variables
 }

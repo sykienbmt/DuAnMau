@@ -4,6 +4,8 @@ import component.Loading;
 import component.PanelCover;
 import component.PanelLoginAndRegister;
 import component.VerifyCode;
+import controller.LoginController;
+import dialog.getPass;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
@@ -20,6 +22,7 @@ public class Login extends javax.swing.JFrame {
     private Loading loading;
     private VerifyCode verifyCode;
     private PanelLoginAndRegister loginAndRegister;
+
     private boolean isLogin;
     private final double addSize = 30;
     private final double coverSize = 40;
@@ -29,6 +32,7 @@ public class Login extends javax.swing.JFrame {
     public Login() {
         initComponents();
         init();
+
     }
 
     private void init() {
