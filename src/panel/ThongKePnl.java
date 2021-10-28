@@ -76,7 +76,7 @@ public class ThongKePnl extends javax.swing.JPanel {
     private void initComponents() {
 
         dateChooser2 = new com.raven.datechooser.DateChooser();
-        dateChooser3 = new com.raven.datechooser.DateChooser();
+        dateChooser1 = new com.raven.datechooser.DateChooser();
         jLabel1 = new javax.swing.JLabel();
         chart1 = new chart.Chart();
         spTable2 = new javax.swing.JScrollPane();
@@ -370,8 +370,8 @@ public class ThongKePnl extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private swing.ButtonOutLine btnThongKe;
     private chart.Chart chart1;
+    private com.raven.datechooser.DateChooser dateChooser1;
     private com.raven.datechooser.DateChooser dateChooser2;
-    private com.raven.datechooser.DateChooser dateChooser3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;

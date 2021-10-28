@@ -23,7 +23,7 @@ public class ThongKeController {
     public ThongKeController(ThongKePnl view) {
         this.view = view;
         thongKeDefault();
-        bieuDoDefault();
+//        bieuDoDefault();
         view.setController(this);
     }
     
