@@ -210,6 +210,7 @@ public class ThongKePnl extends javax.swing.JPanel {
         );
 
         btnThongKe.setBackground(new java.awt.Color(255, 0, 0));
+        btnThongKe.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/analytics.png"))); // NOI18N
         btnThongKe.setText("Thống kê");
         btnThongKe.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
