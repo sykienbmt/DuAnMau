@@ -1,5 +1,6 @@
 package component;
 
+import controller.LoginController;
 import dialog.getPass;
 import helper.DBConnection;
 import helper.MD5Convert;
@@ -26,7 +27,8 @@ public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
 
     private Account account;
     private Loading loading;
-    
+    private getPass getPass;
+            
     public Account getUser() {
         return account;
     }
@@ -37,6 +39,8 @@ public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
         initLogin();
         login.setVisible(true);
         register.setVisible(false);
+        getPass= new getPass(null,true);
+        LoginController loginController=new LoginController(getPass);
     }
 
     private void initRegister() {
@@ -90,8 +94,13 @@ public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
         cmdForget.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                getPass get = new getPass(null,true);
-                get.setVisible(true);
+                getPass.txtPass.setEnabled(false);
+                getPass.txtRepass.setEnabled(false);
+                getPass.btnXacNhan.setEnabled(false);
+                getPass.txtXacNhanCode.setEnabled(false);
+                getPass.btnCheck.setEnabled(false);
+                getPass.btnXacNhan.setEnabled(false);
+                getPass.setVisible(true);
             }
         }); 
         
