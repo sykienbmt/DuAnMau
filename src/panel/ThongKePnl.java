@@ -1,5 +1,6 @@
 package panel;
 
+import DAO.ThongKeDAO;
 import chart.ModelChart;
 import controller.ThongKeController;
 import helper.ChuyenDoi;
@@ -17,10 +18,10 @@ import swing.ScrollBar;
 public class ThongKePnl extends javax.swing.JPanel {
 
     ThongKeController thongKeController;
+    ThongKeDAO tkdao = new ThongKeDAO();
     
     public ThongKePnl() {
         initComponents();
-        init();
         spTable2.setVerticalScrollBar(new ScrollBar());
         spTable2.getVerticalScrollBar().setBackground(Color.WHITE);
         spTable2.getViewport().setBackground(Color.WHITE);
@@ -66,10 +67,6 @@ public class ThongKePnl extends javax.swing.JPanel {
             }
         });
         
-    }
-    
-    public void init() {
-        thongKeDefault();
     }
 
     @SuppressWarnings("unchecked")
@@ -268,14 +265,18 @@ public class ThongKePnl extends javax.swing.JPanel {
     private void btnThongKeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThongKeActionPerformed
         String date1 = txtTu.getText();
         String date2 = txtDen.getText();
-        lblTuNgay.setText(date1);
-        lblDenNgay.setText(date2);
         LocalDate d1 = LocalDate.parse(date1, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
         LocalDate d2 = LocalDate.parse(date2, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
         String dst1 = d1.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         String dst2 = d2.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-//        dst1 = d1.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-//        dst2 = d2.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        lblTuNgay.setText(date1);
+        lblDenNgay.setText(date2);
+        
+        tableAfterView(dst1, dst2);
+        bieuDo(dst1, dst2);       
+    }//GEN-LAST:event_btnThongKeActionPerformed
+    
+    public void tableAfterView(String dst1, String dst2) {
         List<Object[]> table = thongKeController.thongKeTheoKhoang(dst1, dst2);
         viewTableThongKe(table);
         
@@ -287,7 +288,20 @@ public class ThongKePnl extends javax.swing.JPanel {
             Tong+=ChuyenDoi.SoDouble(table.get(i)[7].toString());
         }
         setValueSum(tienPhong, tienDichVu, phuThu, Tong);
-        
+    }
+    
+    public void bieuDoDefault(List<Object[]> data) {
+        chart1.clear();
+        for (int i = 0; i <= data.size()-1; i++) {
+            Double tienGio = Double.parseDouble(data.get(i)[1].toString());
+            Double dichVu = Double.parseDouble(data.get(i)[2].toString());
+            Double phuThu1 = Double.parseDouble(data.get(i)[3].toString());  
+            chart1.addData(new ModelChart(data.get(i)[0].toString()+"/"+data.get(i)[4].toString(),new double[]{tienGio,dichVu,phuThu1}));
+        }
+        chart1.start();
+    }
+    
+    public void bieuDo(String dst1, String dst2) {
         chart1.clear();
         List<Object[]> data = thongKeController.thongKeBieuDo(dst1, dst2);       
         for (int i = 0; i <= data.size()-1; i++) {
@@ -297,7 +311,18 @@ public class ThongKePnl extends javax.swing.JPanel {
             chart1.addData(new ModelChart(data.get(i)[0].toString()+"/"+data.get(i)[4].toString(),new double[]{tienGio,dichVu,phuThu1}));
         }   
         chart1.start();
-    }//GEN-LAST:event_btnThongKeActionPerformed
+    }
+    
+    public void setGiaDefault(List<Object[]> data) {
+        Double tienPhong = 0.0,tienDichVu=0.0 ,phuThu=0.0 ,Tong=0.0;        
+        for(int i=0 ;i<=data.size()-1;i++){
+            tienPhong+=ChuyenDoi.SoDouble(data.get(i)[4].toString());
+            tienDichVu+=ChuyenDoi.SoDouble(data.get(i)[5].toString());
+            phuThu+=ChuyenDoi.SoDouble(data.get(i)[6].toString());
+            Tong+=ChuyenDoi.SoDouble(data.get(i)[7].toString());
+        }
+        setValueSum(tienPhong, tienDichVu, phuThu, Tong);
+    }
     
     public void viewTableThongKe(List<Object[]> data) {
         DefaultTableModel model = (DefaultTableModel) tblThongKe.getModel();   
@@ -311,8 +336,8 @@ public class ThongKePnl extends javax.swing.JPanel {
             }      
             for (Object[] objects : data) {
                 model.addRow(objects);
-            }
-        }
+            }            
+        }       
     }
     
     public void setController (ThongKeController thongKeController) {
@@ -324,43 +349,7 @@ public class ThongKePnl extends javax.swing.JPanel {
         lblTienDichVu.setText(ChuyenDoi.SoString(dichVu));
         lblTienPhuThu.setText(ChuyenDoi.SoString(phuThu));
         lblTongTien.setText(ChuyenDoi.SoString(tong));
-    }
-    
-    public void thongKeDefault() {
-        String date1 = txtTu.getText();
-        String date2 = txtDen.getText();
-        lblTuNgay.setText(date1);
-        lblDenNgay.setText(date2);
-        LocalDate d1 = LocalDate.parse(date1, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-        LocalDate d2 = LocalDate.parse(date2, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-        String dst1 = d1.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        String dst2 = d2.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-//        dst1 = d1.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-//        dst2 = d2.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        
-        List<Object[]> data = thongKeController.thongKeDefault(dst1, dst2);
-        viewTableThongKe(data);
-        
-        Double tienPhong = 0.0,tienDichVu=0.0 ,phuThu=0.0 ,Tong=0.0;        
-        for(int i=0 ;i<=data.size()-1;i++){
-            tienPhong+=ChuyenDoi.SoDouble(data.get(i)[4].toString());
-            tienDichVu+=ChuyenDoi.SoDouble(data.get(i)[5].toString());
-            phuThu+=ChuyenDoi.SoDouble(data.get(i)[6].toString());
-            Tong+=ChuyenDoi.SoDouble(data.get(i)[7].toString());
-        }
-        setValueSum(tienPhong, tienDichVu, phuThu, Tong);
-        
-        chart1.clear();
-        List<Object[]> data1 = thongKeController.thongKeBieuDo(dst1, dst2);       
-        for (int i = 0; i <= data1.size()-1; i++) {
-            Double tienGio = Double.parseDouble(data1.get(i)[1].toString());
-            Double dichVu = Double.parseDouble(data1.get(i)[2].toString());
-            Double phuThu1 = Double.parseDouble(data1.get(i)[3].toString());  
-            chart1.addData(new ModelChart(data1.get(i)[0].toString()+"/"+data1.get(i)[4].toString(),new double[]{tienGio,dichVu,phuThu1}));
-        }   
-        chart1.start();
-    }
-        
+    }           
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private swing.ButtonOutLine btnThongKe;
     private chart.Chart chart1;

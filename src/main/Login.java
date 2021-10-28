@@ -37,6 +37,7 @@ public class Login extends javax.swing.JFrame {
         loading = new Loading();
         verifyCode = new VerifyCode();
         loginAndRegister = new PanelLoginAndRegister();
+        
         TimingTarget target = new TimingTargetAdapter() {
             @Override
             public void timingEvent(float fraction) {
