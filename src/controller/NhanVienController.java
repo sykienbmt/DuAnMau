@@ -36,13 +36,13 @@ public class NhanVienController {
     }
     
     public void insert(String ten, String email, String sdt, String sex, Double luong, int chucVu, String diaChi, java.sql.Date ngaySinh, java.sql.Date ngayVao, String trangThai, byte[] hinhAnh,String pass) {
-            NhanVien nhanVien = new NhanVien(0, ten, email, sdt, sex, luong, chucVu, diaChi, ngaySinh, ngayVao, trangThai, hinhAnh,pass);
+            NhanVien nhanVien = new NhanVien(0, ten, email, sdt, sex, luong, chucVu, diaChi, ngaySinh, ngayVao, trangThai, hinhAnh,pass,"");
             nhanVienDAO.insert(nhanVien);
             loadList();
     }
      
     public void update(int idNhanVien,String ten, String email, String sdt, String sex, Double luong, int chucVu, String diaChi, java.sql.Date ngaySinh, java.sql.Date ngayVao, String trangThai,byte[] hinhAnh,String pass) {
-            NhanVien nhanVien = new NhanVien(idNhanVien, ten, email, sdt, sex, luong, chucVu, diaChi, ngaySinh, ngayVao, trangThai,hinhAnh, pass);
+            NhanVien nhanVien = new NhanVien(idNhanVien, ten, email, sdt, sex, luong, chucVu, diaChi, ngaySinh, ngayVao, trangThai,hinhAnh, pass,"");
             nhanVienDAO.edit(nhanVien);
             loadList();
     }  

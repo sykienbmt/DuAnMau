@@ -23,7 +23,7 @@ public class ThongKeController {
     public ThongKeController(ThongKePnl view) {
         this.view = view;
         thongKeDefault();
-        bieuDoDefault();
+//        bieuDoDefault();
         view.setController(this);
     }
     
@@ -36,6 +36,7 @@ public class ThongKeController {
         List<Object[]> khoang = thongKeDAO.thongKeDefault(); 
         view.viewTableThongKe(khoang);
         view.setGiaDefault(khoang);
+        view.setTime(khoang);
     }
     
     public void bieuDoDefault(){

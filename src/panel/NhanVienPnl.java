@@ -205,6 +205,12 @@ public class NhanVienPnl extends javax.swing.JPanel {
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel6.setText("Giới tính");
 
+        txtLuong.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtLuongKeyReleased(evt);
+            }
+        });
+
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel7.setText("Lương");
 
@@ -300,13 +306,13 @@ public class NhanVienPnl extends javax.swing.JPanel {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jdcNgayVao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jdcNgaySinh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtDiaChi, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(rdbOn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
                                 .addComponent(rdbOff, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(38, 38, 38)
-                                .addComponent(rdbRest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(rdbRest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtDiaChi, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE)
@@ -337,8 +343,7 @@ public class NhanVienPnl extends javax.swing.JPanel {
                                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(txtSdt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(txtEmail, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(txtHoten, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                        .addComponent(txtHoten, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -592,11 +597,9 @@ public class NhanVienPnl extends javax.swing.JPanel {
                  
                 String email = txtEmail.getText();
                 DataValidate.checkEmpty(email, sb, "Email không được để trống! ");
-                DataValidate.checkEmailForm(email, sb);
                 
                 String sdt = txtSdt.getText(); 
                 DataValidate.checkEmpty(sdt, sb, "Số đt không được để trống! ");
-                DataValidate.checkSdtForm(sdt, sb);
                 
                 //validate sex
                 String sex = null;
@@ -614,7 +617,7 @@ public class NhanVienPnl extends javax.swing.JPanel {
                 double luong = 0;
                 try {
                     luong = ChuyenDoi.SoDouble(txtLuong.getText()) ;
-                    if(luong < 0){
+                    if(luong <= 0){
                         sb.append("Lương phải lớn hớn 0 \n");
                     }
                 } catch (Exception e) {
@@ -772,7 +775,8 @@ public class NhanVienPnl extends javax.swing.JPanel {
             rdbNam.setSelected(true);
         }else if(tblNhanVien.getValueAt(click, 4).toString().equals("Nữ")){
             rdbNu.setSelected(true);
-        }else rdbKhac.setSelected(true);       
+        }else rdbKhac.setSelected(true);
+        
         txtLuong.setText(tblNhanVien.getValueAt(click, 5).toString());
         
         for (int i = 0; i < cbxChucVu.getItemCount(); i++) {
@@ -984,6 +988,11 @@ public class NhanVienPnl extends javax.swing.JPanel {
         List<Object[]> data = nhanVienController.searchLuongNhanVien(luong);
         viewTableStaff(data);
     }//GEN-LAST:event_jldTimLuongNvStateChanged
+
+    private void txtLuongKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLuongKeyReleased
+        Double luong = ChuyenDoi.SoDouble(txtLuong.getText());
+        txtLuong.setText(ChuyenDoi.SoString(luong));
+    }//GEN-LAST:event_txtLuongKeyReleased
         
     public void FillDataComboBox() {
         List<ChucVu> chucVus = nhanVienController.getChucVu();
