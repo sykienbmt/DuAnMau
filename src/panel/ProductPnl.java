@@ -205,6 +205,7 @@ public class ProductPnl extends javax.swing.JPanel {
         txtSearchDichVu.setBounds(20, 60, 260, 29);
 
         btnXoa.setBackground(new java.awt.Color(255, 0, 0));
+        btnXoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/delete.png"))); // NOI18N
         btnXoa.setText("Xóa");
         btnXoa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -212,9 +213,10 @@ public class ProductPnl extends javax.swing.JPanel {
             }
         });
         panelCoverDialog2.add(btnXoa);
-        btnXoa.setBounds(10, 640, 80, 40);
+        btnXoa.setBounds(210, 630, 80, 40);
 
         btnThem.setBackground(new java.awt.Color(255, 0, 204));
+        btnThem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/button.png"))); // NOI18N
         btnThem.setText("Thêm");
         btnThem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -222,9 +224,10 @@ public class ProductPnl extends javax.swing.JPanel {
             }
         });
         panelCoverDialog2.add(btnThem);
-        btnThem.setBounds(210, 640, 80, 40);
+        btnThem.setBounds(10, 630, 80, 40);
 
         btnUpdateDV.setBackground(new java.awt.Color(153, 153, 0));
+        btnUpdateDV.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/updating.png"))); // NOI18N
         btnUpdateDV.setText("Sửa");
         btnUpdateDV.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -232,7 +235,7 @@ public class ProductPnl extends javax.swing.JPanel {
             }
         });
         panelCoverDialog2.add(btnUpdateDV);
-        btnUpdateDV.setBounds(110, 640, 80, 40);
+        btnUpdateDV.setBounds(110, 630, 80, 40);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
