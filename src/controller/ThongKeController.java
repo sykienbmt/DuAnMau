@@ -8,7 +8,6 @@ package controller;
 import DAO.ThongKeDAO;
 import helper.ChuyenDoi;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import panel.ThongKePnl;
 
@@ -23,34 +22,14 @@ public class ThongKeController {
     
     public ThongKeController(ThongKePnl view) {
         this.view = view;
-//        loadListBtnPhong();
-//        getListAllLoaiPhong();
-        loadTableThongKe();
         view.setController(this);
     }
     
-    
-    public void loadTableThongKe(){
-        Date now = new Date();
-        List<Object[]> homNay =thongKeDAO.thongKeTheoKhoang(sdf.format(now), sdf.format(now));
-        view.viewTableThongKe(homNay);
+    public List<Object[]> thongKeTheoKhoang(String tu , String den){
+        List<Object[]> khoang = thongKeDAO.thongKeTheoKhoang(tu, den); 
+        return khoang;
     }
-    
-    public void thongKeTheoKhoang(String tu , String den){
-        List<Object[]> khoang = thongKeDAO.thongKeTheoKhoang(tu, den);
-        Double tienPhong = 0.0,tienDichVu=0.0 ,phuThu=0.0 ,Tong=0.0;
-        
-        for(int i=0 ;i<=khoang.size()-1;i++){
-            tienPhong+=ChuyenDoi.SoDouble(khoang.get(i)[4].toString());
-            tienDichVu+=ChuyenDoi.SoDouble(khoang.get(i)[5].toString());
-            phuThu+=ChuyenDoi.SoDouble(khoang.get(i)[6].toString());
-            Tong+=ChuyenDoi.SoDouble(khoang.get(i)[7].toString());
-        }
-        
-        view.viewTableThongKe(khoang);
-        view.setValueSum(tienPhong,tienDichVu,phuThu,Tong);
-    }
-    
+       
     public List<Object[]> thongKeBieuDo(String tu, String den) {
         List<Object[]> bieuDos = thongKeDAO.thongKeBieuDo(tu, den);
         Double tienPhong = 0.0,tienDichVu=0.0 ,phuThu=0.0 ,Tong=0.0;

@@ -714,7 +714,7 @@ public class NhanVienPnl extends javax.swing.JPanel {
             sex="Nam";
         }else if(rdbNu.isSelected()){
             sex = "Nữ";
-        }else if (rdbNu.isSelected()){
+        }else if (rdbKhac.isSelected()){
             sex = "Khác";
         }else{
             sb.append("Vui lòng chọn giới tính! \n");
@@ -726,7 +726,7 @@ public class NhanVienPnl extends javax.swing.JPanel {
             trangThai="ON";
         }else if(rdbOff.isSelected()){
             trangThai = "OFF";
-        }else if(rdbOff.isSelected()){
+        }else if(rdbRest.isSelected()){
             trangThai = "REST";
         }else{
             sb.append("Vui lòng chọn trạng thái! \n");
