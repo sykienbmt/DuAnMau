@@ -97,8 +97,10 @@ public class ThongKePnl extends javax.swing.JPanel {
         txtDen = new swing.TextInput();
         btnThongKe = new swing.ButtonOutLine();
 
+        dateChooser2.setDateFormat("dd-MM-yyyy");
         dateChooser2.setTextRefernce(txtDen);
 
+        dateChooser3.setDateFormat("dd-MM-yyyy");
         dateChooser3.setTextRefernce(txtTu);
 
         setBackground(new java.awt.Color(242, 246, 253));
