@@ -15,11 +15,12 @@ public class NhanVien extends AbsTable{
     private java.sql.Date ngayVaoLam;
     private String trangThai;
     private byte[] hinhAnh;
+    private String pass ;
 
     public NhanVien() {
     }
 
-    public NhanVien(Integer idNhanVien, String ten, String email, String sdt, String sex, Double luong, Integer idChucVu, String diaChi, Date ngaySinh, Date ngayVaoLam, String trangThai, byte[] hinhAnh) {
+    public NhanVien(Integer idNhanVien, String ten, String email, String sdt, String sex, Double luong, Integer idChucVu, String diaChi, Date ngaySinh, Date ngayVaoLam, String trangThai, byte[] hinhAnh, String pass) {
         this.idNhanVien = idNhanVien;
         this.ten = ten;
         this.email = email;
@@ -32,7 +33,17 @@ public class NhanVien extends AbsTable{
         this.ngayVaoLam = ngayVaoLam;
         this.trangThai = trangThai;
         this.hinhAnh = hinhAnh;
+        this.pass = pass;
     }
+
+    public String getPass() {
+        return pass;
+    }
+
+    public void setPass(String pass) {
+        this.pass = pass;
+    }
+
 
     public Integer getIdNhanVien() {
         return idNhanVien;

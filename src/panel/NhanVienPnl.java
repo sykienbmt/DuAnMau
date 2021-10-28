@@ -5,6 +5,7 @@ import controller.NhanVienController;
 import dialog.GuiMail;
 import helper.ChuyenDoi;
 import helper.DataValidate;
+import helper.MD5Convert;
 import helper.MailSender;
 import swing.ScrollBar;
 import java.awt.Color;
@@ -18,10 +19,16 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.activation.DataHandler;
 import javax.activation.FileDataSource;
 import javax.mail.Message;
@@ -53,6 +60,7 @@ public class NhanVienPnl extends javax.swing.JPanel {
     private NhanVienController nhanVienController;
     private byte[] hinhAnh;
     private GuiMail guiMail = null;
+    private String pass ;
     
     public NhanVienPnl() {
         initComponents();
@@ -147,7 +155,7 @@ public class NhanVienPnl extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Id", "Tên", "Email", "Số điện thoại", "Giới tính", "Lương", "Chức vụ", "Địa chỉ", "Ngày sinh", "Ngày vào", "TT", "Hình ảnh"
+                "Id", "Tên", "Email", "Số điện thoại", "Giới tính", "Lương", "Chức vụ", "Địa chỉ", "Ngày sinh", "Ngày vào", "TT", "Hình ảnh", "pass"
             }
         ));
         tblNhanVien.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -178,6 +186,9 @@ public class NhanVienPnl extends javax.swing.JPanel {
             tblNhanVien.getColumnModel().getColumn(11).setMinWidth(0);
             tblNhanVien.getColumnModel().getColumn(11).setPreferredWidth(0);
             tblNhanVien.getColumnModel().getColumn(11).setMaxWidth(0);
+            tblNhanVien.getColumnModel().getColumn(12).setMinWidth(0);
+            tblNhanVien.getColumnModel().getColumn(12).setPreferredWidth(0);
+            tblNhanVien.getColumnModel().getColumn(12).setMaxWidth(0);
         }
 
         jPanel2.setBackground(new java.awt.Color(246, 246, 246));
@@ -586,7 +597,7 @@ public class NhanVienPnl extends javax.swing.JPanel {
                 String sdt = txtSdt.getText(); 
                 DataValidate.checkEmpty(sdt, sb, "Số đt không được để trống! ");
                 DataValidate.checkSdtForm(sdt, sb);
-                            
+                
                 //validate sex
                 String sex = null;
                 if(rdbNam.isSelected()){
@@ -647,7 +658,7 @@ public class NhanVienPnl extends javax.swing.JPanel {
                 if(sb.length() > 0){
                     JOptionPane.showMessageDialog(this, sb.toString(), "Error", JOptionPane.ERROR_MESSAGE);
                 }else{
-                    nhanVienController.update(idNhanVien,hoTen, email, sdt, sex, luong, tenChucVu, diaChi, ngaySinh, ngayVao,trangThai,hinhAnh);
+                    nhanVienController.update(idNhanVien,hoTen, email, sdt, sex, luong, tenChucVu, diaChi, ngaySinh, ngayVao,trangThai,hinhAnh,pass);
                     JOptionPane.showMessageDialog(new Frame(),"Update success !!!");    
                 }                           
             }
@@ -655,7 +666,6 @@ public class NhanVienPnl extends javax.swing.JPanel {
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        
         //validate hoTen
         StringBuilder sb = new StringBuilder();
         String ten = txtHoten.getText();
@@ -740,12 +750,15 @@ public class NhanVienPnl extends javax.swing.JPanel {
         if(sb.length() > 0){
             JOptionPane.showMessageDialog(this, sb.toString(), "Error", JOptionPane.ERROR_MESSAGE);
         }else{
-            nhanVienController.insert(ten, email, sdt, sex, luong, tenChucVu, diaChi, ngaySinh, ngayVao,trangThai,hinhAnh);
+            nhanVienController.insert(ten, email, sdt, sex, luong, tenChucVu, diaChi, ngaySinh, ngayVao,trangThai,hinhAnh,sdt);
             hinhAnh = null;            
         }
 
     }//GEN-LAST:event_btnThemActionPerformed
 
+    
+    
+    
     private void tblNhanVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblNhanVienMouseClicked
         DefaultTableModel ml = (DefaultTableModel) tblNhanVien.getModel();
         int click = tblNhanVien.getSelectedRow();
@@ -753,7 +766,8 @@ public class NhanVienPnl extends javax.swing.JPanel {
         
         txtHoten.setText((String) tblNhanVien.getValueAt(click, 1));
         txtEmail.setText((String) tblNhanVien.getValueAt(click, 2));
-        txtSdt.setText((String) tblNhanVien.getValueAt(click, 3));        
+        txtSdt.setText((String) tblNhanVien.getValueAt(click, 3));
+        pass=(String) tblNhanVien.getValueAt(click, 12);
         if(tblNhanVien.getValueAt(click, 4).toString().equals("Nam")){
             rdbNam.setSelected(true);
         }else if(tblNhanVien.getValueAt(click, 4).toString().equals("Nữ")){
