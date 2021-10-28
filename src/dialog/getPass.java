@@ -10,13 +10,14 @@ public class getPass extends javax.swing.JDialog {
     /**
      * Creates new form getPass
      */
-    private String code2; 
+    private String code2 ;
     private String email ;
     
     public getPass(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
+        
     }
 
     /**
@@ -132,23 +133,24 @@ public class getPass extends javax.swing.JDialog {
     private void btnGuiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuiActionPerformed
         email=txtEmail.getText();
         String abc = generateRandomString();
-        
+        loginController.resetVerifycode(txtEmail.getText(),abc);
         Object[] info = new Object[3];
         info[0]=txtEmail.getText();
         info[1]="ResetPass";
         info[2]=abc;
         System.out.println(email);
         System.out.println(abc);
-        loginController.resetVerifycode(email,abc);
+        
         loginController.sendMail(info);
         JOptionPane.showMessageDialog(this, "Gửi thành công vui lòng kiểm tra email!");
+        
         txtXacNhanCode.setEnabled(true);
         btnCheck.setEnabled(true);
         code2=loginController.getVerifycode(email);
-        
     }//GEN-LAST:event_btnGuiActionPerformed
 
     private void btnCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckActionPerformed
+
         String code=txtXacNhanCode.getText();
         if(code.equals(code2)){
             txtPass.setEnabled(true);
