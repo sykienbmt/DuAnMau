@@ -1184,41 +1184,17 @@ public class PhongPnl extends javax.swing.JPanel {
     }//GEN-LAST:event_btnThanhToanActionPerformed
      
     private void btnMoPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoPhongActionPerformed
-//        Timestamp ngayDat = null;
-//        Date date = new Date();         
-//        ngayDat=new Timestamp(date.getTime());
-//        String tenKhach = ChuyenDoi.doiTen(txtTenKhach.getText());
-//        String hoChieu =" ";
-//        if(!txtHoChieu.getText().equals("")){
-//            hoChieu=txtHoChieu.getText();
-//        }
-//        String diaChi =ChuyenDoi.doiTen(txtDiaChi.getText());
-//        String sdt = txtSdt.getText();
-//        String cmnd = txtCMND.getText();
-//        Integer soNguoi =Integer.parseInt(txtSoNguoi.getText());  
-//        GiaPhong myCbb = (GiaPhong) cbbHinhThucThue.getSelectedItem();
-//        String hinhThucThue = myCbb.tenHinhThuc();
-//        
-//        if (isCMND==false) {
-//            khacHangController.insert(0,cmnd, tenKhach, diaChi, hoChieu, sdt);
-//        }      
-//        phongController.updateTinhTrangPhong("Đang sử dụng",phongHienTai);
-//        phieuThuePhongController.insert(0, phongHienTai, 1, cmnd, soNguoi, ngayDat, null, hinhThucThue);
-//        button.setBackground(new Color(255,51,0));
-////        setNullValue();
-//        reLoadPhong();
-//        setThongTinPhong(phongHienTai);
-//        btnThemDichVu.setEnabled(true);
-        
+
         StringBuilder sb = new StringBuilder();
         Timestamp ngayDat = null;
         Date date = new Date();         
         ngayDat=new Timestamp(date.getTime());
-        System.out.println(ngayDat);
         
-        String tenKhach = ChuyenDoi.doiTen(txtTenKhach.getText());
+        String tenKhach = txtTenKhach.getText();
+        if(!txtTenKhach.getText().equals("")){
+            tenKhach = ChuyenDoi.doiTen(txtTenKhach.getText());
+        }
         DataValidate.checkEmpty(tenKhach, sb, "Tên không được để trống! ");
-        System.out.println(tenKhach);
         
         String hoChieu =" ";
         if(!txtHoChieu.getText().equals("")){
@@ -1226,21 +1202,20 @@ public class PhongPnl extends javax.swing.JPanel {
         }
         System.out.println(hoChieu);
         
-        String diaChi =ChuyenDoi.doiTen(txtDiaChi.getText());
+        String diaChi =txtDiaChi.getText();
+        if (!txtDiaChi.getText().equals("")) {
+            diaChi =ChuyenDoi.doiTen(txtDiaChi.getText());
+        }
         DataValidate.checkEmpty(diaChi, sb, "Địa chỉ không được để trống! ");
-        System.out.println(diaChi);
         
         String sdt = txtSdt.getText();
         DataValidate.checkEmpty(sdt, sb, "Số đt không được để trống! ");
         DataValidate.checkSdtForm(sdt, sb);
-        System.out.println(sdt);
         
         String cmnd = txtCMND.getText();
         DataValidate.checkEmpty(cmnd, sb, "Số CMND không được để trống! ");
         DataValidate.checkCMND(cmnd,sb);
-        System.out.println(cmnd);
         
-//        Integer soNguoi =Integer.parseInt(txtSoNguoi.getText());
         Integer soNguoi = 0;
         try {
             soNguoi = Integer.parseInt(txtSoNguoi.getText()) ;
@@ -1250,18 +1225,20 @@ public class PhongPnl extends javax.swing.JPanel {
         } catch (Exception e) {
             sb.append("Số người phải là số \n");
         }        
-        System.out.println(soNguoi);
+        String hinhThucThue ="";
+        if(phongHienTai==UNDEFINED_CONDITION){
+        }else{
+            GiaPhong myCbb = (GiaPhong) cbbHinhThucThue.getSelectedItem();
+            hinhThucThue = myCbb.tenHinhThuc();
+        }
+
         
-        GiaPhong myCbb = (GiaPhong) cbbHinhThucThue.getSelectedItem();
-        
-        String hinhThucThue = myCbb.tenHinhThuc();
-        
-        if (isCMND==false) {
-            khacHangController.insert(0,cmnd, tenKhach, diaChi, hoChieu, sdt);
-        }    
         if(sb.length() > 0){
             JOptionPane.showMessageDialog(this, sb.toString(), "Error", JOptionPane.ERROR_MESSAGE);
         }else{
+            if (isCMND==false) {
+                khacHangController.insert(0,cmnd, tenKhach, diaChi, hoChieu, sdt);
+            }
             phongController.updateTinhTrangPhong("Đang sử dụng",phongHienTai);
             phieuThuePhongController.insert(0, phongHienTai, 1, cmnd, soNguoi, ngayDat, null, hinhThucThue);   
             button.setBackground(new Color(255,51,0));

@@ -205,6 +205,12 @@ public class NhanVienPnl extends javax.swing.JPanel {
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel6.setText("Giới tính");
 
+        txtLuong.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtLuongKeyReleased(evt);
+            }
+        });
+
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel7.setText("Lương");
 
@@ -611,7 +617,7 @@ public class NhanVienPnl extends javax.swing.JPanel {
                 }
                 
                 
-                double luong = 0;
+                double luong = ChuyenDoi.SoDouble(txtLuong.getText());
                 try {
                     luong = ChuyenDoi.SoDouble(txtLuong.getText()) ;
                     if(luong < 0){
@@ -772,7 +778,8 @@ public class NhanVienPnl extends javax.swing.JPanel {
             rdbNam.setSelected(true);
         }else if(tblNhanVien.getValueAt(click, 4).toString().equals("Nữ")){
             rdbNu.setSelected(true);
-        }else rdbKhac.setSelected(true);       
+        }else rdbKhac.setSelected(true);
+        
         txtLuong.setText(tblNhanVien.getValueAt(click, 5).toString());
         
         for (int i = 0; i < cbxChucVu.getItemCount(); i++) {
@@ -984,6 +991,11 @@ public class NhanVienPnl extends javax.swing.JPanel {
         List<Object[]> data = nhanVienController.searchLuongNhanVien(luong);
         viewTableStaff(data);
     }//GEN-LAST:event_jldTimLuongNvStateChanged
+
+    private void txtLuongKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLuongKeyReleased
+        Double luong = ChuyenDoi.SoDouble(txtLuong.getText());
+        txtLuong.setText(ChuyenDoi.SoString(luong));
+    }//GEN-LAST:event_txtLuongKeyReleased
         
     public void FillDataComboBox() {
         List<ChucVu> chucVus = nhanVienController.getChucVu();
