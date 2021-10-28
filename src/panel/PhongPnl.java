@@ -1367,13 +1367,9 @@ public class PhongPnl extends javax.swing.JPanel {
     }//GEN-LAST:event_txtPhuThuKeyReleased
     
     private void rdbPhongDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbPhongDonActionPerformed
-        
-        if (rdbPhongDon.isSelected()) {
-            
-            panel.removeAll();
-            
-            panel.setLayout(new WrapLayout(WrapLayout.LEADING));
-            
+        if (rdbPhongDon.isSelected()) {            
+            panel.removeAll();           
+            panel.setLayout(new WrapLayout(WrapLayout.LEADING));           
             int idLoaiPhong = 1;
             List<Object[]> data = phongDAO.getListLoaiPhong(idLoaiPhong);
             for (int i = 0; i <= data.size()-1; i++) {
@@ -1381,9 +1377,7 @@ public class PhongPnl extends javax.swing.JPanel {
                 String ttPhong = data.get(i) [5].toString();
                 String tenPhong = data.get(i) [2].toString();
                 getPhongButton(tenPhong,idPhong,ttPhong);                                 
-            }
-            
-            
+            }       
             panel.revalidate();
             panel.repaint();
         }
@@ -1412,7 +1406,7 @@ public class PhongPnl extends javax.swing.JPanel {
                 Integer idPhong = Integer.parseInt(data.get(i) [0].toString()) ;
                 String ttPhong = data.get(i) [5].toString();
                 String tenPhong = data.get(i) [2].toString();
-                getPhongButton(tenPhong,idPhong,ttPhong);                                 
+                getPhongButton(tenPhong,idPhong,ttPhong);                              
             }           
         }
     }//GEN-LAST:event_rdbPhongChungActionPerformed

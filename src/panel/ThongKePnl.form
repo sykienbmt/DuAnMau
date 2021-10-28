@@ -4,7 +4,6 @@
   <NonVisualComponents>
     <Component class="com.raven.datechooser.DateChooser" name="dateChooser2">
       <Properties>
-        <Property name="dateFormat" type="java.lang.String" value="dd-MM-yyyy"/>
         <Property name="textRefernce" type="javax.swing.JTextField" editor="org.netbeans.modules.form.ComponentChooserEditor">
           <ComponentRef name="txtDen"/>
         </Property>
@@ -12,7 +11,6 @@
     </Component>
     <Component class="com.raven.datechooser.DateChooser" name="dateChooser3">
       <Properties>
-        <Property name="dateFormat" type="java.lang.String" value="dd-MM-yyyy"/>
         <Property name="textRefernce" type="javax.swing.JTextField" editor="org.netbeans.modules.form.ComponentChooserEditor">
           <ComponentRef name="txtTu"/>
         </Property>
@@ -340,7 +338,7 @@
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="170" y="40" width="120" height="20"/>
+                  <AbsoluteConstraints x="190" y="40" width="110" height="20"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -353,7 +351,7 @@
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="370" y="40" width="120" height="20"/>
+                  <AbsoluteConstraints x="360" y="40" width="110" height="20"/>
                 </Constraint>
               </Constraints>
             </Component>

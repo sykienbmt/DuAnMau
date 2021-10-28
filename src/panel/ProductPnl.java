@@ -214,7 +214,7 @@ public class ProductPnl extends javax.swing.JPanel {
             }
         });
         panelCoverDialog2.add(btnXoa);
-        btnXoa.setBounds(210, 630, 80, 40);
+        btnXoa.setBounds(210, 640, 80, 40);
 
         btnThem.setBackground(new java.awt.Color(255, 0, 204));
         btnThem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/button.png"))); // NOI18N
@@ -225,7 +225,7 @@ public class ProductPnl extends javax.swing.JPanel {
             }
         });
         panelCoverDialog2.add(btnThem);
-        btnThem.setBounds(10, 630, 80, 40);
+        btnThem.setBounds(10, 640, 80, 40);
 
         btnUpdateDV.setBackground(new java.awt.Color(153, 153, 0));
         btnUpdateDV.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/updating.png"))); // NOI18N
@@ -236,7 +236,7 @@ public class ProductPnl extends javax.swing.JPanel {
             }
         });
         panelCoverDialog2.add(btnUpdateDV);
-        btnUpdateDV.setBounds(110, 630, 80, 40);
+        btnUpdateDV.setBounds(110, 640, 80, 40);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);

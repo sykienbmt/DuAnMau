@@ -7,8 +7,10 @@ import helper.ChuyenDoi;
 import java.awt.Color;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -97,10 +99,8 @@ public class ThongKePnl extends javax.swing.JPanel {
         txtDen = new swing.TextInput();
         btnThongKe = new swing.ButtonOutLine();
 
-        dateChooser2.setDateFormat("dd-MM-yyyy");
         dateChooser2.setTextRefernce(txtDen);
 
-        dateChooser3.setDateFormat("dd-MM-yyyy");
         dateChooser3.setTextRefernce(txtTu);
 
         setBackground(new java.awt.Color(242, 246, 253));
@@ -195,12 +195,12 @@ public class ThongKePnl extends javax.swing.JPanel {
         lblTuNgay.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         lblTuNgay.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         panelCoverDialog1.add(lblTuNgay);
-        lblTuNgay.setBounds(170, 40, 120, 20);
+        lblTuNgay.setBounds(190, 40, 110, 20);
 
         lblDenNgay.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         lblDenNgay.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         panelCoverDialog1.add(lblDenNgay);
-        lblDenNgay.setBounds(370, 40, 120, 20);
+        lblDenNgay.setBounds(360, 40, 110, 20);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -277,11 +277,20 @@ public class ThongKePnl extends javax.swing.JPanel {
         tableAfterView(dst1, dst2);
         bieuDo(dst1, dst2);       
     }//GEN-LAST:event_btnThongKeActionPerformed
+    
+    public void setLabelTime(String date1, String date2) {
+        LocalDate d1 = LocalDate.parse(date1, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        LocalDate d2 = LocalDate.parse(date2, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        String dst1 = d1.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        String dst2 = d2.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        lblTuNgay.setText(dst1);
+        lblDenNgay.setText(dst2);
+    }
+    
     public void setTime(List<Object[]> data) {
-        for (int i = 0; i <= data.size()-1; i++) {
-            lblTuNgay.setText(data.get(0)[8].toString());
-            lblDenNgay.setText(data.get(0)[9].toString());
-        }
+        String date1 = data.get(0)[8].toString();
+        String date2 = data.get(0)[9].toString();
+        setLabelTime(date1, date2);        
     }
     
     public void tableAfterView(String dst1, String dst2) {

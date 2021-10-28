@@ -46,7 +46,7 @@ public class PanelCover extends javax.swing.JPanel {
         button = new ButtonOutLine();
         button.setBackground(new Color(255, 255, 255));
         button.setForeground(new Color(255, 255, 255));
-        button.setText("ĐĂNG KIS");
+        button.setText("ĐĂNG KÍ");
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
@@ -128,7 +128,7 @@ public class PanelCover extends javax.swing.JPanel {
                 title.setText("CHÀO BẠN !");
                 description.setText("Vui lòng đăng nhập ");
                 description1.setText("để có thể kết nối với chúng tôi.");
-                button.setText("ĐĂNG NHẬP");
+                button.setText("ĐĂNG KÍ");
             }
             this.isLogin = login;
         }
