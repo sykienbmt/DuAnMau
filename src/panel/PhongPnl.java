@@ -56,6 +56,7 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.view.JasperViewer;
 import swing.ScrollBar;
+import swing.WrapLayout;
 
 public class PhongPnl extends javax.swing.JPanel {
     private KhacHangController khacHangController;
@@ -99,7 +100,6 @@ public class PhongPnl extends javax.swing.JPanel {
         txtDiaChi.setEnabled(false);
         txtHoChieu.setEnabled(false);
         txtSdt.setEnabled(false);
-        txtTenPhong.setEnabled(false);
         btnKetToan.setEnabled(false);
         btnThanhToan.setEnabled(false);
 //        jScrollPane1.setHorizontalScrollBar (null);
@@ -292,7 +292,6 @@ public class PhongPnl extends javax.swing.JPanel {
         lbTenNhanVien.setText(ptp.get(0)[8].toString());
         txtSoNguoi.setText(ptp.get(0)[9].toString());
         cbbHinhThucThue.getModel().setSelectedItem(ptp.get(0)[11].toString());
-        txtTenPhong.setText(ptp.get(0)[12].toString());
         openTime=(Timestamp) ptp.get(0)[1];
         hinhThucThue=ptp.get(0)[11].toString();
         System.out.println("Đã set");
@@ -370,6 +369,13 @@ public class PhongPnl extends javax.swing.JPanel {
                 model.addRow(objects);
             }
         }
+    } 
+    
+    public void layoutPanel () {
+        GridLayout layout = new GridLayout(10, 3);
+        layout.setHgap(5);
+        layout.setVgap(10);
+        panel.setLayout(layout);
     }
       
     @SuppressWarnings("unchecked")
@@ -390,9 +396,7 @@ public class PhongPnl extends javax.swing.JPanel {
         panelCoverDialog2 = new component.PanelCoverDialog();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel15 = new javax.swing.JLabel();
-        txtTenPhong = new swing.TextInput();
         jdNgayDat = new com.toedter.calendar.JDateChooser();
-        jLabel12 = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
         txtHoChieu = new swing.TextInput();
         jLabel13 = new javax.swing.JLabel();
@@ -499,7 +503,7 @@ public class PhongPnl extends javax.swing.JPanel {
                 .addComponent(jButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
                 .addComponent(jButton2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
@@ -532,30 +536,24 @@ public class PhongPnl extends javax.swing.JPanel {
         jLabel15.setText("CMND");
         panelCoverDialog2.add(jLabel15);
         jLabel15.setBounds(10, 50, 51, 30);
-        panelCoverDialog2.add(txtTenPhong);
-        txtTenPhong.setBounds(310, 50, 150, 29);
 
         jdNgayDat.setBackground(new java.awt.Color(213, 245, 227));
         panelCoverDialog2.add(jdNgayDat);
-        jdNgayDat.setBounds(310, 90, 150, 30);
-
-        jLabel12.setText("Phòng");
-        panelCoverDialog2.add(jLabel12);
-        jLabel12.setBounds(250, 50, 51, 30);
+        jdNgayDat.setBounds(310, 50, 150, 30);
 
         jLabel26.setText("Số khách");
         panelCoverDialog2.add(jLabel26);
         jLabel26.setBounds(10, 90, 51, 30);
         panelCoverDialog2.add(txtHoChieu);
-        txtHoChieu.setBounds(310, 210, 150, 29);
+        txtHoChieu.setBounds(310, 170, 150, 29);
 
         jLabel13.setText("Ngày rời");
         panelCoverDialog2.add(jLabel13);
-        jLabel13.setBounds(250, 130, 51, 30);
+        jLabel13.setBounds(250, 90, 51, 30);
 
         jdNgayRoi.setBackground(new java.awt.Color(213, 245, 227));
         panelCoverDialog2.add(jdNgayRoi);
-        jdNgayRoi.setBounds(310, 130, 150, 30);
+        jdNgayRoi.setBounds(310, 90, 150, 30);
 
         jLabel27.setText("Họ tên");
         panelCoverDialog2.add(jLabel27);
@@ -565,7 +563,7 @@ public class PhongPnl extends javax.swing.JPanel {
 
         jLabel28.setText("SDT");
         panelCoverDialog2.add(jLabel28);
-        jLabel28.setBounds(250, 170, 51, 30);
+        jLabel28.setBounds(250, 130, 51, 30);
         panelCoverDialog2.add(txtDiaChi);
         txtDiaChi.setBounds(70, 170, 150, 29);
 
@@ -577,9 +575,9 @@ public class PhongPnl extends javax.swing.JPanel {
 
         jLabel30.setText("Hộ Chiếu");
         panelCoverDialog2.add(jLabel30);
-        jLabel30.setBounds(250, 210, 51, 30);
+        jLabel30.setBounds(250, 170, 51, 30);
         panelCoverDialog2.add(txtSdt);
-        txtSdt.setBounds(310, 170, 150, 29);
+        txtSdt.setBounds(310, 130, 150, 29);
 
         jLabel19.setText("Thuê");
         panelCoverDialog2.add(jLabel19);
@@ -597,7 +595,7 @@ public class PhongPnl extends javax.swing.JPanel {
 
         jLabel14.setText("Ngày đặt");
         panelCoverDialog2.add(jLabel14);
-        jLabel14.setBounds(250, 90, 51, 30);
+        jLabel14.setBounds(250, 50, 51, 30);
 
         txtCMND.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -840,9 +838,9 @@ public class PhongPnl extends javax.swing.JPanel {
                     .addComponent(rdbAllPhong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(rdbPhongVip, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(rdbPhongDon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(31, 31, 31)
+                    .addComponent(rdbPhongDon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rdbPhongVip, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(47, 47, 47)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(rdbPhongVip2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(rdbPhongDoi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1346,8 +1344,13 @@ public class PhongPnl extends javax.swing.JPanel {
     }//GEN-LAST:event_txtPhuThuKeyReleased
     
     private void rdbPhongDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbPhongDonActionPerformed
+        
         if (rdbPhongDon.isSelected()) {
+            
             panel.removeAll();
+            
+            panel.setLayout(new WrapLayout(WrapLayout.LEADING));
+            
             int idLoaiPhong = 1;
             List<Object[]> data = phongDAO.getListLoaiPhong(idLoaiPhong);
             for (int i = 0; i <= data.size()-1; i++) {
@@ -1355,7 +1358,11 @@ public class PhongPnl extends javax.swing.JPanel {
                 String ttPhong = data.get(i) [5].toString();
                 String tenPhong = data.get(i) [2].toString();
                 getPhongButton(tenPhong,idPhong,ttPhong);                                 
-            }           
+            }
+            
+            
+            panel.revalidate();
+            panel.repaint();
         }
     }//GEN-LAST:event_rdbPhongDonActionPerformed
 
@@ -1482,7 +1489,6 @@ public class PhongPnl extends javax.swing.JPanel {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
@@ -1529,19 +1535,11 @@ public class PhongPnl extends javax.swing.JPanel {
     private swing.RadioButtonCustom rdbPhongDon;
     private swing.RadioButtonCustom rdbPhongVip;
     private swing.RadioButtonCustom rdbPhongVip2;
-    private javax.swing.JScrollPane spTable;
-    private javax.swing.JScrollPane spTable1;
-    private javax.swing.JScrollPane spTable2;
-    private javax.swing.JScrollPane spTable3;
     private javax.swing.JScrollPane spTableDichVu;
     private javax.swing.JScrollPane spTableListDichVu;
     private javax.swing.JSpinner spnSoLuong;
     private swing.Table tblDichVu;
     private swing.Table tblListDichVu;
-    private swing.Table tblNhanVien;
-    private swing.Table tblNhanVien1;
-    private swing.Table tblNhanVien2;
-    private swing.Table tblNhanVien3;
     private swing.TextInput txtCMND;
     private swing.TextInput txtDiaChi;
     private swing.TextInput txtHoChieu;
@@ -1549,7 +1547,6 @@ public class PhongPnl extends javax.swing.JPanel {
     private swing.TextInput txtSdt;
     private swing.TextInput txtSoNguoi;
     private swing.TextInput txtTenKhach;
-    private swing.TextInput txtTenPhong;
     private swing.TextInput txtTienDichVu;
     private swing.TextInput txtTienPhong;
     private swing.TextInput txtTimDichVu;
