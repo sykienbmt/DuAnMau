@@ -25,6 +25,17 @@ public class ThongKeDAO extends AbsDAO{
                             "where ptp.ngayDi between '"+tu+"' and '"+den+"'");
     }
     
+    public List<Object[]> thongKeDefault(String tu,String den) {
+        return getRawValues("select idhoaDon,p.tenPhong,ten,FORMAT(ptp.ngayDi ,'dd/MM/yyyy') ngayDi,\n" +
+                            "format(tienGio,'#,#') tienGio,format(tienDichVu,'#,#') tienDichVu,format(phuThu,'#,#') phuThu,format(tienGio+tienDichVu+phuThu,'#,#') total\n" +
+                            "from HoaDon hd join phieuThuePhong ptp on hd.idPhieuThue=ptp.idPhieuThue\n" +
+                            "join HoaDonDichVu hddv on hddv.idHoaDonDichVu=hd.idHoaDonDichVu\n" +
+                            "join Phong p on p.idPhong=ptp.idPhong\n" +
+                            "join LoaiPhong lp on p.idLoaiPhong=lp.idLoaiPhong\n" +
+                            "join NhanVien nv on nv.idNhanVien=ptp.idNhanVien \n" +
+                            "where ptp.ngayDi between CONVERT(datetime, replace(GETDATE(),DATEPART(dd,GETDATE()),01), 121) and GETDATE()");
+    }
+    
     public List<Object[]> thongKeBieuDo(String tu,String den) {
         return getRawValues("select MONTH(ngayDi) tháng,sum(tienGio),sum(tienDichVu),sum(phuThu),YEAR(ngayDi) from HoaDon a join phieuThuePhong b on a.idPhieuThue = b.idPhieuThue\n" +
                             "where ngayDi between '"+tu+"' and '"+den+"' group by MONTH(ngayDi),YEAR(ngayDi)");

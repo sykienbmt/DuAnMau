@@ -20,6 +20,7 @@ public class ThongKePnl extends javax.swing.JPanel {
     
     public ThongKePnl() {
         initComponents();
+        init();
         spTable2.setVerticalScrollBar(new ScrollBar());
         spTable2.getVerticalScrollBar().setBackground(Color.WHITE);
         spTable2.getViewport().setBackground(Color.WHITE);
@@ -33,7 +34,6 @@ public class ThongKePnl extends javax.swing.JPanel {
         lblTienPhong.setEditable(false);
         lblTienPhuThu.setEditable(false);
         lblTongTien.setEditable(false);
-        
         txtTu.setText("Chọn ngày bắt đầu");
         txtTu.addFocusListener(new FocusListener() {
             @Override
@@ -65,6 +65,11 @@ public class ThongKePnl extends javax.swing.JPanel {
                 }
             }
         });
+        
+    }
+    
+    public void init() {
+        thongKeDefault();
     }
 
     @SuppressWarnings("unchecked")
@@ -268,8 +273,8 @@ public class ThongKePnl extends javax.swing.JPanel {
         LocalDate d2 = LocalDate.parse(date2, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
         String dst1 = d1.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         String dst2 = d2.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        dst1 = d1.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        dst2 = d2.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+//        dst1 = d1.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+//        dst2 = d2.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         List<Object[]> table = thongKeController.thongKeTheoKhoang(dst1, dst2);
         viewTableThongKe(table);
         
@@ -309,7 +314,6 @@ public class ThongKePnl extends javax.swing.JPanel {
         }
     }
     
-    
     public void setController (ThongKeController thongKeController) {
         this.thongKeController = thongKeController;
     } 
@@ -321,7 +325,41 @@ public class ThongKePnl extends javax.swing.JPanel {
         lblTongTien.setText(ChuyenDoi.SoString(tong));
     }
     
-    
+    public void thongKeDefault() {
+        String date1 = txtTu.getText();
+        String date2 = txtDen.getText();
+        lblTuNgay.setText(date1);
+        lblDenNgay.setText(date2);
+        LocalDate d1 = LocalDate.parse(date1, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        LocalDate d2 = LocalDate.parse(date2, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        String dst1 = d1.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        String dst2 = d2.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+//        dst1 = d1.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+//        dst2 = d2.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        
+        List<Object[]> data = thongKeController.thongKeDefault(dst1, dst2);
+        viewTableThongKe(data);
+        
+        Double tienPhong = 0.0,tienDichVu=0.0 ,phuThu=0.0 ,Tong=0.0;        
+        for(int i=0 ;i<=data.size()-1;i++){
+            tienPhong+=ChuyenDoi.SoDouble(data.get(i)[4].toString());
+            tienDichVu+=ChuyenDoi.SoDouble(data.get(i)[5].toString());
+            phuThu+=ChuyenDoi.SoDouble(data.get(i)[6].toString());
+            Tong+=ChuyenDoi.SoDouble(data.get(i)[7].toString());
+        }
+        setValueSum(tienPhong, tienDichVu, phuThu, Tong);
+        
+        chart1.clear();
+        List<Object[]> data1 = thongKeController.thongKeBieuDo(dst1, dst2);       
+        for (int i = 0; i <= data1.size()-1; i++) {
+            Double tienGio = Double.parseDouble(data1.get(i)[1].toString());
+            Double dichVu = Double.parseDouble(data1.get(i)[2].toString());
+            Double phuThu1 = Double.parseDouble(data1.get(i)[3].toString());  
+            chart1.addData(new ModelChart(data1.get(i)[0].toString()+"/"+data1.get(i)[4].toString(),new double[]{tienGio,dichVu,phuThu1}));
+        }   
+        chart1.start();
+    }
+        
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private swing.ButtonOutLine btnThongKe;
     private chart.Chart chart1;

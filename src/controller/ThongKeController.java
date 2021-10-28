@@ -29,6 +29,11 @@ public class ThongKeController {
         List<Object[]> khoang = thongKeDAO.thongKeTheoKhoang(tu, den); 
         return khoang;
     }
+    
+    public List<Object[]> thongKeDefault(String tu , String den){
+        List<Object[]> khoang = thongKeDAO.thongKeDefault(tu, den); 
+        return khoang;
+    }
        
     public List<Object[]> thongKeBieuDo(String tu, String den) {
         List<Object[]> bieuDos = thongKeDAO.thongKeBieuDo(tu, den);
