@@ -130,19 +130,22 @@ public class getPass extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGuiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuiActionPerformed
-        txtEmail.getText();
+        email=txtEmail.getText();
         String abc = generateRandomString();
-        loginController.resetVerifycode(txtEmail.getText(), abc);
+        
         Object[] info = new Object[3];
         info[0]=txtEmail.getText();
         info[1]="ResetPass";
         info[2]=abc;
-        email = txtEmail.getText();
+        System.out.println(email);
+        System.out.println(abc);
+        loginController.resetVerifycode(email,abc);
         loginController.sendMail(info);
         JOptionPane.showMessageDialog(this, "Gửi thành công vui lòng kiểm tra email!");
         txtXacNhanCode.setEnabled(true);
         btnCheck.setEnabled(true);
-        code2=loginController.getVerifycode(txtEmail.getText());
+        code2=loginController.getVerifycode(email);
+        
     }//GEN-LAST:event_btnGuiActionPerformed
 
     private void btnCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckActionPerformed
@@ -151,6 +154,7 @@ public class getPass extends javax.swing.JDialog {
             txtPass.setEnabled(true);
             txtRepass.setEnabled(true);
             btnXacNhan.setEnabled(true);
+            JOptionPane.showMessageDialog(this, "Mã xác nhận hợp lệ vui lòng nhập mật khẩu mới!");
         }else{
             JOptionPane.showMessageDialog(this, "Sai mã xác nhận vui lòng nhập lại!");
         }

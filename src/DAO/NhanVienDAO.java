@@ -23,8 +23,8 @@ public class NhanVienDAO extends AbsDAO<NhanVien>{
     }
     
     public void resetVerifycode(String email,String code){
-        String query = "update nhanvien set code=? where email =?";
-        DBConnection.executeUpdate(query, code,email);
+        String query = "update NhanVien set code=? where email =?";
+        DBConnection.executeUpdate(query,code,email);
     }
     
     public void updatePass(String email,String pass){
