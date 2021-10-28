@@ -6,6 +6,7 @@ import controller.DichVuController;
 import helper.SaveImageSQL;
 import controller.QlDichVuController;
 import helper.ChuyenDoi;
+import helper.DataValidate;
 import java.awt.Cursor;
 import java.awt.Frame;
 import java.awt.Image;
@@ -46,6 +47,7 @@ public class ProductPnl extends javax.swing.JPanel {
 
     public void viewDichVu(List<Object[]> data,List<DichVu> dichVuss){
         panel.removeAll();
+        // reload panel
         panel.revalidate();
         panel.repaint();
         for(int i =0;i<data.size();i++){
@@ -85,8 +87,7 @@ public class ProductPnl extends javax.swing.JPanel {
                     ImageIcon imageIcon = new ImageIcon(new ImageIcon(img).getImage().getScaledInstance(lbImage.getWidth(), lbImage.getHeight(), Image.SCALE_SMOOTH));
                     lbImage.setIcon(imageIcon);
                 }
-            });  
-            
+            });              
         }
     }
     
@@ -323,46 +324,75 @@ public class ProductPnl extends javax.swing.JPanel {
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
+        StringBuilder sb = new StringBuilder();
         String tenDichVu = txtTenDV.getText();
-
+        DataValidate.checkEmpty(tenDichVu, sb, "Tên dịch vụ không được để trống");
+        
         DanhMuc dm =(DanhMuc) cbbDanhMuc.getSelectedItem();
         Integer idDanhMuc = dm.getId();
 
         DonViTinh dvt =(DonViTinh) cbbDonViTinh.getSelectedItem();
         Integer idDonViTinh = dvt.getId();
-
-        Double gia=ChuyenDoi.SoDouble(txtGiaDV.getText());
+//        Double gia=ChuyenDoi.SoDouble(txtGiaDV.getText());
+            double gia = 0;
+            try {
+                gia = ChuyenDoi.SoDouble(txtGiaDV.getText()) ;
+                if(gia < 0){
+                    sb.append("Giá phải lớn hớn 0 \n");
+                }
+            } catch (Exception e) {
+                sb.append("Giá phải là số \n");
+            }        
 
         DichVu dv = new DichVu(0, tenDichVu, gia, idDonViTinh, personalImage, idDanhMuc);
-        qlDichVuController.insert(dv);
-        qlDichVuController.loadDichVu();
-        idDichVu=UNDEFINED_CONDITION;
-        setNullField();
-        JOptionPane.showMessageDialog(new Frame(),"Thêm thành công !");
+        if(sb.length() > 0){
+            JOptionPane.showMessageDialog(this, sb.toString(), "Error", JOptionPane.ERROR_MESSAGE);
+        }else{
+            qlDichVuController.insert(dv);
+            qlDichVuController.loadDichVu();
+            idDichVu=UNDEFINED_CONDITION;
+            setNullField();
+            JOptionPane.showMessageDialog(new Frame(),"Thêm thành công !");
+        }       
+
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnUpdateDVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateDVActionPerformed
         if (idDichVu==UNDEFINED_CONDITION) {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn sản phẩm cần sửa !");
         }else{
+            StringBuilder sb = new StringBuilder();
             String tenDichVu = txtTenDV.getText();
-        
+            DataValidate.checkEmpty(tenDichVu, sb, "Tên dịch vụ không được để trống");
+            
             DanhMuc dm =(DanhMuc) cbbDanhMuc.getSelectedItem();
             Integer idDanhMuc = dm.getId();
 
             DonViTinh dvt =(DonViTinh) cbbDonViTinh.getSelectedItem();
             Integer idDonViTinh = dvt.getId();
 
-            Double gia=ChuyenDoi.SoDouble(txtGiaDV.getText());
+//            Double gia=ChuyenDoi.SoDouble(txtGiaDV.getText());
+            double gia = 0;
+            try {
+                gia = ChuyenDoi.SoDouble(txtGiaDV.getText()) ;
+                if(gia < 0){
+                    sb.append("Giá phải lớn hớn 0 \n");
+                }
+            } catch (Exception e) {
+                sb.append("Giá phải là số \n");
+            }  
 
             DichVu dv = new DichVu(idDichVu, tenDichVu, gia, idDonViTinh, personalImage, idDanhMuc);
-            qlDichVuController.edit(dv);
-            qlDichVuController.loadDichVu();
-            idDichVu=UNDEFINED_CONDITION;
-            setNullField();
-            JOptionPane.showMessageDialog(new Frame(),"Sửa thành công !");
-        }
-        
+            if(sb.length() > 0){
+                JOptionPane.showMessageDialog(this, sb.toString(), "Error", JOptionPane.ERROR_MESSAGE);
+            }else{
+                qlDichVuController.edit(dv);
+                qlDichVuController.loadDichVu();
+                idDichVu=UNDEFINED_CONDITION;
+                setNullField();
+                JOptionPane.showMessageDialog(new Frame(),"Sửa thành công !");            
+            }
+        }       
     }//GEN-LAST:event_btnUpdateDVActionPerformed
     
     public void setCbbDonViTinh(){
