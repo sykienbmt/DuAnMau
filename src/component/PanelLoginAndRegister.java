@@ -1,6 +1,7 @@
 package component;
 
 import helper.DBConnection;
+import helper.MD5Convert;
 import main.Main;
 import swing.Button;
 import swing.MyPasswordField;
@@ -8,6 +9,7 @@ import swing.MyTextField;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
+import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.PreparedStatement;
@@ -15,6 +17,7 @@ import java.sql.ResultSet;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import net.miginfocom.swing.MigLayout;
 import model.Account;
 
@@ -96,7 +99,7 @@ public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
         cmd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 String email = txtEmail.getText();
-                String password = String.valueOf(txtPass.getPassword());
+                String password = MD5Convert.getMd5(String.valueOf(txtPass.getPassword()));
                 loading.setVisible(true);
                 new Thread() {
                     @Override
@@ -108,7 +111,7 @@ public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
                         }
                         
                         try {
-                            PreparedStatement pst = DBConnection.prepareStatement("select * from Account where Email='" + email + "'");
+                            PreparedStatement pst = DBConnection.prepareStatement("select * from nhanVien where Email='" + email + "'");
                             ResultSet rs = pst.executeQuery();
                                 if (rs.next()) {
                                     String pass = rs.getString("pass");
@@ -117,10 +120,10 @@ public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
                                         Main ss = new Main();
                                         ss.show();
                                     } else {
-                                        System.out.println("SAi");
+                                        JOptionPane.showMessageDialog(new Frame(), "Sai Mật khẩu !");
                                     }
                                 } else {
-                                        System.out.println("email not found");
+                                        JOptionPane.showMessageDialog(new Frame(), "email không tồn tại !");
                                 }
                         } catch (Exception e) {
                                     e.printStackTrace();

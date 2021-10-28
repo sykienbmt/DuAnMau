@@ -6,18 +6,18 @@ import java.util.List;
 public class NhanVienDAO extends AbsDAO<NhanVien>{
     public List<Object[]> getDataStaff() {
         return getRawValues("select idNhanVien,ten,email,sdt,sex,format(luong,'#,#') as luong,b.tenChucVu,diaChi,CONVERT(nvarchar,NgaySinh,105) as ngaySinh,\n" +
-                            "CONVERT(nvarchar,NgayVaoLam,105) as ngayVaoLam,trangThai from NhanVien a join ChucVu b on a.idChucVu = b.idChucVu ");
+                            "CONVERT(nvarchar,NgayVaoLam,105) as ngayVaoLam,trangThai,pass from NhanVien a join ChucVu b on a.idChucVu = b.idChucVu ");
     }
     
     public List<Object[]> searchNhanVien(String tenNhanVien) {
         return getRawValues("select idNhanVien,ten,email,sdt,sex,format(luong,'#,#') as luong,tenChucVu,diaChi,CONVERT(nvarchar,NgaySinh,105) as ngaySinh,"
-                + "CONVERT(nvarchar,NgayVaoLam,105) as ngayVaoLam,trangThai from NhanVien a "
+                + "CONVERT(nvarchar,NgayVaoLam,105) as ngayVaoLam,trangThai,pass from NhanVien a "
                             + "join ChucVu b on a.idChucVu = b.idChucVu where ten like N'%"+tenNhanVien+"%'");
     }
     
     public List<Object[]> searchLuongNhanVien(int luongNhanVien) {
         return getRawValues("select idNhanVien,ten,email,sdt,sex,format(luong,'#,#') as luong,tenChucVu,diaChi,CONVERT(nvarchar,NgaySinh,105) as ngaySinh,"
-                + "CONVERT(nvarchar,NgayVaoLam,105)as ngayVaoLam,trangThai from NhanVien a "
+                + "CONVERT(nvarchar,NgayVaoLam,105)as ngayVaoLam,trangThai,pass from NhanVien a "
                             + "join ChucVu b on a.idChucVu = b.idChucVu where luong <= "+luongNhanVien+"");
     }
        
