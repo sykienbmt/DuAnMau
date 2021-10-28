@@ -1,5 +1,6 @@
 package component;
 
+import dialog.getPass;
 import helper.DBConnection;
 import helper.MD5Convert;
 import main.Main;
@@ -34,8 +35,8 @@ public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
         initComponents();
         initRegister();
         initLogin();
-        login.setVisible(false);
-        register.setVisible(true);
+        login.setVisible(true);
+        register.setVisible(false);
     }
 
     private void initRegister() {
@@ -59,15 +60,15 @@ public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
         Button cmd = new Button();
         cmd.setText("ĐĂNG KÍ");
         register.add(cmd, "w 40%, h 40");
-        cmd.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                String ten = txtUser.getText().trim();
-                String email = txtEmail.getText().trim();
-                String pass = String.valueOf(txtPass.getPassword());
-                account = new Account(0, ten, email, pass);
-            }
-        }); 
+//        cmd.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent ae) {
+//                String ten = txtUser.getText().trim();
+//                String email = txtEmail.getText().trim();
+//                String pass = String.valueOf(txtPass.getPassword());
+//                account = new Account(0, ten, email, pass);
+//            }
+//        }); 
     }
 
     private void initLogin() {
@@ -86,6 +87,14 @@ public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
         txtPass.setHint("Mật khẩu");
         login.add(txtPass, "w 60%");
         JButton cmdForget = new JButton("Quên mật khẩu ?");
+        cmdForget.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                getPass get = new getPass(null,true);
+                get.setVisible(true);
+            }
+        }); 
+        
         cmdForget.setForeground(new Color(100, 100, 100));
         cmdForget.setFont(new Font("sansserif", 1, 12));
         cmdForget.setContentAreaFilled(false);
@@ -136,11 +145,11 @@ public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
 
     public void showRegister(boolean show) {
         if (show) {
-            register.setVisible(true);
-            login.setVisible(false);
-        } else {
             register.setVisible(false);
             login.setVisible(true);
+        } else {
+            register.setVisible(true);
+            login.setVisible(false);
         }
     }
 
