@@ -22,6 +22,8 @@ public class ThongKeController {
     
     public ThongKeController(ThongKePnl view) {
         this.view = view;
+        thongKeDefault();
+        bieuDoDefault();
         view.setController(this);
     }
     
@@ -30,9 +32,15 @@ public class ThongKeController {
         return khoang;
     }
     
-    public List<Object[]> thongKeDefault(String tu , String den){
-        List<Object[]> khoang = thongKeDAO.thongKeDefault(tu, den); 
-        return khoang;
+    public void thongKeDefault(){
+        List<Object[]> khoang = thongKeDAO.thongKeDefault(); 
+        view.viewTableThongKe(khoang);
+        view.setGiaDefault(khoang);
+    }
+    
+    public void bieuDoDefault(){
+        List<Object[]> khoang = thongKeDAO.bieuDoDefault(); 
+        view.bieuDoDefault(khoang);
     }
        
     public List<Object[]> thongKeBieuDo(String tu, String den) {
