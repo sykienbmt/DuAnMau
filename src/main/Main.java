@@ -18,9 +18,13 @@ import panel.ProductPnl;
 import panel.ThongKePnl;
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import static java.awt.image.ImageObserver.HEIGHT;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import net.miginfocom.swing.MigLayout;
 import org.jdesktop.animation.timing.Animator;
@@ -67,9 +71,16 @@ public class Main extends javax.swing.JFrame {
         menu.addEventLogout(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                System.out.println("Logout");
+                Icon icon = new javax.swing.ImageIcon(getClass().getResource("/icon/quiz.png"));
+                int a = JOptionPane.showConfirmDialog(new Frame(), "Xác nhận Đăng xuất ?", "Logout", JOptionPane.YES_NO_OPTION, HEIGHT, icon);
+                if (a == 0) {
+                    Login login = new Login();
+                    login.setVisible(true);
+                    dispose();
+                }
             }
         });
+        
         menu.addEventMenu(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
