@@ -193,12 +193,12 @@ public class ThongKePnl extends javax.swing.JPanel {
         lblTuNgay.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         lblTuNgay.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         panelCoverDialog1.add(lblTuNgay);
-        lblTuNgay.setBounds(200, 40, 90, 20);
+        lblTuNgay.setBounds(170, 40, 120, 20);
 
         lblDenNgay.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         lblDenNgay.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         panelCoverDialog1.add(lblDenNgay);
-        lblDenNgay.setBounds(370, 40, 90, 20);
+        lblDenNgay.setBounds(370, 40, 120, 20);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -275,6 +275,12 @@ public class ThongKePnl extends javax.swing.JPanel {
         tableAfterView(dst1, dst2);
         bieuDo(dst1, dst2);       
     }//GEN-LAST:event_btnThongKeActionPerformed
+    public void setTime(List<Object[]> data) {
+        for (int i = 0; i <= data.size()-1; i++) {
+            lblTuNgay.setText(data.get(0)[8].toString());
+            lblDenNgay.setText(data.get(0)[9].toString());
+        }
+    }
     
     public void tableAfterView(String dst1, String dst2) {
         List<Object[]> table = thongKeController.thongKeTheoKhoang(dst1, dst2);

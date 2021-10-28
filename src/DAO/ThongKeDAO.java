@@ -27,7 +27,8 @@ public class ThongKeDAO extends AbsDAO{
     
     public List<Object[]> thongKeDefault() {
         return getRawValues("select idhoaDon,p.tenPhong,ten,FORMAT(ptp.ngayDi ,'dd/MM/yyyy') ngayDi,\n" +
-                            "format(tienGio,'#,#') tienGio,format(tienDichVu,'#,#') tienDichVu,format(phuThu,'#,#') phuThu,format(tienGio+tienDichVu+phuThu,'#,#') total\n" +
+                            "format(tienGio,'#,#') tienGio,format(tienDichVu,'#,#') tienDichVu,format(phuThu,'#,#') phuThu,format(tienGio+tienDichVu+phuThu,'#,#') total "
+                            + ",CONVERT(date, replace(GETDATE(),DATEPART(dd,GETDATE()),01), 121),convert(date,getdate())\n" +
                             "from HoaDon hd join phieuThuePhong ptp on hd.idPhieuThue=ptp.idPhieuThue\n" +
                             "join HoaDonDichVu hddv on hddv.idHoaDonDichVu=hd.idHoaDonDichVu\n" +
                             "join Phong p on p.idPhong=ptp.idPhong\n" +
